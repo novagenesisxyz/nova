@@ -109,10 +109,10 @@ export default function DepositWidget() {
     if (activeTab === "deposit" && tokenBalance) {
       setAmount(formatUnits(tokenBalance.value, token.decimals));
     } else if (activeTab === "withdraw") {
-      const factor = 10n ** 12n; // 18 -> 6
-      const noge = nogeBalance?.value ?? 0n;
+      const factor = BigInt(10) ** BigInt(12); // 18 -> 6
+      const noge = nogeBalance?.value ?? BigInt(0);
       const claimableByNoge = noge / factor;
-      const poolCap = (poolTotalDeposits as bigint | undefined) ?? 0n;
+      const poolCap = (poolTotalDeposits as bigint | undefined) ?? BigInt(0);
       const maxOut = claimableByNoge < poolCap ? claimableByNoge : poolCap;
       setAmount(formatUnits(maxOut, token.decimals));
     }
@@ -159,10 +159,10 @@ export default function DepositWidget() {
                 {activeTab === "deposit"
                   ? tokenBalance ? formatUnits(tokenBalance.value, token.decimals).slice(0, 10) : "0"
                   : (() => {
-                      const factor = 10n ** 12n;
-                      const noge = nogeBalance?.value ?? 0n;
+                      const factor = BigInt(10) ** BigInt(12);
+                      const noge = nogeBalance?.value ?? BigInt(0);
                       const claimableByNoge = noge / factor;
-                      const poolCap = (poolTotalDeposits as bigint | undefined) ?? 0n;
+                      const poolCap = (poolTotalDeposits as bigint | undefined) ?? BigInt(0);
                       const maxOut = claimableByNoge < poolCap ? claimableByNoge : poolCap;
                       return formatUnits(maxOut, token.decimals).slice(0, 10);
                     })()
@@ -210,10 +210,10 @@ export default function DepositWidget() {
               <p className="text-xs text-gray-400 mb-1">Max Withdrawable</p>
               <p className="text-lg font-semibold text-white">
                 {(() => {
-                  const factor = 10n ** 12n;
-                  const noge = nogeBalance?.value ?? 0n;
+                  const factor = BigInt(10) ** BigInt(12);
+                  const noge = nogeBalance?.value ?? BigInt(0);
                   const claimableByNoge = noge / factor;
-                  const poolCap = (poolTotalDeposits as bigint | undefined) ?? 0n;
+                  const poolCap = (poolTotalDeposits as bigint | undefined) ?? BigInt(0);
                   const maxOut = claimableByNoge < poolCap ? claimableByNoge : poolCap;
                   return formatUnits(maxOut, token.decimals).slice(0, 10);
                 })()}
