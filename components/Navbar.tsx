@@ -59,6 +59,12 @@ export default function Navbar() {
                   <Coins className="w-4 h-4" />
                   <span>NOVA Token</span>
                 </Link>
+                <Link
+                  href="/transparency"
+                  className="text-gray-300 hover:text-purple-400 text-sm font-medium transition-colors"
+                >
+                  Transparency
+                </Link>
               </nav>
             </div>
 
@@ -121,7 +127,7 @@ export default function Navbar() {
                     onClick={() => setIsMobileMenuOpen(false)}
                     className="text-gray-300 hover:text-purple-400 text-lg font-medium transition-colors py-2"
                   >
-                    Discover Projects
+                    Discover Initiatives
                   </Link>
                   <Link
                     href="/how-it-works"
@@ -137,6 +143,13 @@ export default function Navbar() {
                   >
                     <Coins className="w-5 h-5" />
                     <span>NOVA Token</span>
+                  </Link>
+                  <Link
+                    href="/transparency"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    className="text-gray-300 hover:text-purple-400 text-lg font-medium transition-colors py-2"
+                  >
+                    Transparency
                   </Link>
                 </nav>
 

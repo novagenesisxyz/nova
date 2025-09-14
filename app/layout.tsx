@@ -8,9 +8,9 @@ import { SpeedInsights } from "@vercel/speed-insights/next";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Nova - DeFi Research Funding Platform",
+  title: "Nova — The stablecoin where yield funds public goods you choose",
   description:
-    "Fund breakthrough research with stablecoins. Democratizing scientific innovation through quadratic funding.",
+    "USDC/USDT keep the yield. Nova directs most yield to public goods advised by holders and stakers, with a minimal, transparent portion for compliance and security.",
 };
 
 export default function RootLayout({

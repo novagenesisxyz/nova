@@ -54,7 +54,7 @@ export default function ProjectCard({ project }: ProjectCardProps) {
 
           <div className="mb-4">
             <div className="flex justify-between items-center mb-2">
-              <span className="text-sm text-gray-400">Funding Progress</span>
+              <span className="text-sm text-gray-400">Initiative Funding Progress</span>
               <span className="text-sm text-white font-semibold">
                 {fundingPercentage.toFixed(1)}%
               </span>

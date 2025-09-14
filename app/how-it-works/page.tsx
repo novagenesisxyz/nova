@@ -33,23 +33,23 @@ export default function HowItWorksPage() {
     },
     {
       icon: DollarSign,
-      title: "Get Stablecoins",
+      title: "Get USDC",
       description:
-        "Buy USDC or DAI - these are cryptocurrencies that always equal $1 USD. They're stable and safe.",
+        "Buy USDC - a widely used stablecoin pegged to $1 USD. It's liquid and simple to use.",
       color: "blue",
     },
     {
-      icon: Vote,
-      title: "Stake to Vote",
+      icon: DollarSign,
+      title: "Deposit to Earn",
       description:
-        "Choose research projects you believe in. Your stake acts as a vote for where funding should go.",
+        "Deposit USDC to the pool. You'll receive NOGE (NOVA Genesis) receipt tokens 1:1 with your deposit.",
       color: "green",
     },
     {
       icon: TrendingUp,
-      title: "Funds Flow to Research",
+      title: "Kickstart Nova",
       description:
-        "Platform yields from all staked funds automatically flow to projects based on community votes.",
+        "During the soft launch, Aave interest accrues to the pool to help bootstrap Nova. You can withdraw your principal anytime using NOGE (NOVA Genesis) receipts.",
       color: "yellow",
     },
   ];
@@ -57,21 +57,21 @@ export default function HowItWorksPage() {
   const benefits = [
     {
       icon: Heart,
-      title: "Support Breakthrough Science",
+      title: "Support Public Goods",
       description:
-        "Fund research that could change the world - from climate solutions to medical breakthroughs.",
+        "Direct yield to public goods that benefit everyone. Research may appear first, with more categories to follow.",
     },
     {
       icon: Users,
       title: "Democratic Funding",
       description:
-        "Every stake counts equally through quadratic funding - small contributors have real impact.",
+        "Holders and stakers advise where yield goes. Broad participation matters most.",
     },
     {
       icon: Shield,
       title: "Fully Transparent",
       description:
-        "All funding is tracked on blockchain. See exactly where every dollar goes in real-time.",
+        "On-chain receipts and clear reporting of protocol costs, allocations, and impact.",
     },
   ];
 
@@ -79,12 +79,12 @@ export default function HowItWorksPage() {
     {
       question: "What is a stablecoin?",
       answer:
-        "A stablecoin is a type of cryptocurrency designed to maintain a stable value relative to a reference asset, like the US Dollar. USDC, DAI, and our NOVA token are all stablecoins worth exactly $1. Unlike Bitcoin, they don't fluctuate in value, making them perfect for funding research.",
+        "A stablecoin is a type of cryptocurrency designed to maintain a stable value relative to a reference asset, like the US Dollar. USDC, DAI, and NOVA are designed for stability rather than speculation, making them suitable for supporting public goods.",
     },
     {
       question: "What is staking?",
       answer:
-        "Staking means locking your stablecoins to support a specific project. Think of it like casting a vote with your money - the more people stake to a project, the more funding it receives from the platform's yield pool. You can unstake and get your money back after the funding period.",
+        "Staking means locking your stablecoins to support a specific project. Think of it like casting a vote with your money - the more people stake to a project, the more funding it can receive from the platform. You can unstake and get your money back after the funding period.",
     },
     {
       question: "How does quadratic funding work?",
@@ -94,17 +94,17 @@ export default function HowItWorksPage() {
     {
       question: "What is NOVA?",
       answer:
-        "NOVA is our platform's own stablecoin, backed 1:1 by US dollars held in bank accounts and US Treasuries. When you buy NOVA, you're directly supporting the research funding ecosystem. It's always redeemable for $1 and fully compliant with US regulations.",
+        "NOVA is our stablecoin. It’s designed so most yield supports public goods, while a minimal, transparent portion covers protocol operations like compliance and security. Public-good categories may roll out starting with research.",
     },
     {
-      question: "How do researchers receive funds?",
+      question: "How do public-good initiatives receive funds?",
       answer:
-        "Researchers receive funds in stablecoins directly to their project wallets. Funding is released based on milestone completion, ensuring accountability. All transactions are transparent and tracked on the blockchain.",
+        "Initiatives receive funds in stablecoins directly to their project wallets. Funding can be released by milestones for accountability. All transactions are transparent and tracked on-chain.",
     },
     {
       question: "Is this safe?",
       answer:
-        "Yes! Your staked funds are secured by smart contracts on the blockchain. NOVA is backed 1:1 by real dollars and is GENIUS Act compliant. The platform undergoes regular audits, and all reserves are held in FDIC-insured accounts and US Treasuries.",
+        "Yes. Smart contracts are audited and non-custodial, and we follow GENIUS Act requirements. We publish clear disclosures about protocol costs and allocations.",
     },
   ];
 
@@ -132,8 +132,8 @@ export default function HowItWorksPage() {
               How Nova Works
             </h1>
             <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-              Fund groundbreaking research in 4 simple steps. No complex crypto
-              knowledge needed - we make supporting science as easy as online
+              Support public goods in 4 simple steps. No complex crypto
+              knowledge needed — we make participation as easy as online
               shopping.
             </p>
           </motion.div>
@@ -146,7 +146,7 @@ export default function HowItWorksPage() {
             className="mb-20"
           >
             <h2 className="text-3xl font-bold text-white text-center mb-12">
-              Your Journey to Funding Research
+              Your Journey to Funding Public Goods
             </h2>
 
             <div className="relative">
@@ -191,7 +191,7 @@ export default function HowItWorksPage() {
             </div>
           </motion.div>
 
-          {/* Two Ways to Fund Research */}
+          {/* Two Ways to Support Public Goods */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -199,11 +199,10 @@ export default function HowItWorksPage() {
             className="mb-20"
           >
             <h2 className="text-3xl font-bold text-white text-center mb-4">
-              Two Ways to Fund Research
+              Two Ways to Support Public Goods
             </h2>
             <p className="text-gray-400 text-center mb-12 max-w-3xl mx-auto">
-              Nova offers two complementary paths to support science - use one
-              or both to maximize your impact
+              Nova offers two complementary paths — use one or both to maximize your impact
             </p>
 
             <div className="grid lg:grid-cols-2 gap-8 mb-8">
@@ -247,12 +246,8 @@ export default function HowItWorksPage() {
                       </span>
                     </div>
                     <div>
-                      <p className="text-white font-medium">
-                        Reserves earn yield
-                      </p>
-                      <p className="text-gray-400 text-sm">
-                        Your dollars are invested in US Treasuries (~5% APY)
-                      </p>
+                      <p className="text-white font-medium">Yield accrues on reserves</p>
+                      <p className="text-gray-400 text-sm">Most yield supports public goods; minimal, transparent costs cover compliance and security</p>
                     </div>
                   </div>
 
@@ -263,10 +258,8 @@ export default function HowItWorksPage() {
                       </span>
                     </div>
                     <div>
-                      <p className="text-white font-medium">100% to research</p>
-                      <p className="text-gray-400 text-sm">
-                        All Treasury yields flow directly to funded projects
-                      </p>
+                      <p className="text-white font-medium">Directed to public goods</p>
+                      <p className="text-gray-400 text-sm">Advised by holders and stakers via the platform</p>
                     </div>
                   </div>
                 </div>
@@ -274,8 +267,7 @@ export default function HowItWorksPage() {
                 <div className="mt-6 p-4 bg-purple-500/10 rounded-lg">
                   <p className="text-purple-300 text-sm">
                     <Gift className="w-4 h-4 inline mr-1" />
-                    <span className="font-semibold">Impact:</span> Every $1000
-                    in NOVA generates ~$50/year for research
+                    <span className="font-semibold">Impact:</span> Holding NOVA helps fund public goods over time
                   </p>
                 </div>
               </div>
@@ -319,9 +311,7 @@ export default function HowItWorksPage() {
                       <p className="text-white font-medium">
                         Your stake = your vote
                       </p>
-                      <p className="text-gray-400 text-sm">
-                        Determines which projects receive platform yields
-                      </p>
+                      <p className="text-gray-400 text-sm">Determines which public-good initiatives receive support</p>
                     </div>
                   </div>
 
@@ -333,9 +323,7 @@ export default function HowItWorksPage() {
                       <p className="text-white font-medium">
                         Direct funding flow
                       </p>
-                      <p className="text-gray-400 text-sm">
-                        Projects with more stakes get more of the yield pool
-                      </p>
+                      <p className="text-gray-400 text-sm">Initiatives with more stakes get more of the platform’s support</p>
                     </div>
                   </div>
                 </div>
@@ -343,8 +331,7 @@ export default function HowItWorksPage() {
                 <div className="mt-6 p-4 bg-blue-500/10 rounded-lg">
                   <p className="text-blue-300 text-sm">
                     <Vote className="w-4 h-4 inline mr-1" />
-                    <span className="font-semibold">Power:</span> You decide
-                    which research gets funded through democratic voting
+                    <span className="font-semibold">Power:</span> You help decide which public goods get funded
                   </p>
                 </div>
               </div>
@@ -356,11 +343,10 @@ export default function HowItWorksPage() {
                 <h3 className="text-xl font-bold text-white mb-3">
                   Maximum Impact: Use Both!
                 </h3>
-                <p className="text-gray-300 mb-4">
-                  Hold NOVA to generate automatic research funding while staking
-                  to direct where those funds go
-                </p>
-                <div className="flex items-center justify-center gap-8">
+                <p className="text-gray-300 mb-6">Hold NOVA to generate ongoing support for public goods while staking to direct where those funds go</p>
+
+                {/* Desktop Layout */}
+                <div className="hidden md:flex items-center justify-center gap-8">
                   <div className="text-center">
                     <div className="text-2xl font-bold text-purple-400">
                       $50/year
@@ -383,7 +369,39 @@ export default function HowItWorksPage() {
                     <div className="text-2xl font-bold text-green-400">
                       Real Impact
                     </div>
-                    <div className="text-sm text-gray-400">for science</div>
+                    <div className="text-sm text-gray-400">for public goods</div>
+                  </div>
+                </div>
+
+                {/* Mobile Layout */}
+                <div className="md:hidden space-y-4">
+                  <div className="bg-purple-500/10 rounded-lg p-4">
+                    <div className="text-2xl font-bold text-purple-400">
+                      $50/year
+                    </div>
+                    <div className="text-sm text-gray-400">
+                      per $1000 NOVA held
+                    </div>
+                  </div>
+
+                  <div className="text-lg text-gray-500">+</div>
+
+                  <div className="bg-blue-500/10 rounded-lg p-4">
+                    <div className="text-2xl font-bold text-blue-400">
+                      Your Vote
+                    </div>
+                    <div className="text-sm text-gray-400">
+                      directs the funding
+                    </div>
+                  </div>
+
+                  <div className="text-lg text-gray-500">=</div>
+
+                  <div className="bg-green-500/10 rounded-lg p-4">
+                    <div className="text-2xl font-bold text-green-400">
+                      Real Impact
+                    </div>
+                    <div className="text-sm text-gray-400">for public goods</div>
                   </div>
                 </div>
               </div>
@@ -398,7 +416,7 @@ export default function HowItWorksPage() {
             className="mb-20"
           >
             <h2 className="text-3xl font-bold text-white text-center mb-12">
-              Why Researchers Love Nova
+              Why Public Goods Benefit from Nova
             </h2>
 
             <div className="grid md:grid-cols-3 gap-6">
@@ -436,29 +454,20 @@ export default function HowItWorksPage() {
                     The NOVA Stablecoin
                   </h2>
                   <p className="text-gray-300 mb-4">
-                    NOVA is our platform's stablecoin - a digital dollar that's
-                    always worth exactly $1.00 USD. Unlike volatile
-                    cryptocurrencies, NOVA maintains its value through full
-                    backing by US dollars.
+                    NOVA is a digital dollar. It's designed so most yield supports public goods advised by holders and stakers, while a minimal, transparent portion covers protocol operations like compliance and security.
                   </p>
                   <ul className="space-y-3">
                     <li className="flex items-start gap-3">
                       <Shield className="w-5 h-5 text-green-400 flex-shrink-0 mt-0.5" />
-                      <span className="text-gray-300">
-                        100% backed by cash & US Treasury bonds
-                      </span>
+                      <span className="text-gray-300">Audited, non-custodial contracts and clear disclosures</span>
                     </li>
                     <li className="flex items-start gap-3">
                       <DollarSign className="w-5 h-5 text-green-400 flex-shrink-0 mt-0.5" />
-                      <span className="text-gray-300">
-                        Always redeemable for $1 USD
-                      </span>
+                      <span className="text-gray-300">Transparent accounting of protocol costs and allocations</span>
                     </li>
                     <li className="flex items-start gap-3">
                       <Heart className="w-5 h-5 text-green-400 flex-shrink-0 mt-0.5" />
-                      <span className="text-gray-300">
-                        Using NOVA helps fund more research
-                      </span>
+                      <span className="text-gray-300">Using NOVA helps fund public goods</span>
                     </li>
                   </ul>
                 </div>
@@ -535,10 +544,7 @@ export default function HowItWorksPage() {
               <h2 className="text-3xl font-bold text-white mb-4">
                 Ready to Fund the Future?
               </h2>
-              <p className="text-xl text-gray-300 mb-8 max-w-2xl mx-auto">
-                Join thousands of people supporting breakthrough research. Start
-                with as little as $10.
-              </p>
+              <p className="text-xl text-gray-300 mb-8 max-w-2xl mx-auto">Join thousands of people supporting public goods. Start with as little as $10.</p>
               <div className="flex gap-4 justify-center">
                 <button className="px-8 py-4 bg-gradient-to-r from-purple-600 to-blue-600 text-white rounded-lg font-semibold hover:shadow-xl hover:shadow-purple-500/20 transition-all">
                   Get Started

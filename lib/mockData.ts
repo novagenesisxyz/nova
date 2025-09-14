@@ -6,7 +6,7 @@ export const mockProjects: Project[] = [
     title: 'Carbon Capture Nanotechnology',
     description: 'Revolutionary nanomaterials for atmospheric CO2 capture at scale',
     longDescription: 'Our research team is developing next-generation nanomaterials that can capture CO2 directly from the atmosphere with 10x efficiency compared to current technologies. This breakthrough could make carbon capture economically viable at global scale.',
-    category: 'Climate Science',
+    category: 'Climate & Environment',
     imageUrl: 'https://images.unsplash.com/photo-1532094349884-543bc11b234d?w=800',
     fundingGoal: 500000,
     currentFunding: 342500,
@@ -18,7 +18,7 @@ export const mockProjects: Project[] = [
     matchingPool: 75000,
     quadraticScore: 8.7,
     acceptedTokens: ['USDC', 'DAI', 'NOVA'],
-    researchArea: 'Materials Engineering',
+    researchArea: 'Open Science',
     institution: 'MIT Climate Lab',
     milestones: [
       {
@@ -36,7 +36,7 @@ export const mockProjects: Project[] = [
     title: 'Quantum Error Correction',
     description: 'Novel algorithms for stable quantum computing systems',
     longDescription: 'Developing breakthrough error correction algorithms that could make quantum computers 100x more stable, bringing us closer to practical quantum computing applications in drug discovery and cryptography.',
-    category: 'Quantum Computing',
+    category: 'Open Science & Education',
     imageUrl: 'https://images.unsplash.com/photo-1635070041078-e363dbe005cb?w=800',
     fundingGoal: 750000,
     currentFunding: 425000,
@@ -66,7 +66,7 @@ export const mockProjects: Project[] = [
     title: 'Ocean Plastic Enzyme',
     description: 'Engineered enzymes that break down ocean plastics naturally',
     longDescription: 'Our bioengineered enzymes can break down microplastics in ocean water without harming marine life. This could be deployed at scale to clean our oceans within a decade.',
-    category: 'Ocean Conservation',
+    category: 'Conservation & Biodiversity',
     imageUrl: 'https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=800',
     fundingGoal: 300000,
     currentFunding: 189000,
@@ -96,7 +96,7 @@ export const mockProjects: Project[] = [
     title: 'Neural Interface Therapy',
     description: 'Brain-computer interfaces for paralysis treatment',
     longDescription: 'Developing non-invasive neural interfaces that allow paralyzed patients to control computers and prosthetics with thought alone, restoring independence and quality of life.',
-    category: 'Medical Research',
+    category: 'Public Health',
     imageUrl: 'https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=800',
     fundingGoal: 1000000,
     currentFunding: 567000,
@@ -147,6 +147,67 @@ export const mockProjects: Project[] = [
         description: 'Build first pilot vertical farm',
         targetDate: new Date('2024-10-01'),
         fundingRequired: 200000,
+        completed: false
+      }
+    ]
+  }
+  ,
+  {
+    id: '6',
+    title: 'OpenChain Community Hubs',
+    description: 'Neighborhood blockchain education and support hubs for financial inclusion',
+    longDescription: 'OpenChain Community Hubs establish local meetups and support centers to help underserved communities access digital wallets, learn security best practices, and participate in local governance using open-source tools.',
+    category: 'Digital Public Infrastructure',
+    imageUrl: 'https://images.unsplash.com/photo-1518773553398-650c184e0bb3?w=800',
+    fundingGoal: 150000,
+    currentFunding: 82000,
+    stakedAmount: 70000,
+    backers: 642,
+    daysLeft: 27,
+    creator: '0x5B3eC4f7C8A6B8A60a9F3dC97E4A7b2D1E45b123',
+    createdAt: new Date('2024-03-01'),
+    matchingPool: 25000,
+    quadraticScore: 7.4,
+    acceptedTokens: ['USDC', 'DAI', 'NOVA'],
+    researchArea: 'Community Program',
+    institution: 'OpenChain DAO',
+    milestones: [
+      {
+        id: 'm6',
+        title: 'First 3 Hubs Launched',
+        description: 'Open operational hubs in three cities',
+        targetDate: new Date('2024-06-15'),
+        fundingRequired: 60000,
+        completed: false
+      }
+    ]
+  },
+  {
+    id: '7',
+    title: 'Clean Water for Riverbend',
+    description: 'Community wells and filtration for safe drinking water',
+    longDescription: 'Design and deploy sustainable wells with solar-powered filtration in Riverbend County, including maintenance training for local teams and transparent reporting of water quality metrics.',
+    category: 'Community & Social Services',
+    imageUrl: 'https://images.unsplash.com/photo-1505156868547-9b49f4df4e4e?w=800',
+    fundingGoal: 200000,
+    currentFunding: 126500,
+    stakedAmount: 110000,
+    backers: 1734,
+    daysLeft: 14,
+    creator: '0xAb8483F64d9C6d1EcF9b849Ae677dD3315835cB2',
+    createdAt: new Date('2024-03-10'),
+    matchingPool: 30000,
+    quadraticScore: 8.9,
+    acceptedTokens: ['USDC', 'USDT', 'NOVA'],
+    researchArea: 'Humanitarian Aid',
+    institution: 'Global Relief Network',
+    milestones: [
+      {
+        id: 'm7',
+        title: 'Drill & Install 5 Wells',
+        description: 'Complete drilling, install pumps and filtration',
+        targetDate: new Date('2024-07-30'),
+        fundingRequired: 120000,
         completed: false
       }
     ]

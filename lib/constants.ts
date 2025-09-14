@@ -29,24 +29,29 @@ export const SUPPORTED_TOKENS: Token[] = [
   },
 ];
 
-export const RESEARCH_CATEGORIES = [
-  "Climate Science",
-  "Medical Research",
-  "Space Exploration",
-  "Quantum Computing",
-  "Artificial Intelligence",
-  "Renewable Energy",
-  "Biotechnology",
-  "Materials Science",
-  "Ocean Conservation",
-  "Agricultural Innovation",
+export const INITIATIVE_CATEGORIES = [
+  "Climate & Environment",
+  "Public Health",
+  "Open Science & Education",
+  "Civic Tech",
+  "Digital Public Infrastructure",
+  "Open-Source Software",
+  "Community & Social Services",
+  "Resilience & Disaster Relief",
+  "Conservation & Biodiversity",
+  "Arts & Culture",
 ];
 
 export const NOVA_TOKEN_CONFIG = {
   initialSupply: 1000000000,
   mintingRate: 0.02,
   backingRatio: 1.5,
-  yieldToResearch: 1.0, // 100% of yields go to research
+  yieldAllocationPolicy: {
+    publicGoodsShare: 0.78, // example default; most yield to public goods
+    complianceShare: 0.12,
+    securityShare: 0.07,
+    opsShare: 0.03,
+  },
   governanceThreshold: 10000,
 };
 

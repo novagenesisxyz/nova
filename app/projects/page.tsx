@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 import Navbar from "@/components/Navbar";
 import ProjectCard from "@/components/ProjectCard";
 import { mockProjects } from "@/lib/mockData";
-import { RESEARCH_CATEGORIES } from "@/lib/constants";
+import { INITIATIVE_CATEGORIES } from "@/lib/constants";
 import { Search, Filter, TrendingUp, Clock, Users } from "lucide-react";
 
 export default function ProjectsPage() {
@@ -49,11 +49,10 @@ export default function ProjectsPage() {
             transition={{ duration: 0.8 }}
           >
             <h1 className="text-5xl font-bold text-white mb-4">
-              Discover Research Projects
+              Discover Public-Good Initiatives
             </h1>
             <p className="text-xl text-gray-400 mb-8">
-              Stake your stablecoins to vote on breakthrough research - all
-              yields flow to projects
+              Explore initiatives and track community-backed funding progress
             </p>
 
             {/* Search and Filters */}
@@ -63,7 +62,7 @@ export default function ProjectsPage() {
                   <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
                   <input
                     type="text"
-                    placeholder="Search projects..."
+                    placeholder="Search initiatives..."
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
                     className="w-full pl-10 pr-4 py-3 bg-white/10 border border-white/20 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-purple-500 transition-colors"
@@ -94,9 +93,9 @@ export default function ProjectsPage() {
                       : "bg-white/10 text-gray-400 hover:text-white hover:bg-white/20"
                   }`}
                 >
-                  All Projects
+                  All Initiatives
                 </button>
-                {RESEARCH_CATEGORIES.map((category) => (
+                {INITIATIVE_CATEGORIES.map((category) => (
                   <button
                     key={category}
                     onClick={() => setSelectedCategory(category)}
@@ -124,7 +123,7 @@ export default function ProjectsPage() {
               <div className="bg-white/5 backdrop-blur-lg rounded-lg p-4 border border-white/10">
                 <div className="flex items-center gap-2 mb-1">
                   <Filter className="w-4 h-4 text-blue-400" />
-                  <span className="text-sm text-gray-400">Active Projects</span>
+                  <span className="text-sm text-gray-400">Active Initiatives</span>
                 </div>
                 <p className="text-2xl font-bold text-white">
                   {sortedProjects.length}
@@ -146,7 +145,7 @@ export default function ProjectsPage() {
               </div>
             </div>
 
-            {/* Projects Grid */}
+            {/* Initiatives Grid */}
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
               {sortedProjects.map((project, index) => (
                 <motion.div
@@ -162,9 +161,7 @@ export default function ProjectsPage() {
 
             {sortedProjects.length === 0 && (
               <div className="text-center py-20">
-                <p className="text-gray-400 text-lg">
-                  No projects found matching your criteria
-                </p>
+                <p className="text-gray-400 text-lg">No initiatives found matching your criteria</p>
               </div>
             )}
           </motion.div>

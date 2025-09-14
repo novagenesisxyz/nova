@@ -244,7 +244,7 @@ export default function NovaTokenPage() {
                     </h3>
                     <p className="text-gray-400 text-sm">
                       Buy NOVA to provide stable funding for research. Every
-                      NOVA purchase helps generate yields that flow to
+                      NOVA purchase helps generate support that flows to
                       scientists
                     </p>
                   </div>
