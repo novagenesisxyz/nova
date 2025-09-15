@@ -47,9 +47,9 @@ export default function HowItWorksPage() {
     },
     {
       icon: TrendingUp,
-      title: "Kickstart Nova",
+      title: "NOVA Genesis",
       description:
-        "During the soft launch, Aave interest accrues to the pool to help bootstrap Nova. You can withdraw your principal anytime using NOGE (NOVA Genesis) receipts.",
+        "During the genesis phase, Aave interest accrues to the pool to help launch Nova. You can withdraw your principal anytime using NOGE (NOVA Genesis) receipts.",
       color: "yellow",
     },
   ];
@@ -123,9 +123,7 @@ export default function HowItWorksPage() {
           >
             <div className="inline-flex items-center gap-2 px-4 py-2 bg-purple-500/10 border border-purple-500/30 rounded-full mb-6">
               <Zap className="w-4 h-4 text-purple-400" />
-              <span className="text-sm text-purple-300">
-                Simple • Transparent • Impactful
-              </span>
+              <span className="text-sm text-purple-300">Genesis • Transparent • Impactful</span>
             </div>
 
             <h1 className="text-5xl md:text-6xl font-bold text-white mb-6">
@@ -440,7 +438,7 @@ export default function HowItWorksPage() {
             </div>
           </motion.div>
 
-          {/* NOVA Token Explainer */}
+          {/* NOVA Stablecoin Overview (simplified, consistent list style) */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -448,43 +446,24 @@ export default function HowItWorksPage() {
             className="mb-20"
           >
             <div className="bg-gradient-to-r from-purple-900/30 to-blue-900/30 backdrop-blur-lg rounded-2xl p-8 border border-purple-500/30">
-              <div className="grid lg:grid-cols-2 gap-8 items-center">
-                <div>
-                  <h2 className="text-3xl font-bold text-white mb-4">
-                    The NOVA Stablecoin
-                  </h2>
-                  <p className="text-gray-300 mb-4">
-                    NOVA is a digital dollar. It's designed so most yield supports public goods advised by holders and stakers, while a minimal, transparent portion covers protocol operations like compliance and security.
-                  </p>
-                  <ul className="space-y-3">
-                    <li className="flex items-start gap-3">
-                      <Shield className="w-5 h-5 text-green-400 flex-shrink-0 mt-0.5" />
-                      <span className="text-gray-300">Audited, non-custodial contracts and clear disclosures</span>
-                    </li>
-                    <li className="flex items-start gap-3">
-                      <DollarSign className="w-5 h-5 text-green-400 flex-shrink-0 mt-0.5" />
-                      <span className="text-gray-300">Transparent accounting of protocol costs and allocations</span>
-                    </li>
-                    <li className="flex items-start gap-3">
-                      <Heart className="w-5 h-5 text-green-400 flex-shrink-0 mt-0.5" />
-                      <span className="text-gray-300">Using NOVA helps fund public goods</span>
-                    </li>
-                  </ul>
-                </div>
-                <div className="flex justify-center">
-                  <div className="relative">
-                    <div className="w-48 h-48 bg-gradient-to-br from-purple-500/20 to-blue-500/20 rounded-full flex items-center justify-center">
-                      <div className="text-center">
-                        <Coins className="w-16 h-16 text-purple-400 mx-auto mb-2" />
-                        <div className="text-3xl font-bold text-white">
-                          $1.00
-                        </div>
-                        <div className="text-sm text-gray-400">Always</div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
+              <h2 className="text-3xl font-bold text-white mb-4">The NOVA Stablecoin</h2>
+              <p className="text-gray-300 mb-6 max-w-3xl">
+                NOVA is a digital dollar designed so most yield supports public goods. A minimal, transparent portion covers protocol operations like compliance and security.
+              </p>
+
+              <h3 className="text-lg font-semibold text-white mb-2">NOVA Genesis plan</h3>
+              <ul className="list-disc list-inside text-gray-300 space-y-2 mb-6">
+                <li>Pool USDC in Aave; yield funds development (community‑owned, no investors).</li>
+                <li>Migrate to USD reserves; NOVA redeemable for NOGE (NOVA Genesis) holders.</li>
+                <li>Stake NOVA to advise public‑goods allocations.</li>
+              </ul>
+
+              <h3 className="text-lg font-semibold text-white mb-2">Trust & transparency</h3>
+              <ul className="list-disc list-inside text-gray-300 space-y-2">
+                <li>Audited, non‑custodial contracts; clear disclosures.</li>
+                <li>Transparent accounting of protocol costs and allocations.</li>
+                <li>Using NOVA helps fund public goods.</li>
+              </ul>
             </div>
           </motion.div>
 

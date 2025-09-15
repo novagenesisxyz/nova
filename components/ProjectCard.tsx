@@ -23,6 +23,12 @@ export default function ProjectCard({ project }: ProjectCardProps) {
           <img
             src={project.imageUrl}
             alt={project.title}
+            onError={(e) => {
+              const target = e.currentTarget as HTMLImageElement;
+              if (target.dataset.fallbackApplied) return;
+              target.dataset.fallbackApplied = 'true';
+              target.src = '/favicon.svg';
+            }}
             className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
           />
           <div className="absolute top-2 right-2">

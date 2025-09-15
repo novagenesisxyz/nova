@@ -38,7 +38,7 @@ export default function Home() {
           >
             <div className="inline-flex items-center gap-2 px-4 py-2 bg-purple-500/10 border border-purple-500/30 rounded-full mb-7">
               <Sparkles className="w-4 h-4 text-purple-400" />
-              <span className="text-sm text-purple-300">Soft launch: community bootstrap</span>
+              <span className="text-sm text-purple-300">Genesis phase underway</span>
             </div>
 
             <h1 className="text-6xl md:text-7xl font-bold text-white mb-6">
@@ -60,7 +60,7 @@ export default function Home() {
                 onClick={() => document.getElementById('deposit-section')?.scrollIntoView({ behavior: 'smooth' })}
               >
                 <Wallet className="w-5 h-5" />
-                Join the bootstrap
+                Join the genesis
                 <ArrowRight className="w-5 h-5" />
               </motion.button>
               <motion.button
@@ -95,6 +95,57 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Genesis Plan */}
+      <section className="py-14 px-4">
+        <div className="max-w-6xl mx-auto">
+          <motion.div
+            initial={{ opacity: 0, y: 12 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="bg-white/5 backdrop-blur-lg rounded-2xl border border-white/10 p-6 md:p-8"
+          >
+            <h3 className="text-2xl font-bold text-white mb-4">The Genesis Plan</h3>
+
+            {/* Master Plan Overview (3 phases) */}
+            <div className="grid md:grid-cols-3 gap-4 mb-6">
+              <div className="bg-black/30 rounded-xl p-4 border border-white/10">
+                <div className="text-sm text-gray-400 mb-1">Phase 1</div>
+                <div className="text-white font-semibold mb-1 flex items-center gap-2">
+                  <Coins className="w-4 h-4 text-purple-400" />
+                  Bootstrap with USDC
+                </div>
+                <p className="text-gray-300 text-sm">Pool USDC in Aave; yield funds development. Community‑owned.</p>
+              </div>
+              <div className="bg-black/30 rounded-xl p-4 border border-white/10">
+                <div className="text-sm text-gray-400 mb-1">Phase 2</div>
+                <div className="text-white font-semibold mb-1 flex items-center gap-2">
+                  <Shield className="w-4 h-4 text-blue-400" />
+                  NOVA independence
+                </div>
+                <p className="text-gray-300 text-sm">Migrate to USD reserves; NOVA redeemable for NOGE holders.</p>
+              </div>
+              <div className="bg-black/30 rounded-xl p-4 border border-white/10">
+                <div className="text-sm text-gray-400 mb-1">Phase 3</div>
+                <div className="text-white font-semibold mb-1 flex items-center gap-2">
+                  <Heart className="w-4 h-4 text-green-400" />
+                  Fund public goods
+                </div>
+                <p className="text-gray-300 text-sm">Stake to advise allocations; integrations grow NOVA impact.</p>
+              </div>
+            </div>
+
+
+
+            <div className="mt-6">
+              <Link href="/how-it-works" className="inline-block px-5 py-2 bg-white/10 hover:bg-white/20 text-white rounded-lg font-medium border border-white/20 transition-colors">
+                Learn more about the plan
+              </Link>
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
       {/* How It Works */}
       <section id="how-it-works" className="py-20 px-4 bg-black/50">
         <div className="max-w-7xl mx-auto">
@@ -104,11 +155,9 @@ export default function Home() {
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
           >
-            <h2 className="text-4xl font-bold text-white text-center mb-4">
-              How the Soft Launch Works
-            </h2>
+            <h2 className="text-4xl font-bold text-white text-center mb-4">How the Genesis Works</h2>
             <p className="text-gray-400 text-center mb-12 max-w-2xl mx-auto">
-              Deposit USDC, receive NOGE (NOVA Genesis) receipts, withdraw principal anytime. Aave interest bootstraps Nova.
+              Deposit USDC, receive NOGE (NOVA Genesis) receipts, withdraw principal anytime. Aave interest powers Nova’s genesis.
             </p>
 
             <div className="grid md:grid-cols-4 gap-6">
@@ -143,7 +192,7 @@ export default function Home() {
                 className="bg-gradient-to-br from-green-900/20 to-green-900/5 backdrop-blur-lg rounded-xl p-6 border border-green-500/20"
               >
                 <div className="text-3xl font-bold text-green-400 mb-4">3</div>
-                <h3 className="text-lg font-semibold text-white mb-2">Bootstrap Nova</h3>
+                <h3 className="text-lg font-semibold text-white mb-2">NOVA Genesis</h3>
                 <p className="text-gray-400 text-sm">Aave V3 interest funds development</p>
               </motion.div>
 
@@ -276,7 +325,7 @@ export default function Home() {
             <p className="text-lg text-gray-300 mb-8">
               Nova will be the world's first stablecoin where interest from reserves
               goes to fund public goods. By participating in our
-              soft launch, you're directly helping create a new
+              bootstrap, you're directly helping create a new
               financial primitive that automatically funds public goods.
             </p>
 
@@ -310,9 +359,7 @@ export default function Home() {
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
           >
-            <h2 className="text-4xl font-bold text-white text-center mb-8">
-              Join the Soft Launch
-            </h2>
+            <h2 className="text-4xl font-bold text-white text-center mb-8">Join the Genesis</h2>
             <p className="text-xl text-gray-300 text-center mb-12">
               Connect your wallet to deposit USDC and receive NOGE (NOVA Genesis) receipt tokens
             </p>
@@ -350,10 +397,10 @@ export default function Home() {
               className="bg-white/5 backdrop-blur-lg rounded-xl p-6 border border-white/10"
             >
               <h3 className="text-xl font-semibold text-white mb-3">
-                What happens to the interest earned during the soft launch?
+                What happens to the interest earned during the genesis phase?
               </h3>
               <p className="text-gray-300">
-                During the soft launch, Aave interest is retained by the pool to kickstart Nova’s development and operations. Your principal remains withdrawable at any time. Future phases may direct funds to public-good initiatives.
+                During the genesis phase, Aave interest is retained by the pool to support Nova’s development and operations. Your principal remains withdrawable at any time. Future phases may direct funds to public-good initiatives.
               </p>
             </motion.div>
 

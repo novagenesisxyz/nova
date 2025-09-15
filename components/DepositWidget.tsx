@@ -196,7 +196,7 @@ export default function DepositWidget() {
                 <>You'll receive NOGE (NOVA Genesis) tokens 1:1 with your deposit. These tokens are your receipt and are required to withdraw your funds at any time.</>
               ) : (
                 <>
-                  Withdrawing requires NOGE (NOVA Genesis) tokens equal to the withdrawal amount. You can withdraw your original principal at any time. During the soft launch, yield supports kickstarting Nova and is not paid to depositors.
+                  Withdrawing requires NOGE (NOVA Genesis) tokens equal to the withdrawal amount. You can withdraw your original principal at any time. During the genesis phase, yield supports launching Nova and is not paid to depositors.
                 </>
               )}
             </div>
