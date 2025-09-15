@@ -16,9 +16,9 @@ import {
   CheckCircle,
   Calendar,
   Building,
-  Globe,
   ArrowUp,
   Coins,
+  AlertCircle,
 } from "lucide-react";
 
 export default function ProjectDetailPage() {
@@ -82,6 +82,20 @@ export default function ProjectDetailPage() {
         </div>
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-8">
+          <div className="bg-purple-500/10 border border-purple-500/30 rounded-xl p-4 mb-8 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between text-purple-100">
+            <div className="flex items-start gap-3">
+              <AlertCircle className="w-5 h-5 mt-0.5" />
+              <p className="text-sm leading-relaxed">
+                This page is a product preview. Funding numbers, milestones, and activity are mock data demonstrating how Nova will showcase real initiatives after the stablecoin launches.
+              </p>
+            </div>
+            <button
+              className="px-4 py-2 bg-white/10 hover:bg-white/20 text-white text-sm font-medium rounded-lg transition-colors"
+              onClick={() => window.open("/#deposit-section", "_self")}
+            >
+              Visit Deposit Widget
+            </button>
+          </div>
           <div className="grid lg:grid-cols-3 gap-8">
             {/* Main Content */}
             <div className="lg:col-span-2 space-y-6">

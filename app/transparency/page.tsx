@@ -3,7 +3,7 @@
 import { motion } from "framer-motion";
 import Navbar from "@/components/Navbar";
 import Link from "next/link";
-import { Shield, Receipt, PieChart, ExternalLink, DollarSign, BarChart3 } from "lucide-react";
+import { Shield, Receipt, PieChart, ExternalLink, DollarSign, BarChart3, AlertCircle } from "lucide-react";
 
 export default function TransparencyPage() {
   const rows = [
@@ -32,13 +32,28 @@ export default function TransparencyPage() {
           >
             <div className="inline-flex items-center gap-2 px-4 py-2 bg-purple-500/10 border border-purple-500/30 rounded-full mb-4">
               <Shield className="w-4 h-4 text-purple-400" />
-              <span className="text-sm text-purple-300">Transparent by design</span>
+              <span className="text-sm text-purple-300">Preview ledger — demo figures only</span>
             </div>
             <h1 className="text-5xl font-bold text-white mb-3">Transparency Ledger</h1>
             <p className="text-gray-300 max-w-2xl mx-auto">
-              Real-time record of protocol costs (kept minimal) and allocations to public goods advised by holders and stakers.
+              This page shows how we will report protocol costs and public-good allocations once NOVA launches. All numbers below are illustrative placeholders while the Genesis campaign is live.
             </p>
           </motion.div>
+
+          <div className="bg-purple-500/10 border border-purple-500/30 rounded-xl p-4 mb-8 text-purple-100 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+            <div className="flex items-start gap-3">
+              <AlertCircle className="w-5 h-5 mt-0.5" />
+              <p className="text-sm leading-relaxed">
+                Live wallet addresses, attestations, and CSV downloads will go online with the NOVA launch. Until then, follow the Genesis plan and deposit USDC to mint NOGE receipts.
+              </p>
+            </div>
+            <button
+              className="px-4 py-2 bg-white/10 hover:bg-white/20 text-white text-sm font-medium rounded-lg transition-colors"
+              onClick={() => window.open("/#deposit-section", "_self")}
+            >
+              Go to Deposit Widget
+            </button>
+          </div>
 
           {/* Costs Breakdown */}
           <motion.div
@@ -89,7 +104,7 @@ export default function TransparencyPage() {
             <div className="p-4 border-b border-white/10 flex items-center justify-between">
               <div className="flex items-center gap-2 text-white font-semibold">
                 <PieChart className="w-5 h-5 text-purple-400" />
-                Allocations (example data)
+                Allocations (illustrative)
               </div>
               <Link href="#" className="text-sm text-purple-300 hover:text-purple-200 flex items-center gap-1">
                 Export CSV <ExternalLink className="w-4 h-4" />
@@ -138,7 +153,7 @@ export default function TransparencyPage() {
             <div className="p-4 border-b border-white/10 flex items-center justify-between">
               <div className="flex items-center gap-2 text-white font-semibold">
                 <PieChart className="w-5 h-5 text-green-400" />
-                Recent Audit Snapshot (example)
+                Reserve Snapshot (illustrative)
               </div>
               <Link href="#" className="text-sm text-purple-300 hover:text-purple-200 flex items-center gap-1">
                 View report <ExternalLink className="w-4 h-4" />

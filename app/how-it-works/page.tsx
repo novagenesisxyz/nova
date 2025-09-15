@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Link from "next/link";
 import Navbar from "@/components/Navbar";
 import {
   Wallet,
@@ -26,30 +27,30 @@ export default function HowItWorksPage() {
   const steps = [
     {
       icon: Wallet,
-      title: "Connect Your Wallet",
+      title: "Connect your wallet",
       description:
-        "Link your digital wallet (like MetaMask) to get started. Think of it as your secure login to Web3.",
+        "Use a self-custody wallet such as MetaMask or Rainbow so deposits remain non-custodial.",
       color: "purple",
     },
     {
       icon: DollarSign,
-      title: "Get USDC",
+      title: "Deposit USDC",
       description:
-        "Buy USDC - a widely used stablecoin pegged to $1 USD. It's liquid and simple to use.",
+        "Choose how much USDC to contribute to the Genesis pool. The demo uses a Sepolia fork, but production will be Ethereum mainnet.",
       color: "blue",
     },
     {
-      icon: DollarSign,
-      title: "Deposit to Earn",
+      icon: TrendingUp,
+      title: "Receive NOGE receipts",
       description:
-        "Deposit USDC to the pool. You'll receive NOGE (NOVA Genesis) receipt tokens 1:1 with your deposit.",
+        "Deposits mint NOVA Genesis (NOGE) tokens 1:1 with your principal. NOGE is required to withdraw at any time during Genesis.",
       color: "green",
     },
     {
-      icon: TrendingUp,
-      title: "NOVA Genesis",
+      icon: Heart,
+      title: "Bootstrap Nova",
       description:
-        "During the genesis phase, Aave interest accrues to the pool to help launch Nova. You can withdraw your principal anytime using NOGE (NOVA Genesis) receipts.",
+        "While funds sit in Aave, interest funds engineering, legal, and audits so NOVA can launch with public-good reserves.",
       color: "yellow",
     },
   ];
@@ -127,13 +128,21 @@ export default function HowItWorksPage() {
             </div>
 
             <h1 className="text-5xl md:text-6xl font-bold text-white mb-6">
-              How Nova Works
+              Join the NOVA Genesis Campaign
             </h1>
             <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-              Support public goods in 4 simple steps. No complex crypto
-              knowledge needed — we make participation as easy as online
-              shopping.
+              You are early. This phase raises USDC so Nova can launch a
+              fully-backed stablecoin whose yield supports public goods. Follow
+              these steps to understand exactly what happens when you deposit.
             </p>
+            <div className="mt-8 flex justify-center">
+              <Link
+                href="/#deposit-section"
+                className="px-8 py-4 bg-gradient-to-r from-purple-600 to-blue-600 text-white rounded-lg font-semibold hover:shadow-xl hover:shadow-purple-500/20 transition-all"
+              >
+                Deposit USDC for NOGE
+              </Link>
+            </div>
           </motion.div>
 
           {/* Visual Process Flow */}
@@ -144,7 +153,7 @@ export default function HowItWorksPage() {
             className="mb-20"
           >
             <h2 className="text-3xl font-bold text-white text-center mb-12">
-              Your Journey to Funding Public Goods
+              What Happens to Your Deposit Today
             </h2>
 
             <div className="relative">
@@ -189,7 +198,7 @@ export default function HowItWorksPage() {
             </div>
           </motion.div>
 
-          {/* Two Ways to Support Public Goods */}
+          {/* What Genesis Unlocks Next */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -197,14 +206,13 @@ export default function HowItWorksPage() {
             className="mb-20"
           >
             <h2 className="text-3xl font-bold text-white text-center mb-4">
-              Two Ways to Support Public Goods
+              What Genesis Unlocks Next
             </h2>
             <p className="text-gray-400 text-center mb-12 max-w-3xl mx-auto">
-              Nova offers two complementary paths — use one or both to maximize your impact
+              These features are on the roadmap and depend on a successful Genesis raise. We highlight them here so early supporters know what they are building toward.
             </p>
 
             <div className="grid lg:grid-cols-2 gap-8 mb-8">
-              {/* Path 1: NOVA Holdings */}
               <div className="bg-gradient-to-br from-purple-900/20 to-purple-900/5 backdrop-blur-lg rounded-2xl p-6 border border-purple-500/20">
                 <div className="flex items-center gap-3 mb-6">
                   <div className="w-10 h-10 bg-purple-500/20 rounded-lg flex items-center justify-center">
@@ -212,65 +220,26 @@ export default function HowItWorksPage() {
                   </div>
                   <div>
                     <h3 className="text-xl font-bold text-white">
-                      Path 1: Buy & Hold NOVA
+                      NOVA Stablecoin (Upcoming)
                     </h3>
-                    <span className="text-sm text-purple-300">
-                      Passive Support
-                    </span>
+                    <span className="text-sm text-purple-300">Target launch after Genesis close</span>
                   </div>
                 </div>
 
-                <div className="space-y-4">
-                  <div className="flex items-start gap-3">
-                    <div className="w-8 h-8 bg-purple-500/10 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
-                      <span className="text-purple-400 font-bold text-sm">
-                        1
-                      </span>
-                    </div>
-                    <div>
-                      <p className="text-white font-medium">
-                        Buy NOVA stablecoin
-                      </p>
-                      <p className="text-gray-400 text-sm">
-                        Exchange USD or other stablecoins for NOVA
-                      </p>
-                    </div>
-                  </div>
-
-                  <div className="flex items-start gap-3">
-                    <div className="w-8 h-8 bg-purple-500/10 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
-                      <span className="text-purple-400 font-bold text-sm">
-                        2
-                      </span>
-                    </div>
-                    <div>
-                      <p className="text-white font-medium">Yield accrues on reserves</p>
-                      <p className="text-gray-400 text-sm">Most yield supports public goods; minimal, transparent costs cover compliance and security</p>
-                    </div>
-                  </div>
-
-                  <div className="flex items-start gap-3">
-                    <div className="w-8 h-8 bg-purple-500/10 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
-                      <span className="text-purple-400 font-bold text-sm">
-                        3
-                      </span>
-                    </div>
-                    <div>
-                      <p className="text-white font-medium">Directed to public goods</p>
-                      <p className="text-gray-400 text-sm">Advised by holders and stakers via the platform</p>
-                    </div>
-                  </div>
-                </div>
+                <ul className="space-y-3 text-sm text-gray-300">
+                  <li>Buy NOVA 1:1 for USD once reserves migrate from Aave to treasury infrastructure.</li>
+                  <li>Let yield flow automatically to audited public-good allocations.</li>
+                  <li>Redeem NOVA back to USD assets with transparent, on-chain accounting.</li>
+                </ul>
 
                 <div className="mt-6 p-4 bg-purple-500/10 rounded-lg">
                   <p className="text-purple-300 text-sm">
                     <Gift className="w-4 h-4 inline mr-1" />
-                    <span className="font-semibold">Impact:</span> Holding NOVA helps fund public goods over time
+                    <span className="font-semibold">Powered by you:</span> Genesis supporters earn the right to redeem NOVA at par through their NOGE receipts.
                   </p>
                 </div>
               </div>
 
-              {/* Path 2: Staking */}
               <div className="bg-gradient-to-br from-blue-900/20 to-blue-900/5 backdrop-blur-lg rounded-2xl p-6 border border-blue-500/20">
                 <div className="flex items-center gap-3 mb-6">
                   <div className="w-10 h-10 bg-blue-500/20 rounded-lg flex items-center justify-center">
@@ -278,130 +247,41 @@ export default function HowItWorksPage() {
                   </div>
                   <div>
                     <h3 className="text-xl font-bold text-white">
-                      Path 2: Stake to Vote
+                      Quadratic Funding Platform (Planned)
                     </h3>
-                    <span className="text-sm text-blue-300">
-                      Active Participation
-                    </span>
+                    <span className="text-sm text-blue-300">Opens after NOVA issuance</span>
                   </div>
                 </div>
 
-                <div className="space-y-4">
-                  <div className="flex items-start gap-3">
-                    <div className="w-8 h-8 bg-blue-500/10 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
-                      <span className="text-blue-400 font-bold text-sm">1</span>
-                    </div>
-                    <div>
-                      <p className="text-white font-medium">
-                        Stake any stablecoin
-                      </p>
-                      <p className="text-gray-400 text-sm">
-                        Lock USDC, DAI, or NOVA to projects
-                      </p>
-                    </div>
-                  </div>
-
-                  <div className="flex items-start gap-3">
-                    <div className="w-8 h-8 bg-blue-500/10 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
-                      <span className="text-blue-400 font-bold text-sm">2</span>
-                    </div>
-                    <div>
-                      <p className="text-white font-medium">
-                        Your stake = your vote
-                      </p>
-                      <p className="text-gray-400 text-sm">Determines which public-good initiatives receive support</p>
-                    </div>
-                  </div>
-
-                  <div className="flex items-start gap-3">
-                    <div className="w-8 h-8 bg-blue-500/10 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
-                      <span className="text-blue-400 font-bold text-sm">3</span>
-                    </div>
-                    <div>
-                      <p className="text-white font-medium">
-                        Direct funding flow
-                      </p>
-                      <p className="text-gray-400 text-sm">Initiatives with more stakes get more of the platform’s support</p>
-                    </div>
-                  </div>
-                </div>
+                <ul className="space-y-3 text-sm text-gray-300">
+                  <li>Stake NOVA or USDC to advise which initiatives receive matched funding.</li>
+                  <li>Vote-weighted governance shapes budget splits across public-good categories.</li>
+                  <li>Real-time dashboards surface impact metrics for every supported project.</li>
+                </ul>
 
                 <div className="mt-6 p-4 bg-blue-500/10 rounded-lg">
                   <p className="text-blue-300 text-sm">
                     <Vote className="w-4 h-4 inline mr-1" />
-                    <span className="font-semibold">Power:</span> You help decide which public goods get funded
+                    <span className="font-semibold">Early input:</span> Genesis depositors can join design reviews that finalize these mechanics.
                   </p>
                 </div>
               </div>
             </div>
 
-            {/* Combined Impact */}
             <div className="bg-gradient-to-r from-purple-600/10 via-blue-600/10 to-green-600/10 backdrop-blur-lg rounded-2xl p-6 border border-white/10">
               <div className="text-center">
                 <h3 className="text-xl font-bold text-white mb-3">
-                  Maximum Impact: Use Both!
+                  Your deposit keeps the roadmap moving
                 </h3>
-                <p className="text-gray-300 mb-6">Hold NOVA to generate ongoing support for public goods while staking to direct where those funds go</p>
-
-                {/* Desktop Layout */}
-                <div className="hidden md:flex items-center justify-center gap-8">
-                  <div className="text-center">
-                    <div className="text-2xl font-bold text-purple-400">
-                      $50/year
-                    </div>
-                    <div className="text-sm text-gray-400">
-                      per $1000 NOVA held
-                    </div>
-                  </div>
-                  <div className="text-2xl text-gray-600">+</div>
-                  <div className="text-center">
-                    <div className="text-2xl font-bold text-blue-400">
-                      Your Vote
-                    </div>
-                    <div className="text-sm text-gray-400">
-                      directs the funding
-                    </div>
-                  </div>
-                  <div className="text-2xl text-gray-600">=</div>
-                  <div className="text-center">
-                    <div className="text-2xl font-bold text-green-400">
-                      Real Impact
-                    </div>
-                    <div className="text-sm text-gray-400">for public goods</div>
-                  </div>
-                </div>
-
-                {/* Mobile Layout */}
-                <div className="md:hidden space-y-4">
-                  <div className="bg-purple-500/10 rounded-lg p-4">
-                    <div className="text-2xl font-bold text-purple-400">
-                      $50/year
-                    </div>
-                    <div className="text-sm text-gray-400">
-                      per $1000 NOVA held
-                    </div>
-                  </div>
-
-                  <div className="text-lg text-gray-500">+</div>
-
-                  <div className="bg-blue-500/10 rounded-lg p-4">
-                    <div className="text-2xl font-bold text-blue-400">
-                      Your Vote
-                    </div>
-                    <div className="text-sm text-gray-400">
-                      directs the funding
-                    </div>
-                  </div>
-
-                  <div className="text-lg text-gray-500">=</div>
-
-                  <div className="bg-green-500/10 rounded-lg p-4">
-                    <div className="text-2xl font-bold text-green-400">
-                      Real Impact
-                    </div>
-                    <div className="text-sm text-gray-400">for public goods</div>
-                  </div>
-                </div>
+                <p className="text-gray-300 mb-6">
+                  Until those features ship, the one action that matters is depositing USDC for NOGE receipts.
+                </p>
+                <button
+                  className="px-8 py-3 bg-gradient-to-r from-purple-600 to-blue-600 text-white rounded-lg font-semibold hover:shadow-xl hover:shadow-purple-500/20 transition-all"
+                  onClick={() => window.open("/#deposit-section", "_self")}
+                >
+                  Go to Deposit Widget
+                </button>
               </div>
             </div>
           </motion.div>
@@ -446,23 +326,23 @@ export default function HowItWorksPage() {
             className="mb-20"
           >
             <div className="bg-gradient-to-r from-purple-900/30 to-blue-900/30 backdrop-blur-lg rounded-2xl p-8 border border-purple-500/30">
-              <h2 className="text-3xl font-bold text-white mb-4">The NOVA Stablecoin</h2>
+              <h2 className="text-3xl font-bold text-white mb-4">Where Genesis Leads</h2>
               <p className="text-gray-300 mb-6 max-w-3xl">
-                NOVA is a digital dollar designed so most yield supports public goods. A minimal, transparent portion covers protocol operations like compliance and security.
+                NOVA will debut once the Genesis pool hits its target and regulatory preparations finish. Until then we operate with a public roadmap so supporters know the milestones they are underwriting.
               </p>
 
-              <h3 className="text-lg font-semibold text-white mb-2">NOVA Genesis plan</h3>
+              <h3 className="text-lg font-semibold text-white mb-2">Current focus</h3>
               <ul className="list-disc list-inside text-gray-300 space-y-2 mb-6">
-                <li>Pool USDC in Aave; yield funds development (community‑owned, no investors).</li>
-                <li>Migrate to USD reserves; NOVA redeemable for NOGE (NOVA Genesis) holders.</li>
-                <li>Stake NOVA to advise public‑goods allocations.</li>
+                <li>Pool USDC in Aave; yield funds development. No venture investors—governance goes to the community.</li>
+                <li>Audit smart contracts and legal structure; publish transparency reporting standards.</li>
+                <li>Grant NOGE holders the right to redeem early NOVA supply once reserves migrate.</li>
               </ul>
 
-              <h3 className="text-lg font-semibold text-white mb-2">Trust & transparency</h3>
+              <h3 className="text-lg font-semibold text-white mb-2">Upcoming milestones</h3>
               <ul className="list-disc list-inside text-gray-300 space-y-2">
-                <li>Audited, non‑custodial contracts; clear disclosures.</li>
-                <li>Transparent accounting of protocol costs and allocations.</li>
-                <li>Using NOVA helps fund public goods.</li>
+                <li>Transition reserves from Aave to a diversified USD treasury.</li>
+                <li>Launch NOVA mint/redeem portal with real-time attestations.</li>
+                <li>Open quadratic funding seasons for public-good initiatives.</li>
               </ul>
             </div>
           </motion.div>
@@ -525,11 +405,17 @@ export default function HowItWorksPage() {
               </h2>
               <p className="text-xl text-gray-300 mb-8 max-w-2xl mx-auto">Join thousands of people supporting public goods. Start with as little as $10.</p>
               <div className="flex gap-4 justify-center">
-                <button className="px-8 py-4 bg-gradient-to-r from-purple-600 to-blue-600 text-white rounded-lg font-semibold hover:shadow-xl hover:shadow-purple-500/20 transition-all">
-                  Get Started
+                <button
+                  className="px-8 py-4 bg-gradient-to-r from-purple-600 to-blue-600 text-white rounded-lg font-semibold hover:shadow-xl hover:shadow-purple-500/20 transition-all"
+                  onClick={() => window.open("/#deposit-section", "_self")}
+                >
+                  Open Deposit Widget
                 </button>
-                <button className="px-8 py-4 bg-white/10 backdrop-blur-lg text-white rounded-lg font-semibold border border-white/20 hover:bg-white/20 transition-all">
-                  View Projects
+                <button
+                  className="px-8 py-4 bg-white/10 backdrop-blur-lg text-white rounded-lg font-semibold border border-white/20 hover:bg-white/20 transition-all"
+                  onClick={() => window.open("/projects", "_self")}
+                >
+                  Preview Impact Pipeline
                 </button>
               </div>
             </div>

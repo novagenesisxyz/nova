@@ -64,3 +64,9 @@ $ forge --help
 $ anvil --help
 $ cast --help
 ```
+
+## Frontend TODO
+
+- Replace mock initiative and transparency data with live sources once NOVA treasury addresses are public.
+- Wire the Projects view to the backend API and hide preview data when production records exist.
+- Automate transparency ledger exports (CSV + on-chain links) from the reporting pipeline.

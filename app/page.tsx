@@ -15,6 +15,8 @@ import {
   Heart,
   Globe,
   Wallet,
+  AlertCircle,
+  Clock,
 } from "lucide-react";
 import DepositWidget from "@/components/DepositWidget";
 
@@ -49,7 +51,7 @@ export default function Home() {
             </h1>
 
             <p className="text-xl text-gray-300 mb-8 max-w-3xl mx-auto">
-              Most yield to public goods; minimal, transparent costs. Withdraw anytime.
+              Deposit USDC, receive NOGE receipts, and help bootstrap Nova’s stablecoin launch. Withdraw anytime while interest funds audits, legal, and public-good infrastructure.
             </p>
 
             <div className="flex gap-4 justify-center mb-12">
@@ -361,11 +363,57 @@ export default function Home() {
           >
             <h2 className="text-4xl font-bold text-white text-center mb-8">Join the Genesis</h2>
             <p className="text-xl text-gray-300 text-center mb-12">
-              Connect your wallet to deposit USDC and receive NOGE (NOVA Genesis) receipt tokens
+              Connect your wallet to deposit USDC and receive NOGE (NOVA Genesis) receipt tokens.
             </p>
 
             <DepositWidget />
+            <div className="mt-8 space-y-6">
+              <div className="flex flex-col sm:flex-row gap-3 sm:items-center bg-purple-500/10 border border-purple-500/30 rounded-xl p-4 text-purple-100">
+                <div className="flex items-start gap-3">
+                  <AlertCircle className="w-5 h-5 mt-0.5" />
+                  <p className="text-sm leading-relaxed">
+                    Genesis operates on audited smart contracts, but deposits still carry smart-contract and counterparty risk. Only deposit USDC you are comfortable holding in the pool until reserves migrate to the full NOVA treasury.
+                  </p>
+                </div>
+                <Link
+                  href="/how-it-works"
+                  className="inline-flex items-center justify-center gap-2 px-4 py-2 bg-white/10 hover:bg-white/20 text-white text-sm font-medium rounded-lg transition-colors"
+                >
+                  Learn the full plan
+                  <ArrowRight className="w-4 h-4" />
+                </Link>
+              </div>
 
+              <div className="grid md:grid-cols-3 gap-4">
+                <div className="bg-white/5 backdrop-blur-lg rounded-xl p-5 border border-white/10">
+                  <div className="flex items-center gap-2 mb-3">
+                    <CheckCircle className="w-5 h-5 text-green-400" />
+                    <span className="text-sm text-gray-300 font-semibold">Withdraw anytime</span>
+                  </div>
+                  <p className="text-sm text-gray-400 leading-relaxed">
+                    NOGE receipts redeem 1:1 for your USDC during Genesis. Keep them safe—burning NOGE is how withdrawals happen.
+                  </p>
+                </div>
+                <div className="bg-white/5 backdrop-blur-lg rounded-xl p-5 border border-white/10">
+                  <div className="flex items-center gap-2 mb-3">
+                    <Shield className="w-5 h-5 text-blue-400" />
+                    <span className="text-sm text-gray-300 font-semibold">Audited + transparent</span>
+                  </div>
+                  <p className="text-sm text-gray-400 leading-relaxed">
+                    Smart contracts are audited and open source. Transparency reporting starts with the Genesis pool and expands for NOVA launch.
+                  </p>
+                </div>
+                <div className="bg-white/5 backdrop-blur-lg rounded-xl p-5 border border-white/10">
+                  <div className="flex items-center gap-2 mb-3">
+                    <Clock className="w-5 h-5 text-yellow-400" />
+                    <span className="text-sm text-gray-300 font-semibold">Launch timeline</span>
+                  </div>
+                  <p className="text-sm text-gray-400 leading-relaxed">
+                    Funds remain in Aave until audits and compliance finish. Genesis supporters will be first to redeem NOVA once the new treasury goes live.
+                  </p>
+                </div>
+              </div>
+            </div>
           </motion.div>
         </div>
       </section>
