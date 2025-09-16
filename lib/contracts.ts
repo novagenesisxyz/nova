@@ -135,9 +135,14 @@ export const ERC20_ABI = [
   }
 ] as const;
 
-// Contract addresses - these would be deployed addresses
+type Address = `0x${string}`;
+
+const toAddress = (value: string | undefined): Address | undefined =>
+  value && /^0x[a-fA-F0-9]{40}$/.test(value) ? (value as Address) : undefined;
+
+// Contract addresses - provided via environment after deployment
 export const CONTRACTS = {
-  FUNDING_POOL: process.env.NEXT_PUBLIC_FUNDING_POOL_USDC_ADDRESS as `0x${string}`,
-  NOGE_TOKEN: process.env.NEXT_PUBLIC_NOGE_TOKEN_ADDRESS as `0x${string}`,
-  USDC: "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48" as `0x${string}`,
-};
+  FUNDING_POOL: toAddress(process.env.NEXT_PUBLIC_FUNDING_POOL_USDC_ADDRESS),
+  NOGE_TOKEN: toAddress(process.env.NEXT_PUBLIC_NOGE_TOKEN_ADDRESS),
+  USDC: toAddress(process.env.NEXT_PUBLIC_USDC_ADDRESS),
+} as const;

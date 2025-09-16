@@ -1,9 +1,18 @@
 import { getDefaultConfig } from "@rainbow-me/rainbowkit";
-import { mainnet, polygon, optimism, arbitrum, base } from "wagmi/chains";
+import { http } from "wagmi";
+import { sepolia } from "wagmi/chains";
+
+const projectId =
+  process.env.NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID || "demo_project_id_123456789";
+
+const sepoliaRpc = process.env.NEXT_PUBLIC_SEPOLIA_RPC_URL || "https://rpc.sepolia.org";
 
 export const config = getDefaultConfig({
   appName: "Nova Research Funding",
-  projectId: "demo_project_id_123456789", // Demo project ID for development
-  chains: [mainnet, polygon, optimism, arbitrum, base],
+  projectId,
+  chains: [sepolia],
+  transports: {
+    [sepolia.id]: http(sepoliaRpc),
+  },
   ssr: true,
 });

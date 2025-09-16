@@ -2,12 +2,23 @@
 pragma solidity ^0.8.20;
 
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
-import "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/utils/ReentrancyGuard.sol";
 import "@openzeppelin/contracts/utils/Pausable.sol";
-import "@aave/contracts/interfaces/IPool.sol";
-import "@aave/contracts/interfaces/IPoolAddressesProvider.sol";
+
+struct ReserveData {
+    address aTokenAddress;
+}
+
+interface IAaveAddressesProvider {
+    function getPool() external view returns (address);
+}
+
+interface IAavePool {
+    function supply(address asset, uint256 amount, address onBehalfOf, uint16 referralCode) external;
+    function withdraw(address asset, uint256 amount, address to) external returns (uint256);
+    function getReserveData(address asset) external view returns (ReserveData memory);
+}
 
 /**
  * @title NovaFundingPoolBase
@@ -20,10 +31,8 @@ interface IReceiptToken is IERC20 {
 }
 
 abstract contract NovaFundingPoolBase is Ownable, ReentrancyGuard, Pausable {
-    using SafeERC20 for IERC20;
-    // Aave V3 addresses on Ethereum mainnet
-    IPoolAddressesProvider public constant ADDRESSES_PROVIDER =
-        IPoolAddressesProvider(0x2f39d218133AFaB8F2B819B1066c7E434Ad94E9e);
+    // Aave V3 addresses provider (configurable per deployment)
+    IAaveAddressesProvider public immutable addressesProvider;
 
     // Underlying stablecoin managed by this pool
     address public immutable TOKEN;
@@ -34,9 +43,10 @@ abstract contract NovaFundingPoolBase is Ownable, ReentrancyGuard, Pausable {
     // NOGE receipt token interface (mint/burn)
     IReceiptToken public immutable nogeToken;
 
-    // Cached Aave pool and aToken to minimize external calls
-    IPool public immutable AAVE_POOL;
+    // Optional Aave integration (disabled when addressesProvider == address(0))
+    IAavePool public immutable AAVE_POOL;
     address public immutable ATOKEN;
+    bool public immutable useAave;
 
     // Aggregate principal tracked to compute available yield
     uint256 public totalDeposits; // total amount of TOKEN managed by the pool
@@ -46,19 +56,32 @@ abstract contract NovaFundingPoolBase is Ownable, ReentrancyGuard, Pausable {
     event Withdrawn(address indexed user, uint256 amount);
     event YieldWithdrawn(address indexed recipient, uint256 amount);
 
-    constructor(address _nogeToken, address _token, uint256 _decimalsFactor) Ownable(msg.sender) {
+    constructor(address _nogeToken, address _token, uint256 _decimalsFactor, address _addressesProvider)
+        Ownable(msg.sender)
+    {
+        require(_nogeToken != address(0), "Invalid NOGE token");
+        require(_token != address(0), "Invalid asset");
         nogeToken = IReceiptToken(_nogeToken);
         TOKEN = _token;
         DECIMALS_FACTOR = _decimalsFactor;
+        if (_addressesProvider != address(0)) {
+            addressesProvider = IAaveAddressesProvider(_addressesProvider);
 
-        // Cache Aave pool and aToken at deployment for simplicity
-        IPool pool = IPool(ADDRESSES_PROVIDER.getPool());
-        AAVE_POOL = pool;
-        ATOKEN = pool.getReserveData(_token).aTokenAddress;
+            // Cache Aave pool and aToken at deployment for simplicity
+            IAavePool pool = IAavePool(addressesProvider.getPool());
+            AAVE_POOL = pool;
+            ATOKEN = pool.getReserveData(_token).aTokenAddress;
+            useAave = true;
 
-        // Set a one-time max allowance to the Aave pool
-        IERC20(_token).safeApprove(address(pool), 0);
-        IERC20(_token).safeApprove(address(pool), type(uint256).max);
+            // Set a one-time max allowance to the Aave pool
+            IERC20(_token).approve(address(pool), 0);
+            IERC20(_token).approve(address(pool), type(uint256).max);
+        } else {
+            addressesProvider = IAaveAddressesProvider(address(0));
+            AAVE_POOL = IAavePool(address(0));
+            ATOKEN = address(0);
+            useAave = false;
+        }
     }
 
     /**
@@ -69,13 +92,15 @@ abstract contract NovaFundingPoolBase is Ownable, ReentrancyGuard, Pausable {
         require(amount > 0, "Amount must be greater than 0");
 
         // Transfer TOKEN from user
-        IERC20(TOKEN).safeTransferFrom(msg.sender, address(this), amount);
+        IERC20(TOKEN).transferFrom(msg.sender, address(this), amount);
 
         // Update aggregate principal
         totalDeposits += amount;
 
-        // Deposit to Aave to earn yield
-        AAVE_POOL.supply(TOKEN, amount, address(this), 0);
+        // Deposit to Aave to earn yield when configured
+        if (useAave) {
+            AAVE_POOL.supply(TOKEN, amount, address(this), 0);
+        }
 
         // Calculate NOGE tokens to mint (normalized to 18 decimals)
         uint256 nogeAmount = amount * DECIMALS_FACTOR;
@@ -101,8 +126,15 @@ abstract contract NovaFundingPoolBase is Ownable, ReentrancyGuard, Pausable {
         // Update aggregate principal
         totalDeposits -= amount;
 
-        // Withdraw from Aave
-        uint256 withdrawn = AAVE_POOL.withdraw(TOKEN, amount, msg.sender);
+        uint256 withdrawn;
+
+        if (useAave) {
+            // Withdraw from Aave
+            withdrawn = AAVE_POOL.withdraw(TOKEN, amount, msg.sender);
+        } else {
+            IERC20(TOKEN).transfer(msg.sender, amount);
+            withdrawn = amount;
+        }
 
         emit Withdrawn(msg.sender, withdrawn);
     }
@@ -111,11 +143,19 @@ abstract contract NovaFundingPoolBase is Ownable, ReentrancyGuard, Pausable {
      * @notice Returns current accrued yield available for owner withdrawal
      */
     function getAvailableYield() public view returns (uint256) {
-        uint256 balance = IERC20(ATOKEN).balanceOf(address(this));
-        if (balance <= totalDeposits) {
+        if (useAave) {
+            uint256 balance = IERC20(ATOKEN).balanceOf(address(this));
+            if (balance <= totalDeposits) {
+                return 0;
+            }
+            return balance - totalDeposits;
+        }
+
+        uint256 contractBalance = IERC20(TOKEN).balanceOf(address(this));
+        if (contractBalance <= totalDeposits) {
             return 0;
         }
-        return balance - totalDeposits;
+        return contractBalance - totalDeposits;
     }
 
     /**
@@ -129,8 +169,14 @@ abstract contract NovaFundingPoolBase is Ownable, ReentrancyGuard, Pausable {
         uint256 available = getAvailableYield();
         require(amount <= available, "Exceeds available yield");
 
-        uint256 withdrawn = AAVE_POOL.withdraw(TOKEN, amount, recipient);
-        require(withdrawn == amount, "Yield withdraw mismatch");
+        uint256 withdrawn;
+        if (useAave) {
+            withdrawn = AAVE_POOL.withdraw(TOKEN, amount, recipient);
+            require(withdrawn == amount, "Yield withdraw mismatch");
+        } else {
+            IERC20(TOKEN).transfer(recipient, amount);
+            withdrawn = amount;
+        }
 
         emit YieldWithdrawn(recipient, amount);
     }
@@ -143,5 +189,3 @@ abstract contract NovaFundingPoolBase is Ownable, ReentrancyGuard, Pausable {
     receive() external payable { revert(); }
     fallback() external payable { revert(); }
 }
-
-

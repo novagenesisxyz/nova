@@ -8,9 +8,8 @@ import "../../src/NovaFundingPoolBase.sol";
  * In tests we will deploy with mocked Aave Pool at the provider address located in the base.
  */
 contract TestFundingPool is NovaFundingPoolBase {
-    constructor(address nogeToken, address token, uint256 decimalsFactor)
-        NovaFundingPoolBase(nogeToken, token, decimalsFactor)
+    constructor(address nogeToken, address token, uint256 decimalsFactor, address provider)
+        NovaFundingPoolBase(nogeToken, token, decimalsFactor, provider)
     {}
 }
-
 

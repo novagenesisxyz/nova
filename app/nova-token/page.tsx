@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import Link from "next/link";
 import Navbar from "@/components/Navbar";
+import GenesisProgress from "@/components/GenesisProgress";
 import {
   AlertTriangle,
   BarChart3,
@@ -55,7 +56,7 @@ const supporterBenefits = [
   {
     title: "Transparent reporting",
     description:
-      "Monthly updates will show reserve holdings, protocol costs, and impact allocations—starting with the Genesis pool itself.",
+      "Monthly updates will show reserve holdings, protocol costs, and impact allocations—starting with the NOVA Genesis pool itself.",
   },
 ];
 
@@ -71,7 +72,7 @@ const principles = [
   {
     title: "Regulatory-first posture",
     description:
-      "Nova is designed around GENIUS Act requirements and money transmission rules. Compliance partners are part of the Genesis budget.",
+      "Nova is designed around GENIUS Act requirements and money transmission rules. Compliance partners are part of the NOVA Genesis budget.",
     icon: Shield,
     iconBg: "bg-green-500/20",
     iconColor: "text-green-400",
@@ -137,8 +138,8 @@ export default function NovaTokenPage() {
               NOVA Stablecoin Preview
             </h1>
             <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-              NOVA will be a fully-backed USD stablecoin where most reserve yield supports
-              public goods. Today we are raising the Genesis pool so we can build the
+              NOVA will be a fully-backed USD stablecoin where reserve yield supports
+              public goods. Today we are raising the NOVA Genesis pool so we can build the
               infrastructure, secure audits, and launch NOVA with transparent reserves.
             </p>
 
@@ -157,6 +158,10 @@ export default function NovaTokenPage() {
               </Link>
             </div>
           </motion.div>
+
+          <div className="mb-12">
+            <GenesisProgress compact />
+          </div>
 
           {/* Roadmap */}
           <motion.div

@@ -35,7 +35,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "contracts:test": "forge test",
+    "contracts:deploy:sepolia": "forge script script/Deploy.s.sol:DeployScript --rpc-url sepolia --broadcast"
   },
   "keywords": [],
   "author": "",

@@ -1,13 +1,11 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.20;
 
-import {IPoolAddressesProvider} from "../../lib/aave-v3-core/contracts/interfaces/IPoolAddressesProvider.sol";
-import {IPool} from "../../lib/aave-v3-core/contracts/interfaces/IPool.sol";
-import {DataTypes} from "../../lib/aave-v3-core/contracts/protocol/libraries/types/DataTypes.sol";
+import "../../src/NovaFundingPoolBase.sol";
 import "./MockAToken.sol";
 import "./MockERC20.sol";
 
-contract MockAddressesProvider is IPoolAddressesProvider {
+contract MockAddressesProvider is IAaveAddressesProvider {
     address private _pool;
     constructor(address pool_) { _pool = pool_; }
     function getMarketId() external view returns (string memory) { return "MOCK"; }
@@ -34,7 +32,7 @@ contract MockAddressesProvider is IPoolAddressesProvider {
     function getRoleManager() external view returns (address) { return address(0); }
 }
 
-contract MockPool is IPool {
+contract MockPool is IAavePool {
     MockAddressesProvider public provider;
     address public aToken;
     address public asset;
@@ -45,11 +43,11 @@ contract MockPool is IPool {
         provider = new MockAddressesProvider(address(this));
     }
 
-    function ADDRESSES_PROVIDER() external view returns (IPoolAddressesProvider) {
+    function ADDRESSES_PROVIDER() external view returns (IAaveAddressesProvider) {
         return provider;
     }
 
-    function getReserveData(address) external view returns (DataTypes.ReserveData memory data) {
+    function getReserveData(address) external view returns (ReserveData memory data) {
         data.aTokenAddress = aToken;
     }
 
@@ -70,6 +68,11 @@ contract MockPool is IPool {
         return amount;
     }
 
+    // Testing helpers
+    function mintYieldShares(address to, uint256 amount) external {
+        MockAToken(aToken).mint(to, amount);
+    }
+
     // -------- unused interface parts below (no-op) --------
     function mintUnbacked(address, uint256, address, uint16) external {}
     function backUnbacked(address, uint256, uint256) external returns (uint256) { return 0; }
@@ -88,9 +91,9 @@ contract MockPool is IPool {
     function initReserve(address, address, address, address, address) external {}
     function dropReserve(address) external {}
     function setReserveInterestRateStrategyAddress(address, address) external {}
-    function setConfiguration(address, DataTypes.ReserveConfigurationMap calldata) external {}
-    function getConfiguration(address) external view returns (DataTypes.ReserveConfigurationMap memory) { return DataTypes.ReserveConfigurationMap(0); }
-    function getUserConfiguration(address) external view returns (DataTypes.UserConfigurationMap memory) { return DataTypes.UserConfigurationMap(0); }
+    function setConfiguration(address, bytes32) external {}
+    function getConfiguration(address) external view returns (bytes32) { return bytes32(0); }
+    function getUserConfiguration(address) external view returns (bytes32) { return bytes32(0); }
     function getReserveNormalizedIncome(address) external view returns (uint256) { return 0; }
     function getReserveNormalizedVariableDebt(address) external view returns (uint256) { return 0; }
     function finalizeTransfer(address, address, address, uint256, uint256, uint256) external {}
@@ -98,8 +101,8 @@ contract MockPool is IPool {
     function getReserveAddressById(uint16) external view returns (address) { return address(0); }
     function updateBridgeProtocolFee(uint256) external {}
     function updateFlashloanPremiums(uint128, uint128) external {}
-    function configureEModeCategory(uint8, DataTypes.EModeCategory memory) external {}
-    function getEModeCategoryData(uint8) external view returns (DataTypes.EModeCategory memory) { return DataTypes.EModeCategory(0,0,0,address(0),""); }
+    function configureEModeCategory(uint8, bytes32) external {}
+    function getEModeCategoryData(uint8) external view returns (bytes32) { return bytes32(0); }
     function setUserEMode(uint8) external {}
     function getUserEMode(address) external view returns (uint256) { return 0; }
     function resetIsolationModeTotalDebt(address) external {}
@@ -112,5 +115,3 @@ contract MockPool is IPool {
     function rescueTokens(address, address, uint256) external {}
     function deposit(address, uint256, address, uint16) external {}
 }
-
-

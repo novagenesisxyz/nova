@@ -36,7 +36,7 @@ export default function TransparencyPage() {
             </div>
             <h1 className="text-5xl font-bold text-white mb-3">Transparency Ledger</h1>
             <p className="text-gray-300 max-w-2xl mx-auto">
-              This page shows how we will report protocol costs and public-good allocations once NOVA launches. All numbers below are illustrative placeholders while the Genesis campaign is live.
+              This page shows how we will report protocol costs and public-good allocations once NOVA launches. All numbers below are illustrative placeholders while the NOVA Genesis campaign is live.
             </p>
           </motion.div>
 
@@ -44,7 +44,7 @@ export default function TransparencyPage() {
             <div className="flex items-start gap-3">
               <AlertCircle className="w-5 h-5 mt-0.5" />
               <p className="text-sm leading-relaxed">
-                Live wallet addresses, attestations, and CSV downloads will go online with the NOVA launch. Until then, follow the Genesis plan and deposit USDC to mint NOGE receipts.
+                Live wallet addresses, attestations, and CSV downloads will go online with the NOVA launch. Until then, follow the NOVA Genesis plan and deposit USDC to mint NOGE receipts.
               </p>
             </div>
             <button

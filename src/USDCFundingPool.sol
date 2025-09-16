@@ -8,12 +8,8 @@ import "./NovaFundingPoolBase.sol";
  * @notice Single-asset pool for USDC deposits
  */
 contract USDCFundingPool is NovaFundingPoolBase {
-    // Mainnet USDC address
-    address public constant USDC = 0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48;
-
-    constructor(address _nogeToken)
-        NovaFundingPoolBase(_nogeToken, USDC, 1e12) // 6 -> 18 decimals
+    constructor(address _nogeToken, address _usdc, address _addressesProvider)
+        NovaFundingPoolBase(_nogeToken, _usdc, 1e12, _addressesProvider) // 6 -> 18 decimals
     {}
 }
-
 

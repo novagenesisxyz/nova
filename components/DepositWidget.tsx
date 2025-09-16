@@ -2,80 +2,105 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { Wallet, Info, Loader2 } from "lucide-react";
-import { useAccount, useBalance, useReadContract, useWriteContract, useWaitForTransactionReceipt } from "wagmi";
+import { Wallet, Info, Loader2, AlertTriangle } from "lucide-react";
+import {
+  useAccount,
+  useBalance,
+  useReadContract,
+  useWriteContract,
+  useWaitForTransactionReceipt,
+} from "wagmi";
 import { parseUnits, formatUnits } from "viem";
 import { useConnectModal } from "@rainbow-me/rainbowkit";
 import { FUNDING_POOL_ABI, ERC20_ABI, CONTRACTS } from "@/lib/contracts";
 
-const token = { symbol: "USDC", address: CONTRACTS.USDC, decimals: 6 } as const;
+const TOKEN_SYMBOL = "USDC";
+const TOKEN_DECIMALS = 6;
 
 export default function DepositWidget() {
   const [amount, setAmount] = useState("");
   const [activeTab, setActiveTab] = useState<"deposit" | "withdraw">("deposit");
 
-  const getPoolAddress = () => CONTRACTS.FUNDING_POOL;
-
   const { address, isConnected } = useAccount();
   const { openConnectModal } = useConnectModal();
   const [isPending, setIsPending] = useState(false);
 
-  const { data: tokenBalance } = useBalance({ address, token: token.address });
+  const poolAddress = CONTRACTS.FUNDING_POOL;
+  const usdcAddress = CONTRACTS.USDC;
+  const nogeAddress = CONTRACTS.NOGE_TOKEN;
+  const isConfigured = Boolean(poolAddress && usdcAddress && nogeAddress);
+
+  const { data: tokenBalance } = useBalance({
+    address,
+    token: usdcAddress,
+    query: { enabled: Boolean(isConfigured && address && usdcAddress) },
+  });
 
   const { data: poolTotalDeposits } = useReadContract({
-    address: getPoolAddress(),
+    address: poolAddress,
     abi: FUNDING_POOL_ABI,
     functionName: "totalDeposits",
     args: [],
+    query: { enabled: isConfigured },
   });
 
   const { data: nogeBalance } = useBalance({
-    address: address,
-    token: CONTRACTS.NOGE_TOKEN,
+    address,
+    token: nogeAddress,
+    query: { enabled: Boolean(isConfigured && address && nogeAddress) },
   });
 
   const { writeContract: approve, data: approveHash } = useWriteContract();
   const { writeContract: deposit, data: depositHash } = useWriteContract();
   const { writeContract: withdraw, data: withdrawHash } = useWriteContract();
 
-  const { isLoading: isApproving } = useWaitForTransactionReceipt({
-    hash: approveHash,
-  });
+  const { isLoading: isApproving } = useWaitForTransactionReceipt({ hash: approveHash });
+  const { isLoading: isDepositing } = useWaitForTransactionReceipt({ hash: depositHash });
+  const { isLoading: isWithdrawing } = useWaitForTransactionReceipt({ hash: withdrawHash });
 
-  const { isLoading: isDepositing } = useWaitForTransactionReceipt({
-    hash: depositHash,
-  });
-
-  const { isLoading: isWithdrawing } = useWaitForTransactionReceipt({
-    hash: withdrawHash,
-  });
+  if (!isConfigured || !poolAddress || !usdcAddress || !nogeAddress) {
+    return (
+      <div className="max-w-md mx-auto">
+        <div className="bg-purple-500/10 border border-purple-500/30 rounded-2xl p-6 text-purple-100">
+          <div className="flex items-start gap-3">
+            <AlertTriangle className="w-6 h-6 mt-1" />
+            <div>
+              <h3 className="text-lg font-semibold mb-2">Contracts not configured</h3>
+              <p className="text-sm leading-relaxed">
+                Missing contract addresses. Deploy the contracts (e.g. <code className="font-mono">make deploy-sepolia</code>)
+                and add the printed values for <code className="font-mono">NEXT_PUBLIC_FUNDING_POOL_USDC_ADDRESS</code>,
+                <code className="font-mono">NEXT_PUBLIC_NOGE_TOKEN_ADDRESS</code>, and <code className="font-mono">NEXT_PUBLIC_USDC_ADDRESS</code>
+                to your environment.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   const handleDeposit = async () => {
     if (!amount || parseFloat(amount) <= 0 || !address) return;
 
     try {
       setIsPending(true);
-      const amountInWei = parseUnits(amount, token.decimals);
+      const amountInWei = parseUnits(amount, TOKEN_DECIMALS);
 
-      // First approve the token spend
       await approve({
-        address: token.address,
+        address: usdcAddress,
         abi: ERC20_ABI,
         functionName: "approve",
-        args: [getPoolAddress(), amountInWei],
+        args: [poolAddress, amountInWei],
       });
 
-      // Wait a moment for approval to process
       setTimeout(async () => {
-        // Then deposit
         await deposit({
-          address: getPoolAddress(),
+          address: poolAddress,
           abi: FUNDING_POOL_ABI,
           functionName: "deposit",
           args: [amountInWei],
         });
       }, 2000);
-
     } catch (error) {
       console.error("Deposit error:", error);
     } finally {
@@ -88,16 +113,14 @@ export default function DepositWidget() {
 
     try {
       setIsPending(true);
-      const amountInWei = parseUnits(amount, token.decimals);
+      const amountInWei = parseUnits(amount, TOKEN_DECIMALS);
 
-      // Directly withdraw (pool burns NOGE, no approval required)
       await withdraw({
-        address: getPoolAddress(),
+        address: poolAddress,
         abi: FUNDING_POOL_ABI,
         functionName: "withdraw",
         args: [amountInWei],
       });
-
     } catch (error) {
       console.error("Withdraw error:", error);
     } finally {
@@ -107,14 +130,14 @@ export default function DepositWidget() {
 
   const handleMaxClick = () => {
     if (activeTab === "deposit" && tokenBalance) {
-      setAmount(formatUnits(tokenBalance.value, token.decimals));
+      setAmount(formatUnits(tokenBalance.value, TOKEN_DECIMALS));
     } else if (activeTab === "withdraw") {
-      const factor = BigInt(10) ** BigInt(12); // 18 -> 6
-      const noge = nogeBalance?.value ?? BigInt(0);
+      const factor = BigInt(10) ** BigInt(12);
+      const noge = nogeBalance?.value ?? 0n;
       const claimableByNoge = noge / factor;
-      const poolCap = (poolTotalDeposits as bigint | undefined) ?? BigInt(0);
+      const poolCap = (poolTotalDeposits as bigint | undefined) ?? 0n;
       const maxOut = claimableByNoge < poolCap ? claimableByNoge : poolCap;
-      setAmount(formatUnits(maxOut, token.decimals));
+      setAmount(formatUnits(maxOut, TOKEN_DECIMALS));
     }
   };
 
@@ -130,9 +153,7 @@ export default function DepositWidget() {
           <button
             onClick={() => setActiveTab("deposit")}
             className={`flex-1 py-2 px-4 rounded-md font-semibold transition-all ${
-              activeTab === "deposit"
-                ? "bg-purple-600 text-white"
-                : "text-gray-400 hover:text-white"
+              activeTab === "deposit" ? "bg-purple-600 text-white" : "text-gray-400 hover:text-white"
             }`}
           >
             Deposit
@@ -140,9 +161,7 @@ export default function DepositWidget() {
           <button
             onClick={() => setActiveTab("withdraw")}
             className={`flex-1 py-2 px-4 rounded-md font-semibold transition-all ${
-              activeTab === "withdraw"
-                ? "bg-purple-600 text-white"
-                : "text-gray-400 hover:text-white"
+              activeTab === "withdraw" ? "bg-purple-600 text-white" : "text-gray-400 hover:text-white"
             }`}
           >
             Withdraw
@@ -157,16 +176,18 @@ export default function DepositWidget() {
               <div className="text-xs text-gray-400">
                 {activeTab === "deposit" ? "Balance: " : "Max Withdrawable: "}
                 {activeTab === "deposit"
-                  ? tokenBalance ? formatUnits(tokenBalance.value, token.decimals).slice(0, 10) : "0"
+                  ? tokenBalance
+                    ? formatUnits(tokenBalance.value, TOKEN_DECIMALS).slice(0, 10)
+                    : "0"
                   : (() => {
                       const factor = BigInt(10) ** BigInt(12);
-                      const noge = nogeBalance?.value ?? BigInt(0);
+                      const noge = nogeBalance?.value ?? 0n;
                       const claimableByNoge = noge / factor;
-                      const poolCap = (poolTotalDeposits as bigint | undefined) ?? BigInt(0);
+                      const poolCap = (poolTotalDeposits as bigint | undefined) ?? 0n;
                       const maxOut = claimableByNoge < poolCap ? claimableByNoge : poolCap;
-                      return formatUnits(maxOut, token.decimals).slice(0, 10);
-                    })()
-                } USDC
+                      return formatUnits(maxOut, TOKEN_DECIMALS).slice(0, 10);
+                    })()}{" "}
+                {TOKEN_SYMBOL}
               </div>
             )}
           </div>
@@ -211,13 +232,13 @@ export default function DepositWidget() {
               <p className="text-lg font-semibold text-white">
                 {(() => {
                   const factor = BigInt(10) ** BigInt(12);
-                  const noge = nogeBalance?.value ?? BigInt(0);
+                  const noge = nogeBalance?.value ?? 0n;
                   const claimableByNoge = noge / factor;
-                  const poolCap = (poolTotalDeposits as bigint | undefined) ?? BigInt(0);
+                  const poolCap = (poolTotalDeposits as bigint | undefined) ?? 0n;
                   const maxOut = claimableByNoge < poolCap ? claimableByNoge : poolCap;
-                  return formatUnits(maxOut, token.decimals).slice(0, 10);
+                  return formatUnits(maxOut, TOKEN_DECIMALS).slice(0, 10);
                 })()}
-                <span className="text-sm text-gray-400 ml-1">{token.symbol}</span>
+                <span className="text-sm text-gray-400 ml-1">{TOKEN_SYMBOL}</span>
               </p>
             </div>
             <div className="bg-black/30 rounded-lg p-3">
@@ -253,12 +274,17 @@ export default function DepositWidget() {
               {(isPending || isApproving || isDepositing || isWithdrawing) && (
                 <Loader2 className="w-5 h-5 animate-spin" />
               )}
-              {isPending || isApproving ? "Approving..." :
-               isDepositing ? "Depositing..." :
-               isWithdrawing ? "Withdrawing..." :
-               activeTab === "deposit" ? "Deposit" : "Withdraw"}
+              {isPending || isApproving
+                ? "Approving..."
+                : isDepositing
+                ? "Depositing..."
+                : isWithdrawing
+                ? "Withdrawing..."
+                : activeTab === "deposit"
+                ? "Deposit"
+                : "Withdraw"}
               {!(isPending || isApproving || isDepositing || isWithdrawing) && (
-                <> {amount || "0"} {token.symbol}</>
+                <> {amount || "0"} {TOKEN_SYMBOL}</>
               )}
             </motion.button>
 

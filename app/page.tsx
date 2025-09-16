@@ -18,7 +18,9 @@ import {
   AlertCircle,
   Clock,
 } from "lucide-react";
+import faqs from "@/lib/faqs";
 import DepositWidget from "@/components/DepositWidget";
+import GenesisProgress from "@/components/GenesisProgress";
 
 export default function Home() {
   return (
@@ -75,24 +77,6 @@ export default function Home() {
               </motion.button>
             </div>
 
-            {/* Early Supporter Benefits */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto">
-              <div className="bg-white/5 backdrop-blur-lg rounded-xl p-4 border border-white/10">
-                <Users className="w-6 h-6 text-purple-400 mx-auto mb-2" />
-                <p className="text-sm font-semibold text-white">Advise yield</p>
-                <p className="text-xs text-gray-400">Public goods you choose</p>
-              </div>
-              <div className="bg-white/5 backdrop-blur-lg rounded-xl p-4 border border-white/10">
-                <CheckCircle className="w-6 h-6 text-green-400 mx-auto mb-2" />
-                <p className="text-sm font-semibold text-white">Withdraw anytime</p>
-                <p className="text-xs text-gray-400">Receipts redeem 1:1</p>
-              </div>
-              <div className="bg-white/5 backdrop-blur-lg rounded-xl p-4 border border-white/10">
-                <Shield className="w-6 h-6 text-blue-400 mx-auto mb-2" />
-                <p className="text-sm font-semibold text-white">Audited + transparent</p>
-                <p className="text-xs text-gray-400">Non-custodial, on-chain</p>
-              </div>
-            </div>
           </motion.div>
         </div>
       </section>
@@ -117,7 +101,7 @@ export default function Home() {
                   <Coins className="w-4 h-4 text-purple-400" />
                   Bootstrap with USDC
                 </div>
-                <p className="text-gray-300 text-sm">Pool USDC in Aave; yield funds development. Community‑owned.</p>
+                <p className="text-gray-300 text-sm">Pool USDC in Aave; yield funds development. Community‑owned. No outside investors.</p>
               </div>
               <div className="bg-black/30 rounded-xl p-4 border border-white/10">
                 <div className="text-sm text-gray-400 mb-1">Phase 2</div>
@@ -362,9 +346,13 @@ export default function Home() {
             viewport={{ once: true }}
           >
             <h2 className="text-4xl font-bold text-white text-center mb-8">Join the Genesis</h2>
-            <p className="text-xl text-gray-300 text-center mb-12">
+            <p className="text-xl text-gray-300 text-center mb-8">
               Connect your wallet to deposit USDC and receive NOGE (NOVA Genesis) receipt tokens.
             </p>
+
+            <div className="mb-8">
+              <GenesisProgress />
+            </div>
 
             <DepositWidget />
             <div className="mt-8 space-y-6">
@@ -426,44 +414,20 @@ export default function Home() {
           </h2>
 
           <div className="space-y-6">
-            <motion.div
-              whileHover={{ scale: 1.02 }}
-              className="bg-white/5 backdrop-blur-lg rounded-xl p-6 border border-white/10"
-            >
-              <h3 className="text-xl font-semibold text-white mb-3">
-                When can I withdraw my funds?
-              </h3>
-              <p className="text-gray-300">
-                You can withdraw your principal at any time using your NOGE (NOVA Genesis) tokens. There are no lock-ups or penalties.
-              </p>
-            </motion.div>
-
-
-
-            <motion.div
-              whileHover={{ scale: 1.02 }}
-              className="bg-white/5 backdrop-blur-lg rounded-xl p-6 border border-white/10"
-            >
-              <h3 className="text-xl font-semibold text-white mb-3">
-                What happens to the interest earned during the genesis phase?
-              </h3>
-              <p className="text-gray-300">
-                During the genesis phase, Aave interest is retained by the pool to support Nova’s development and operations. Your principal remains withdrawable at any time. Future phases may direct funds to public-good initiatives.
-              </p>
-            </motion.div>
-
-            <motion.div
-              whileHover={{ scale: 1.02 }}
-              className="bg-white/5 backdrop-blur-lg rounded-xl p-6 border border-white/10"
-            >
-              <h3 className="text-xl font-semibold text-white mb-3">
-                Is this audited and secure?
-              </h3>
-              <p className="text-gray-300">
-                Yes, our smart contracts are audited and use battle-tested protocols like
-                Aave V3 for liquidity management. All code is open-source and verifiable on-chain.
-              </p>
-            </motion.div>
+            {faqs.map((faq, index) => (
+              <motion.div
+                key={faq.question}
+                whileHover={{ scale: 1.02 }}
+                className="bg-white/5 backdrop-blur-lg rounded-xl p-6 border border-white/10"
+              >
+                <h3 className="text-xl font-semibold text-white mb-3">
+                  {faq.question}
+                </h3>
+                <p className="text-gray-300">
+                  {faq.answer}
+                </p>
+              </motion.div>
+            ))}
           </div>
         </div>
       </section>

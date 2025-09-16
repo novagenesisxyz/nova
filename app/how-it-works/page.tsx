@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import Link from "next/link";
 import Navbar from "@/components/Navbar";
+import GenesisProgress from "@/components/GenesisProgress";
 import {
   Wallet,
   ArrowRight,
@@ -12,18 +13,13 @@ import {
   Heart,
   Users,
   Shield,
-  ChevronDown,
-  ChevronUp,
   Zap,
   Coins,
   Target,
   Gift,
 } from "lucide-react";
-import { useState } from "react";
 
 export default function HowItWorksPage() {
-  const [openFaq, setOpenFaq] = useState<number | null>(null);
-
   const steps = [
     {
       icon: Wallet,
@@ -36,7 +32,7 @@ export default function HowItWorksPage() {
       icon: DollarSign,
       title: "Deposit USDC",
       description:
-        "Choose how much USDC to contribute to the Genesis pool. The demo uses a Sepolia fork, but production will be Ethereum mainnet.",
+        "Choose how much USDC to contribute to the NOVA Genesis pool. The demo uses a Sepolia fork, but production will be Ethereum mainnet.",
       color: "blue",
     },
     {
@@ -73,39 +69,6 @@ export default function HowItWorksPage() {
       title: "Fully Transparent",
       description:
         "On-chain receipts and clear reporting of protocol costs, allocations, and impact.",
-    },
-  ];
-
-  const faqs = [
-    {
-      question: "What is a stablecoin?",
-      answer:
-        "A stablecoin is a type of cryptocurrency designed to maintain a stable value relative to a reference asset, like the US Dollar. USDC, DAI, and NOVA are designed for stability rather than speculation, making them suitable for supporting public goods.",
-    },
-    {
-      question: "What is staking?",
-      answer:
-        "Staking means locking your stablecoins to support a specific project. Think of it like casting a vote with your money - the more people stake to a project, the more funding it can receive from the platform. You can unstake and get your money back after the funding period.",
-    },
-    {
-      question: "How does quadratic funding work?",
-      answer:
-        "Quadratic funding is a democratic way to distribute funds. It amplifies the impact of smaller contributors - the number of people supporting a project matters more than the amount each person gives. This ensures popular projects with broad support get more funding.",
-    },
-    {
-      question: "What is NOVA?",
-      answer:
-        "NOVA is our stablecoin. It’s designed so most yield supports public goods, while a minimal, transparent portion covers protocol operations like compliance and security. Public-good categories may roll out starting with research.",
-    },
-    {
-      question: "How do public-good initiatives receive funds?",
-      answer:
-        "Initiatives receive funds in stablecoins directly to their project wallets. Funding can be released by milestones for accountability. All transactions are transparent and tracked on-chain.",
-    },
-    {
-      question: "Is this safe?",
-      answer:
-        "Yes. Smart contracts are audited and non-custodial, and we follow GENIUS Act requirements. We publish clear disclosures about protocol costs and allocations.",
     },
   ];
 
@@ -152,6 +115,9 @@ export default function HowItWorksPage() {
             transition={{ delay: 0.2 }}
             className="mb-20"
           >
+            <div className="mb-12">
+              <GenesisProgress compact />
+            </div>
             <h2 className="text-3xl font-bold text-white text-center mb-12">
               What Happens to Your Deposit Today
             </h2>
@@ -326,9 +292,9 @@ export default function HowItWorksPage() {
             className="mb-20"
           >
             <div className="bg-gradient-to-r from-purple-900/30 to-blue-900/30 backdrop-blur-lg rounded-2xl p-8 border border-purple-500/30">
-              <h2 className="text-3xl font-bold text-white mb-4">Where Genesis Leads</h2>
+              <h2 className="text-3xl font-bold text-white mb-4">Where NOVA Genesis Leads</h2>
               <p className="text-gray-300 mb-6 max-w-3xl">
-                NOVA will debut once the Genesis pool hits its target and regulatory preparations finish. Until then we operate with a public roadmap so supporters know the milestones they are underwriting.
+                NOVA will debut once the NOVA Genesis pool is large enough to make the project self-sustainable and regulatory preparations finish. Until then we operate with a public roadmap so supporters know the milestones they are underwriting.
               </p>
 
               <h3 className="text-lg font-semibold text-white mb-2">Current focus</h3>
@@ -344,51 +310,6 @@ export default function HowItWorksPage() {
                 <li>Launch NOVA mint/redeem portal with real-time attestations.</li>
                 <li>Open quadratic funding seasons for public-good initiatives.</li>
               </ul>
-            </div>
-          </motion.div>
-
-          {/* FAQ Section */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.7 }}
-            className="mb-20"
-          >
-            <h2 className="text-3xl font-bold text-white text-center mb-12">
-              Frequently Asked Questions
-            </h2>
-
-            <div className="max-w-3xl mx-auto space-y-4">
-              {faqs.map((faq, index) => (
-                <motion.div
-                  key={index}
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: 0.05 * index }}
-                  className="bg-white/5 backdrop-blur-lg rounded-xl border border-white/10 overflow-hidden"
-                >
-                  <button
-                    onClick={() => setOpenFaq(openFaq === index ? null : index)}
-                    className="w-full px-6 py-4 text-left flex items-center justify-between hover:bg-white/5 transition-colors"
-                  >
-                    <span className="text-lg font-medium text-white">
-                      {faq.question}
-                    </span>
-                    {openFaq === index ? (
-                      <ChevronUp className="w-5 h-5 text-purple-400" />
-                    ) : (
-                      <ChevronDown className="w-5 h-5 text-gray-400" />
-                    )}
-                  </button>
-                  {openFaq === index && (
-                    <div className="px-6 pb-4">
-                      <p className="text-gray-300 leading-relaxed">
-                        {faq.answer}
-                      </p>
-                    </div>
-                  )}
-                </motion.div>
-              ))}
             </div>
           </motion.div>
 

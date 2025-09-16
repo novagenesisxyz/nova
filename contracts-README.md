@@ -36,7 +36,7 @@ forge install
 
 # Copy environment variables
 cp .env.foundry.example .env.foundry
-# Edit .env.foundry with your keys
+# Edit .env.foundry with your RPC URL, private key, and optional overrides.
 ```
 
 ### Build
@@ -77,9 +77,19 @@ make deploy-local
 ### Testnet (Sepolia)
 
 ```bash
-# Deploy to Sepolia
+# Deploy to Sepolia (uses .env.foundry)
 make deploy-sepolia
 ```
+
+> 💡 If `USDC_ADDRESS` is not provided in `.env.foundry`, the deploy script will
+> automatically deploy a `MockUSDC` token (6 decimals) and mint 1,000,000 tokens
+> to the deployer wallet for testing. By default the script uses the official
+> Aave v3 Pool Addresses Provider via the
+> [Aave address book](https://github.com/bgd-labs/aave-address-book)
+> dependency (0xA97684ead0E402dC232d5A977953DF7ECBaB3CDb on mainnet,
+> 0x012bAC54348C0E635dCAc9D5FB99f06F24136C9A on Sepolia). Set
+> `AAVE_ADDRESSES_PROVIDER` in `.env.foundry` only if you need to override this
+> behavior.
 
 ### Mainnet
 
@@ -90,11 +100,13 @@ make deploy-mainnet
 
 ## Contract Addresses
 
-After deployment, add these addresses to your `.env` file:
+After deployment, add these addresses to your `.env.local` file for the frontend:
 
 ```
 NEXT_PUBLIC_NOGE_TOKEN_ADDRESS=0x...
-NEXT_PUBLIC_FUNDING_POOL_ADDRESS=0x...
+NEXT_PUBLIC_FUNDING_POOL_USDC_ADDRESS=0x...
+NEXT_PUBLIC_USDC_ADDRESS=0x...
+NEXT_PUBLIC_GENESIS_GOAL_USDC=5000000
 ```
 
 ## Key Functions

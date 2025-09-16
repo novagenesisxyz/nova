@@ -61,6 +61,11 @@ git push -u origin main
 Add these in Vercel Dashboard > Settings > Environment Variables:
 ```
 NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID=your_actual_project_id
+NEXT_PUBLIC_SEPOLIA_RPC_URL=https://sepolia.infura.io/v3/your_key
+NEXT_PUBLIC_FUNDING_POOL_USDC_ADDRESS=0x...
+NEXT_PUBLIC_NOGE_TOKEN_ADDRESS=0x...
+NEXT_PUBLIC_USDC_ADDRESS=0x...
+NEXT_PUBLIC_GENESIS_GOAL_USDC=5000000
 NEXT_TELEMETRY_DISABLED=1
 ```
 
@@ -84,7 +89,18 @@ Click "Deploy" and wait for the build to complete.
 ### Environment Variables for Production
 Make sure to update these in Vercel Dashboard:
 - `NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID` - Get from WalletConnect Cloud
+- `NEXT_PUBLIC_SEPOLIA_RPC_URL` - RPC endpoint for Sepolia (Infura, Alchemy, etc.)
+- `NEXT_PUBLIC_FUNDING_POOL_USDC_ADDRESS` - Funding pool deployed address
+- `NEXT_PUBLIC_NOGE_TOKEN_ADDRESS` - NOGE token deployed address
+- `NEXT_PUBLIC_USDC_ADDRESS` - Stablecoin used for Genesis deposits (MockUSDC on testnets)
+- `NEXT_PUBLIC_GENESIS_GOAL_USDC` - USDC amount you’re targeting for the Genesis raise
 - Any other API keys or secrets you add later
+
+> The Foundry deploy script automatically selects Aave’s official Pool Addresses Provider
+> via the [Aave address book](https://github.com/bgd-labs/aave-address-book)
+> dependency (0xA97684ead0E402dC232d5A977953DF7ECBaB3CDb for Ethereum mainnet and
+> 0x012bAC54348C0E635dCAc9D5FB99f06F24136C9A for Sepolia). Set `AAVE_ADDRESSES_PROVIDER`
+> in `.env.foundry` only if you need to override this behavior.
 
 ## Monitoring
 
