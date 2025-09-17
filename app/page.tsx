@@ -45,7 +45,7 @@ export default function Home() {
               <span className="text-sm text-purple-300">Genesis phase underway</span>
             </div>
 
-            <h1 className="text-6xl md:text-7xl font-bold text-white mb-6">
+            <h1 className="text-6xl md:text-7xl font-bold text-white leading-tight md:leading-[1.15] mb-6">
               Stablecoins keep your yield
               <span className="block text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-blue-400">
                 Nova funds public goods
