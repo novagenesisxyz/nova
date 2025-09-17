@@ -75,26 +75,32 @@ export function FundingPoolProvider({ children }: { children: ReactNode }) {
 
     try {
       const [totalDeposits, usdcBalance, nogeBalance] = await Promise.all([
-        client.readContract({
-          address: poolAddress,
-          abi: FUNDING_POOL_ABI,
-          functionName: "totalDeposits",
-        }),
+        client
+          .readContract({
+            address: poolAddress,
+            abi: FUNDING_POOL_ABI,
+            functionName: "totalDeposits",
+          })
+          .then((value) => value as bigint),
         walletAddress
-          ? client.readContract({
-              address: usdcAddress,
-              abi: ERC20_ABI,
-              functionName: "balanceOf",
-              args: [walletAddress],
-            })
+          ? client
+              .readContract({
+                address: usdcAddress,
+                abi: ERC20_ABI,
+                functionName: "balanceOf",
+                args: [walletAddress],
+              })
+              .then((value) => value as bigint)
           : Promise.resolve<bigint>(0n),
         walletAddress
-          ? client.readContract({
-              address: nogeAddress,
-              abi: ERC20_ABI,
-              functionName: "balanceOf",
-              args: [walletAddress],
-            })
+          ? client
+              .readContract({
+                address: nogeAddress,
+                abi: ERC20_ABI,
+                functionName: "balanceOf",
+                args: [walletAddress],
+              })
+              .then((value) => value as bigint)
           : Promise.resolve<bigint>(0n),
       ]);
 
