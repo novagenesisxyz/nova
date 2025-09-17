@@ -1,0 +1,8 @@
+{
+  "lib/aave-address-book": {
+    "tag": {
+      "name": "v4.30.1",
+      "rev": "7fd3b94e6926ddb25d5f720649369eb02ae8f81b"
+    }
+  }
+}

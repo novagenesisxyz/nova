@@ -26,7 +26,7 @@
         "./*"
       ]
     },
-    "target": "ES2017"
+    "target": "ES2020"
   },
   "include": [
     "next-env.d.ts",
@@ -36,6 +36,7 @@
   ],
   "exclude": [
     "node_modules",
-    "lib/aave-v3-core"
+    "lib/aave-v3-core",
+    "lib/aave-address-book"
   ]
 }

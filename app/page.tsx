@@ -81,6 +81,48 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Vision Section */}
+      <section className="py-20 px-4 bg-gradient-to-b from-transparent to-purple-950/20">
+        <div className="max-w-4xl mx-auto">
+          <motion.div
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+            className="text-center"
+          >
+            <Heart className="w-16 h-16 text-purple-400 mx-auto mb-6" />
+            <h2 className="text-4xl font-bold text-white mb-6">
+              Building a Stablecoin That Gives Back
+            </h2>
+            <p className="text-lg text-gray-300 mb-8">
+              Nova will be the world's first stablecoin where interest from reserves
+              goes to fund public goods. By participating in our
+              bootstrap, you're directly helping create a new
+              financial primitive that automatically funds public goods.
+            </p>
+
+            <div className="grid md:grid-cols-3 gap-6 mt-12">
+              <div className="bg-white/5 backdrop-blur-lg rounded-xl p-6 border border-white/10">
+                <Globe className="w-8 h-8 text-blue-400 mx-auto mb-3" />
+                <h3 className="text-lg font-semibold text-white mb-2">Global Impact</h3>
+                <p className="text-sm text-gray-400">Fund education, healthcare, climate action, and more</p>
+              </div>
+              <div className="bg-white/5 backdrop-blur-lg rounded-xl p-6 border border-white/10">
+                <Users className="w-8 h-8 text-green-400 mx-auto mb-3" />
+                <h3 className="text-lg font-semibold text-white mb-2">Community Driven</h3>
+                <p className="text-sm text-gray-400">Transparent tracking of impact and beneficiaries</p>
+              </div>
+              <div className="bg-white/5 backdrop-blur-lg rounded-xl p-6 border border-white/10">
+                <TrendingUp className="w-8 h-8 text-purple-400 mx-auto mb-3" />
+                <h3 className="text-lg font-semibold text-white mb-2">Yield-Based Funding</h3>
+                <p className="text-sm text-gray-400">Your principal stays safe, only yield funds causes</p>
+              </div>
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
       {/* Genesis Plan */}
       <section className="py-14 px-4">
         <div className="max-w-6xl mx-auto">
@@ -224,10 +266,6 @@ export default function Home() {
                 <ul className="space-y-3 text-gray-300">
                   <li className="flex items-start gap-2">
                     <CheckCircle className="w-5 h-5 text-green-400 mt-0.5" />
-                    <span>Audited smart contracts on Ethereum mainnet</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <CheckCircle className="w-5 h-5 text-green-400 mt-0.5" />
                     <span>You can withdraw your deposits anytime</span>
                   </li>
                   <li className="flex items-start gap-2">
@@ -294,47 +332,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Vision Section */}
-      <section className="py-20 px-4 bg-gradient-to-b from-transparent to-purple-950/20">
-        <div className="max-w-4xl mx-auto">
-          <motion.div
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            transition={{ duration: 0.8 }}
-            viewport={{ once: true }}
-            className="text-center"
-          >
-            <Heart className="w-16 h-16 text-purple-400 mx-auto mb-6" />
-            <h2 className="text-4xl font-bold text-white mb-6">
-              Building a Stablecoin That Gives Back
-            </h2>
-            <p className="text-lg text-gray-300 mb-8">
-              Nova will be the world's first stablecoin where interest from reserves
-              goes to fund public goods. By participating in our
-              bootstrap, you're directly helping create a new
-              financial primitive that automatically funds public goods.
-            </p>
-
-            <div className="grid md:grid-cols-3 gap-6 mt-12">
-              <div className="bg-white/5 backdrop-blur-lg rounded-xl p-6 border border-white/10">
-                <Globe className="w-8 h-8 text-blue-400 mx-auto mb-3" />
-                <h3 className="text-lg font-semibold text-white mb-2">Global Impact</h3>
-                <p className="text-sm text-gray-400">Fund education, healthcare, climate action, and more</p>
-              </div>
-              <div className="bg-white/5 backdrop-blur-lg rounded-xl p-6 border border-white/10">
-                <Users className="w-8 h-8 text-green-400 mx-auto mb-3" />
-                <h3 className="text-lg font-semibold text-white mb-2">Community Driven</h3>
-                <p className="text-sm text-gray-400">Transparent tracking of impact and beneficiaries</p>
-              </div>
-              <div className="bg-white/5 backdrop-blur-lg rounded-xl p-6 border border-white/10">
-                <TrendingUp className="w-8 h-8 text-purple-400 mx-auto mb-3" />
-                <h3 className="text-lg font-semibold text-white mb-2">Sustainable Funding</h3>
-                <p className="text-sm text-gray-400">Sustainable on-chain funding for good causes</p>
-              </div>
-            </div>
-          </motion.div>
-        </div>
-      </section>
 
       {/* Deposit Section */}
       <section id="deposit-section" className="py-20 px-4">
@@ -347,7 +344,7 @@ export default function Home() {
           >
             <h2 className="text-4xl font-bold text-white text-center mb-8">Join the Genesis</h2>
             <p className="text-xl text-gray-300 text-center mb-8">
-              Connect your wallet to deposit USDC and receive NOGE (NOVA Genesis) receipt tokens.
+              Deposit USDC to build reserves. Your principal remains withdrawable - only the generated yield funds the protocol.
             </p>
 
             <div className="mb-8">
@@ -356,21 +353,6 @@ export default function Home() {
 
             <DepositWidget />
             <div className="mt-8 space-y-6">
-              <div className="flex flex-col sm:flex-row gap-3 sm:items-center bg-purple-500/10 border border-purple-500/30 rounded-xl p-4 text-purple-100">
-                <div className="flex items-start gap-3">
-                  <AlertCircle className="w-5 h-5 mt-0.5" />
-                  <p className="text-sm leading-relaxed">
-                    Genesis operates on audited smart contracts, but deposits still carry smart-contract and counterparty risk. Only deposit USDC you are comfortable holding in the pool until reserves migrate to the full NOVA treasury.
-                  </p>
-                </div>
-                <Link
-                  href="/how-it-works"
-                  className="inline-flex items-center justify-center gap-2 px-4 py-2 bg-white/10 hover:bg-white/20 text-white text-sm font-medium rounded-lg transition-colors"
-                >
-                  Learn the full plan
-                  <ArrowRight className="w-4 h-4" />
-                </Link>
-              </div>
 
               <div className="grid md:grid-cols-3 gap-4">
                 <div className="bg-white/5 backdrop-blur-lg rounded-xl p-5 border border-white/10">

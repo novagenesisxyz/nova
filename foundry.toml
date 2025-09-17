@@ -8,7 +8,9 @@ optimizer_runs = 200
 remappings = [
     "@openzeppelin/=lib/openzeppelin-contracts/",
     "@aave/=lib/aave-v3-core/",
-    "forge-std/=lib/forge-std/src/"
+    "forge-std/=lib/forge-std/src/",
+    "aave-address-book/=lib/aave-address-book/src/",
+    "aave-v3-origin/=lib/aave-address-book/lib/aave-v3-origin/src/"
 ]
 
 [etherscan]

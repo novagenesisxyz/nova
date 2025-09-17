@@ -1,21 +1,18 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { motion } from "framer-motion";
 import { Wallet, Info, Loader2, AlertTriangle } from "lucide-react";
-import {
-  useAccount,
-  useBalance,
-  useReadContract,
-  useWriteContract,
-  useWaitForTransactionReceipt,
-} from "wagmi";
+import { useAccount, useWriteContract, useWaitForTransactionReceipt } from "wagmi";
 import { parseUnits, formatUnits } from "viem";
 import { useConnectModal } from "@rainbow-me/rainbowkit";
-import { FUNDING_POOL_ABI, ERC20_ABI, CONTRACTS } from "@/lib/contracts";
+import { FUNDING_POOL_ABI, ERC20_ABI } from "@/lib/contracts";
+import { useFundingPool } from "@/hooks/useFundingPool";
 
 const TOKEN_SYMBOL = "USDC";
 const TOKEN_DECIMALS = 6;
+const NOGE_DECIMALS = 18;
+const NOGE_FACTOR = BigInt(10) ** BigInt(12);
 
 export default function DepositWidget() {
   const [amount, setAmount] = useState("");
@@ -25,38 +22,26 @@ export default function DepositWidget() {
   const { openConnectModal } = useConnectModal();
   const [isPending, setIsPending] = useState(false);
 
-  const poolAddress = CONTRACTS.FUNDING_POOL;
-  const usdcAddress = CONTRACTS.USDC;
-  const nogeAddress = CONTRACTS.NOGE_TOKEN;
-  const isConfigured = Boolean(poolAddress && usdcAddress && nogeAddress);
+  const {
+    status: poolStatus,
+    totalDeposits,
+    usdcBalance,
+    nogeBalance,
+    isConfigured,
+    addresses,
+    refetch,
+    error: poolError,
+  } = useFundingPool();
 
-  const { data: tokenBalance } = useBalance({
-    address,
-    token: usdcAddress,
-    query: { enabled: Boolean(isConfigured && address && usdcAddress) },
-  });
+  const poolAddress = addresses.pool;
+  const usdcAddress = addresses.usdc;
+  const nogeAddress = addresses.noge;
 
-  const { data: poolTotalDeposits } = useReadContract({
-    address: poolAddress,
-    abi: FUNDING_POOL_ABI,
-    functionName: "totalDeposits",
-    args: [],
-    query: { enabled: isConfigured },
-  });
-
-  const { data: nogeBalance } = useBalance({
-    address,
-    token: nogeAddress,
-    query: { enabled: Boolean(isConfigured && address && nogeAddress) },
-  });
-
-  const { writeContract: approve, data: approveHash } = useWriteContract();
-  const { writeContract: deposit, data: depositHash } = useWriteContract();
-  const { writeContract: withdraw, data: withdrawHash } = useWriteContract();
-
-  const { isLoading: isApproving } = useWaitForTransactionReceipt({ hash: approveHash });
-  const { isLoading: isDepositing } = useWaitForTransactionReceipt({ hash: depositHash });
-  const { isLoading: isWithdrawing } = useWaitForTransactionReceipt({ hash: withdrawHash });
+  useEffect(() => {
+    if (poolError) {
+      console.error("Funding pool data error", poolError);
+    }
+  }, [poolError]);
 
   if (!isConfigured || !poolAddress || !usdcAddress || !nogeAddress) {
     return (
@@ -79,6 +64,55 @@ export default function DepositWidget() {
     );
   }
 
+  const balancesLoading = poolStatus === "idle" || poolStatus === "loading";
+  const dataReady = poolStatus === "ready";
+
+  const formattedTokenBalance = useMemo(() => {
+    if (!isConnected) return "0";
+    if (balancesLoading || usdcBalance === null) return "…";
+    return formatUnits(usdcBalance, TOKEN_DECIMALS);
+  }, [isConnected, balancesLoading, usdcBalance]);
+
+  const formattedNogeBalance = useMemo(() => {
+    if (!isConnected) return "0";
+    if (balancesLoading || nogeBalance === null) return "…";
+    return formatUnits(nogeBalance, NOGE_DECIMALS);
+  }, [isConnected, balancesLoading, nogeBalance]);
+
+  const maxWithdrawableRaw = useMemo(() => {
+    if (!isConnected || !dataReady || nogeBalance === null || totalDeposits === null) {
+      return 0n;
+    }
+    const claimableByNoge = nogeBalance / NOGE_FACTOR;
+    return claimableByNoge < totalDeposits ? claimableByNoge : totalDeposits;
+  }, [isConnected, dataReady, nogeBalance, totalDeposits]);
+
+  const formattedMaxWithdrawable = useMemo(() => {
+    if (!isConnected) return "0";
+    if (!dataReady) return "…";
+    return formatUnits(maxWithdrawableRaw, TOKEN_DECIMALS);
+  }, [isConnected, dataReady, maxWithdrawableRaw]);
+
+  const { writeContract: approve, data: approveHash } = useWriteContract();
+  const { writeContract: deposit, data: depositHash } = useWriteContract();
+  const { writeContract: withdraw, data: withdrawHash } = useWriteContract();
+
+  const { isLoading: isApproving } = useWaitForTransactionReceipt({ hash: approveHash });
+  const {
+    isLoading: isDepositing,
+    isSuccess: depositSuccess,
+  } = useWaitForTransactionReceipt({ hash: depositHash });
+  const {
+    isLoading: isWithdrawing,
+    isSuccess: withdrawSuccess,
+  } = useWaitForTransactionReceipt({ hash: withdrawHash });
+
+  useEffect(() => {
+    if (depositSuccess || withdrawSuccess) {
+      void refetch();
+    }
+  }, [depositSuccess, withdrawSuccess, refetch]);
+
   const handleDeposit = async () => {
     if (!amount || parseFloat(amount) <= 0 || !address) return;
 
@@ -93,14 +127,12 @@ export default function DepositWidget() {
         args: [poolAddress, amountInWei],
       });
 
-      setTimeout(async () => {
-        await deposit({
-          address: poolAddress,
-          abi: FUNDING_POOL_ABI,
-          functionName: "deposit",
-          args: [amountInWei],
-        });
-      }, 2000);
+      await deposit({
+        address: poolAddress,
+        abi: FUNDING_POOL_ABI,
+        functionName: "deposit",
+        args: [amountInWei],
+      });
     } catch (error) {
       console.error("Deposit error:", error);
     } finally {
@@ -129,17 +161,21 @@ export default function DepositWidget() {
   };
 
   const handleMaxClick = () => {
-    if (activeTab === "deposit" && tokenBalance) {
-      setAmount(formatUnits(tokenBalance.value, TOKEN_DECIMALS));
+    if (activeTab === "deposit" && dataReady && usdcBalance !== null) {
+      setAmount(formatUnits(usdcBalance, TOKEN_DECIMALS));
     } else if (activeTab === "withdraw") {
-      const factor = BigInt(10) ** BigInt(12);
-      const noge = nogeBalance?.value ?? 0n;
-      const claimableByNoge = noge / factor;
-      const poolCap = (poolTotalDeposits as bigint | undefined) ?? 0n;
-      const maxOut = claimableByNoge < poolCap ? claimableByNoge : poolCap;
-      setAmount(formatUnits(maxOut, TOKEN_DECIMALS));
+      setAmount(formatUnits(maxWithdrawableRaw, TOKEN_DECIMALS));
     }
   };
+
+  const actionDisabled =
+    !isConnected ||
+    isPending ||
+    isApproving ||
+    isDepositing ||
+    isWithdrawing ||
+    !amount ||
+    parseFloat(amount) <= 0;
 
   return (
     <div className="max-w-md mx-auto">
@@ -176,17 +212,8 @@ export default function DepositWidget() {
               <div className="text-xs text-gray-400">
                 {activeTab === "deposit" ? "Balance: " : "Max Withdrawable: "}
                 {activeTab === "deposit"
-                  ? tokenBalance
-                    ? formatUnits(tokenBalance.value, TOKEN_DECIMALS).slice(0, 10)
-                    : "0"
-                  : (() => {
-                      const factor = BigInt(10) ** BigInt(12);
-                      const noge = nogeBalance?.value ?? 0n;
-                      const claimableByNoge = noge / factor;
-                      const poolCap = (poolTotalDeposits as bigint | undefined) ?? 0n;
-                      const maxOut = claimableByNoge < poolCap ? claimableByNoge : poolCap;
-                      return formatUnits(maxOut, TOKEN_DECIMALS).slice(0, 10);
-                    })()}{" "}
+                  ? formattedTokenBalance.slice(0, 10)
+                  : formattedMaxWithdrawable.slice(0, 10)}{" "}
                 {TOKEN_SYMBOL}
               </div>
             )}
@@ -214,10 +241,10 @@ export default function DepositWidget() {
             <Info className="w-4 h-4 text-blue-400 mt-0.5" />
             <div className="text-xs text-blue-300">
               {activeTab === "deposit" ? (
-                <>You'll receive NOGE (NOVA Genesis) tokens 1:1 with your deposit. These tokens are your receipt and are required to withdraw your funds at any time.</>
+                <>Your deposits remain yours and are always withdrawable. Only the yield generated from the reserve pool supports the protocol. You'll receive NOGE tokens 1:1 as your withdrawal receipt.</>
               ) : (
                 <>
-                  Withdrawing requires NOGE (NOVA Genesis) tokens equal to the withdrawal amount. You can withdraw your original principal at any time. During the genesis phase, yield supports launching Nova and is not paid to depositors.
+                  You can withdraw your original principal at any time using NOGE tokens. Your deposited funds are never given to the protocol - only the yield generated supports Nova development and public goods.
                 </>
               )}
             </div>
@@ -230,21 +257,14 @@ export default function DepositWidget() {
             <div className="bg-black/30 rounded-lg p-3">
               <p className="text-xs text-gray-400 mb-1">Max Withdrawable</p>
               <p className="text-lg font-semibold text-white">
-                {(() => {
-                  const factor = BigInt(10) ** BigInt(12);
-                  const noge = nogeBalance?.value ?? 0n;
-                  const claimableByNoge = noge / factor;
-                  const poolCap = (poolTotalDeposits as bigint | undefined) ?? 0n;
-                  const maxOut = claimableByNoge < poolCap ? claimableByNoge : poolCap;
-                  return formatUnits(maxOut, TOKEN_DECIMALS).slice(0, 10);
-                })()}
+                {formattedMaxWithdrawable.slice(0, 10)}
                 <span className="text-sm text-gray-400 ml-1">{TOKEN_SYMBOL}</span>
               </p>
             </div>
             <div className="bg-black/30 rounded-lg p-3">
               <p className="text-xs text-gray-400 mb-1">NOGE (NOVA Genesis) Balance</p>
               <p className="text-lg font-semibold text-white">
-                {nogeBalance ? formatUnits(nogeBalance.value, 18).slice(0, 10) : "0"}
+                {formattedNogeBalance.slice(0, 10)}
                 <span className="text-sm text-gray-400 ml-1">NOGE</span>
               </p>
             </div>
@@ -263,35 +283,28 @@ export default function DepositWidget() {
             Connect Wallet
           </motion.button>
         ) : (
-          <div className="space-y-3">
-            <motion.button
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
-              onClick={activeTab === "deposit" ? handleDeposit : handleWithdraw}
-              disabled={!amount || parseFloat(amount) <= 0 || isPending || isApproving || isDepositing || isWithdrawing}
-              className="w-full py-4 bg-gradient-to-r from-purple-600 to-blue-600 text-white rounded-lg font-semibold hover:shadow-xl hover:shadow-purple-500/20 transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
-            >
-              {(isPending || isApproving || isDepositing || isWithdrawing) && (
-                <Loader2 className="w-5 h-5 animate-spin" />
-              )}
-              {isPending || isApproving
-                ? "Approving..."
-                : isDepositing
-                ? "Depositing..."
-                : isWithdrawing
-                ? "Withdrawing..."
-                : activeTab === "deposit"
-                ? "Deposit"
-                : "Withdraw"}
-              {!(isPending || isApproving || isDepositing || isWithdrawing) && (
-                <> {amount || "0"} {TOKEN_SYMBOL}</>
-              )}
-            </motion.button>
+          <motion.button
+            whileHover={{ scale: actionDisabled ? 1 : 1.02 }}
+            whileTap={{ scale: actionDisabled ? 1 : 0.98 }}
+            onClick={activeTab === "deposit" ? handleDeposit : handleWithdraw}
+            disabled={actionDisabled}
+            className={`w-full py-4 rounded-lg font-semibold flex items-center justify-center gap-2 transition-all ${
+              actionDisabled
+                ? "bg-gray-700 text-gray-400 cursor-not-allowed"
+                : "bg-gradient-to-r from-purple-600 to-blue-600 text-white hover:shadow-xl hover:shadow-purple-500/20"
+            }`}
+          >
+            {(isPending || isApproving || isDepositing || isWithdrawing) && (
+              <Loader2 className="w-4 h-4 animate-spin" />
+            )}
+            {activeTab === "deposit" ? `Deposit ${amount || ""} ${TOKEN_SYMBOL}` : `Withdraw ${amount || ""} ${TOKEN_SYMBOL}`}
+          </motion.button>
+        )}
 
-            <p className="text-center text-sm text-gray-400">
-              Connected: {address?.slice(0, 6)}...{address?.slice(-4)}
-            </p>
-          </div>
+        {isConnected && address && (
+          <p className="text-xs text-gray-500 text-center mt-4">
+            Connected: {address.slice(0, 6)}...{address.slice(-4)}
+          </p>
         )}
       </motion.div>
     </div>

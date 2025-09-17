@@ -140,9 +140,25 @@ type Address = `0x${string}`;
 const toAddress = (value: string | undefined): Address | undefined =>
   value && /^0x[a-fA-F0-9]{40}$/.test(value) ? (value as Address) : undefined;
 
+const parseChainId = () => {
+  const value = process.env.NEXT_PUBLIC_CHAIN_ID;
+  if (!value) {
+    return undefined;
+  }
+  const parsed = Number(value);
+  if (Number.isFinite(parsed) && parsed > 0) {
+    return parsed;
+  }
+  console.warn(`Invalid NEXT_PUBLIC_CHAIN_ID provided: ${value}`);
+  return undefined;
+};
+
 // Contract addresses - provided via environment after deployment
 export const CONTRACTS = {
   FUNDING_POOL: toAddress(process.env.NEXT_PUBLIC_FUNDING_POOL_USDC_ADDRESS),
   NOGE_TOKEN: toAddress(process.env.NEXT_PUBLIC_NOGE_TOKEN_ADDRESS),
   USDC: toAddress(process.env.NEXT_PUBLIC_USDC_ADDRESS),
 } as const;
+console.log(CONTRACTS);
+
+export const APP_CHAIN_ID = parseChainId() ?? 11155111;

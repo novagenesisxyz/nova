@@ -37,8 +37,10 @@ contract DeployScript is Script {
         }
 
         // Deploy single-asset Funding Pools
-        // Deploy single USDC pool using NOGE as receipt
-        USDCFundingPool usdcPool = new USDCFundingPool(address(noge));
+        // Deploy single USDC pool using NOGE as receipt. Pass optional overrides so
+        // the contract can auto-wire the proper Aave addresses per chain when zero.
+        address providerOverride = vm.envOr("AAVE_ADDRESSES_PROVIDER", address(0));
+        USDCFundingPool usdcPool = new USDCFundingPool(address(noge), usdcAddress, providerOverride);
         console.log("USDC Funding Pool deployed at:", address(usdcPool));
 
         // Authorize pool to mint/burn NOGE

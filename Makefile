@@ -1,6 +1,8 @@
-# Include .env file if it exists
+# Load environment from .env files if present
 -include .env.foundry
 
+# Export all Make variables to child processes (forge, anvil, etc.)
+.EXPORT_ALL_VARIABLES:
 .PHONY: install build test deploy deploy-sepolia verify clean
 
 # Install dependencies

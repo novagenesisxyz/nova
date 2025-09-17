@@ -3,8 +3,8 @@
 import { motion } from "framer-motion";
 import { useMemo } from "react";
 import { formatUnits, parseUnits } from "viem";
-import { useReadContract } from "wagmi";
-import { FUNDING_POOL_ABI, CONTRACTS } from "@/lib/contracts";
+import { CONTRACTS } from "@/lib/contracts";
+import { useFundingPool } from "@/hooks/useFundingPool";
 import { BarChart3, Target, ArrowUpRight } from "lucide-react";
 
 const TOKEN_DECIMALS = 6;
@@ -42,29 +42,20 @@ function formatUsd(value: number) {
 export default function GenesisProgress({ compact = false }: { compact?: boolean }) {
   const poolAddress = CONTRACTS.FUNDING_POOL;
   const isConfigured = Boolean(poolAddress);
-
-  const { data: poolTotalDeposits } = useReadContract({
-    address: poolAddress,
-    abi: FUNDING_POOL_ABI,
-    functionName: "totalDeposits",
-    args: [],
-    query: {
-      enabled: isConfigured,
-    },
-  });
+  const { status: poolStatus, totalDeposits } = useFundingPool();
 
   const { raised, remaining, percent, goalValue } = useMemo(() => {
-    if (!poolTotalDeposits) {
+    if (poolStatus !== "ready" || totalDeposits === null) {
       return { raised: 0, remaining: goalUnits ? Number(formatUnits(goalUnits, TOKEN_DECIMALS)) : 0, percent: 0, goalValue: goalUnits ? Number(formatUnits(goalUnits, TOKEN_DECIMALS)) : 0 };
     }
 
-    const raisedValue = Number(formatUnits(poolTotalDeposits, TOKEN_DECIMALS));
+    const raisedValue = Number(formatUnits(totalDeposits, TOKEN_DECIMALS));
     const goalValueNum = goalUnits ? Number(formatUnits(goalUnits, TOKEN_DECIMALS)) : 0;
     const remainingValue = goalValueNum > raisedValue ? goalValueNum - raisedValue : 0;
     const pct = goalValueNum > 0 ? Math.min((raisedValue / goalValueNum) * 100, 100) : 0;
 
     return { raised: raisedValue, remaining: remainingValue, percent: pct, goalValue: goalValueNum };
-  }, [poolTotalDeposits]);
+  }, [poolStatus, totalDeposits]);
 
   if (!isConfigured) {
     return (
@@ -74,7 +65,7 @@ export default function GenesisProgress({ compact = false }: { compact?: boolean
           <div>
             <h3 className="text-lg font-semibold mb-2">Genesis goal unavailable</h3>
             <p className="text-sm leading-relaxed">
-              Set the funding pool address in your environment to see live progress. Populate <code className="font-mono">NEXT_PUBLIC_FUNDING_POOL_USDC_ADDRESS</code> after running the deployment script.
+              Set the reserves pool address in your environment to see live progress. Populate <code className="font-mono">NEXT_PUBLIC_FUNDING_POOL_USDC_ADDRESS</code> after running the deployment script.
             </p>
           </div>
         </div>
@@ -115,7 +106,7 @@ export default function GenesisProgress({ compact = false }: { compact?: boolean
         <div>
           <p className="text-sm text-purple-200 font-medium flex items-center gap-2">
             <Target className="w-4 h-4" />
-            Genesis Funding Goal
+            Genesis Reserves Goal
           </p>
           <h3 className={compact ? "text-2xl font-semibold text-white" : "text-3xl font-bold text-white"}>
             {formatUsd(goalValue)}
@@ -153,14 +144,14 @@ export default function GenesisProgress({ compact = false }: { compact?: boolean
         </div>
         <div className="bg-black/30 rounded-lg p-3 border border-white/5">
           <p className="text-xs text-gray-400">Goal (USDC)</p>
-          <p className="text-base font-semibold text-white">{goalDisplay} {TOKEN_SYMBOL}</p>
+          <p className="text-base font-semibold text-white">{goalDisplay}</p>
         </div>
       </div>
 
       {!compact && (
         <p className="mt-4 text-xs text-gray-400 flex items-center gap-2">
           <ArrowUpRight className="w-3 h-3 text-purple-300" />
-          Total deposits update in real time from the on-chain funding pool.
+          Your deposits remain yours. Only the yield generated goes to the protocol.
         </p>
       )}
     </motion.div>

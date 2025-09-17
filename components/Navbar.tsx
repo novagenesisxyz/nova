@@ -1,13 +1,43 @@
 "use client";
 
 import Link from "next/link";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
-import { Zap, TrendingUp, Coins, Menu, X } from "lucide-react";
+import { TrendingUp, Coins, Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import { NovaLogo } from "./NovaLogo";
+import { useFundingPool } from "@/hooks/useFundingPool";
+import { formatUnits } from "viem";
+
+const TOKEN_DECIMALS = 6;
+const currency = new Intl.NumberFormat("en-US", {
+  style: "currency",
+  currency: "USD",
+  minimumFractionDigits: 0,
+  maximumFractionDigits: 2,
+});
 
 export default function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+  const { isConfigured, status, totalDeposits } = useFundingPool();
+
+  const tvlDisplay = useMemo(() => {
+    if (!isConfigured) {
+      return "—";
+    }
+
+    if (status === "idle" || status === "loading") {
+      return "…";
+    }
+
+    if (status === "error" || totalDeposits === null) {
+      return "—";
+    }
+
+    const value = Number(formatUnits(totalDeposits, TOKEN_DECIMALS));
+    return currency.format(value);
+  }, [isConfigured, status, totalDeposits]);
 
   useEffect(() => {
     // Prevent body scroll when mobile menu is open
@@ -34,7 +64,7 @@ export default function Navbar() {
                 href="/"
                 className="flex items-center space-x-2 flex-shrink-0"
               >
-                <Zap className="w-8 h-8 text-purple-500" />
+                <NovaLogo className="w-8 h-8" />
                 <span className="text-2xl font-bold text-white">NOVA</span>
               </Link>
 
@@ -73,7 +103,7 @@ export default function Navbar() {
               {/* TVL Display */}
               <div className="hidden sm:flex items-center gap-2 text-sm text-gray-400">
                 <TrendingUp className="w-4 h-4 text-green-400" />
-                <span>TVL: $2.4M</span>
+                <span>TVL: {tvlDisplay}</span>
               </div>
 
               {/* Desktop Connect Wallet Button */}
@@ -157,7 +187,7 @@ export default function Navbar() {
                 <div className="mb-8 pb-8 border-b border-white/10">
                   <div className="flex items-center gap-2 text-sm text-gray-400">
                     <TrendingUp className="w-4 h-4 text-green-400" />
-                    <span>Total Value Locked: $2.4M</span>
+                    <span>Total Value Locked: {tvlDisplay}</span>
                   </div>
                 </div>
 

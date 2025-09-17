@@ -64,24 +64,35 @@ abstract contract NovaFundingPoolBase is Ownable, ReentrancyGuard, Pausable {
         nogeToken = IReceiptToken(_nogeToken);
         TOKEN = _token;
         DECIMALS_FACTOR = _decimalsFactor;
+        IAaveAddressesProvider resolvedProvider = IAaveAddressesProvider(address(0));
+        IAavePool resolvedPool = IAavePool(address(0));
+        address resolvedAToken = address(0);
+        bool resolvedUseAave = false;
+
         if (_addressesProvider != address(0)) {
-            addressesProvider = IAaveAddressesProvider(_addressesProvider);
+            IAaveAddressesProvider providerCandidate = IAaveAddressesProvider(_addressesProvider);
+            IAavePool poolCandidate = IAavePool(providerCandidate.getPool());
 
-            // Cache Aave pool and aToken at deployment for simplicity
-            IAavePool pool = IAavePool(addressesProvider.getPool());
-            AAVE_POOL = pool;
-            ATOKEN = pool.getReserveData(_token).aTokenAddress;
-            useAave = true;
+            try poolCandidate.getReserveData(_token) returns (ReserveData memory data) {
+                if (data.aTokenAddress != address(0)) {
+                    resolvedProvider = providerCandidate;
+                    resolvedPool = poolCandidate;
+                    resolvedAToken = data.aTokenAddress;
+                    resolvedUseAave = true;
 
-            // Set a one-time max allowance to the Aave pool
-            IERC20(_token).approve(address(pool), 0);
-            IERC20(_token).approve(address(pool), type(uint256).max);
-        } else {
-            addressesProvider = IAaveAddressesProvider(address(0));
-            AAVE_POOL = IAavePool(address(0));
-            ATOKEN = address(0);
-            useAave = false;
+                    // Set a one-time max allowance to the Aave pool
+                    IERC20(_token).approve(address(poolCandidate), 0);
+                    IERC20(_token).approve(address(poolCandidate), type(uint256).max);
+                }
+            } catch {
+                // Asset not listed in the configured Aave pool; fall back to holding tokens locally.
+            }
         }
+
+        addressesProvider = resolvedProvider;
+        AAVE_POOL = resolvedPool;
+        ATOKEN = resolvedAToken;
+        useAave = resolvedUseAave;
     }
 
     /**

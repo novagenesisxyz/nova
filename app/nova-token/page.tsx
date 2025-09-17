@@ -244,7 +244,7 @@ export default function NovaTokenPage() {
             <div className="bg-white/5 backdrop-blur-lg rounded-2xl p-6 border border-white/10">
               <h2 className="text-2xl font-bold text-white mb-4">Reserve & Compliance Principles</h2>
               <p className="text-gray-400 mb-4">
-                These guardrails shape every decision we are funding with Genesis capital. Detailed
+                These guardrails shape every allocation decision made with Genesis reserve yields. Detailed
                 policies will be published before NOVA issues.
               </p>
 
@@ -276,7 +276,7 @@ export default function NovaTokenPage() {
           >
             <div className="bg-white/5 backdrop-blur-lg rounded-2xl p-6 border border-white/10">
               <h2 className="text-3xl font-bold text-white mb-6 text-center">
-                What Genesis Funds Right Now
+                What Genesis Yield Supports Right Now
               </h2>
 
               <div className="grid md:grid-cols-3 gap-6">

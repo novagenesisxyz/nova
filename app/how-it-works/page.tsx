@@ -60,9 +60,9 @@ export default function HowItWorksPage() {
     },
     {
       icon: Users,
-      title: "Democratic Funding",
+      title: "Democratic Allocation",
       description:
-        "Holders and stakers advise where yield goes. Broad participation matters most.",
+        "Holders and stakers advise where yield goes. Your principal remains withdrawable.",
     },
     {
       icon: Shield,
@@ -94,9 +94,9 @@ export default function HowItWorksPage() {
               Join the NOVA Genesis Campaign
             </h1>
             <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-              You are early. This phase raises USDC so Nova can launch a
-              fully-backed stablecoin whose yield supports public goods. Follow
-              these steps to understand exactly what happens when you deposit.
+              You are early. This phase builds reserves so Nova can launch a
+              fully-backed stablecoin whose yield supports public goods. Your deposits remain withdrawable.
+              Follow these steps to understand exactly what happens when you deposit.
             </p>
             <div className="mt-8 flex justify-center">
               <Link
@@ -213,14 +213,14 @@ export default function HowItWorksPage() {
                   </div>
                   <div>
                     <h3 className="text-xl font-bold text-white">
-                      Quadratic Funding Platform (Planned)
+                      Quadratic Allocation Platform (Planned)
                     </h3>
                     <span className="text-sm text-blue-300">Opens after NOVA issuance</span>
                   </div>
                 </div>
 
                 <ul className="space-y-3 text-sm text-gray-300">
-                  <li>Stake NOVA or USDC to advise which initiatives receive matched funding.</li>
+                  <li>Stake NOVA or USDC to advise which initiatives receive matched yield allocation.</li>
                   <li>Vote-weighted governance shapes budget splits across public-good categories.</li>
                   <li>Real-time dashboards surface impact metrics for every supported project.</li>
                 </ul>
@@ -308,7 +308,7 @@ export default function HowItWorksPage() {
               <ul className="list-disc list-inside text-gray-300 space-y-2">
                 <li>Transition reserves from Aave to a diversified USD treasury.</li>
                 <li>Launch NOVA mint/redeem portal with real-time attestations.</li>
-                <li>Open quadratic funding seasons for public-good initiatives.</li>
+                <li>Open quadratic allocation seasons for public-good initiatives.</li>
               </ul>
             </div>
           </motion.div>
@@ -322,9 +322,9 @@ export default function HowItWorksPage() {
           >
             <div className="bg-white/5 backdrop-blur-lg rounded-2xl p-12 border border-white/10">
               <h2 className="text-3xl font-bold text-white mb-4">
-                Ready to Fund the Future?
+                Ready to Support the Future?
               </h2>
-              <p className="text-xl text-gray-300 mb-8 max-w-2xl mx-auto">Join thousands of people supporting public goods. Start with as little as $10.</p>
+              <p className="text-xl text-gray-300 mb-8 max-w-2xl mx-auto">Join thousands of people supporting public goods. Your deposits remain withdrawable - only yield supports causes. Start with as little as $10.</p>
               <div className="flex gap-4 justify-center">
                 <button
                   className="px-8 py-4 bg-gradient-to-r from-purple-600 to-blue-600 text-white rounded-lg font-semibold hover:shadow-xl hover:shadow-purple-500/20 transition-all"
