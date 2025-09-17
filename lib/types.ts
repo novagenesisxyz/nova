@@ -5,6 +5,7 @@ export interface Project {
   longDescription: string;
   category: string;
   imageUrl: string;
+  videoUrl?: string;
   fundingGoal: number;
   currentFunding: number;
   stakedAmount: number;

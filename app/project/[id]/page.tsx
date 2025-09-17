@@ -146,26 +146,28 @@ export default function ProjectDetailPage() {
               </motion.div>
 
               {/* Video */}
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.1 }}
-                className="bg-white/5 backdrop-blur-lg rounded-xl p-6 border border-white/10"
-              >
-                <h2 className="text-2xl font-bold text-white mb-4">
-                  Project Video
-                </h2>
-                <div className="relative aspect-video rounded-lg overflow-hidden bg-black/50">
-                  <iframe
-                    className="w-full h-full"
-                    src="https://www.youtube.com/embed/dQw4w9WgXcQ"
-                    title="Project Video"
-                    frameBorder="0"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    allowFullScreen
-                  />
-                </div>
-              </motion.div>
+              {project.videoUrl && (
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.1 }}
+                  className="bg-white/5 backdrop-blur-lg rounded-xl p-6 border border-white/10"
+                >
+                  <h2 className="text-2xl font-bold text-white mb-4">
+                    Project Overview
+                  </h2>
+                  <div className="relative aspect-video rounded-lg overflow-hidden bg-black/50">
+                    <iframe
+                      className="w-full h-full"
+                      src={project.videoUrl}
+                      title="Project Video"
+                      frameBorder="0"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                      allowFullScreen
+                    />
+                  </div>
+                </motion.div>
+              )}
 
               {/* About */}
               <motion.div
@@ -264,7 +266,7 @@ export default function ProjectDetailPage() {
               <motion.div
                 initial={{ opacity: 0, x: 20 }}
                 animate={{ opacity: 1, x: 0 }}
-                className="bg-gradient-to-br from-purple-900/30 to-blue-900/30 backdrop-blur-lg rounded-xl p-6 border border-purple-500/30 sticky top-24"
+                className="bg-gradient-to-br from-purple-900/30 to-blue-900/30 backdrop-blur-lg rounded-xl p-6 border border-purple-500/30"
               >
                 <div className="mb-6">
                   <div className="flex justify-between items-center mb-2">

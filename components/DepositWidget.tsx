@@ -2,7 +2,7 @@
 
 import { useEffect, useMemo, useState } from "react";
 import { motion } from "framer-motion";
-import { Wallet, Info, Loader2, AlertTriangle } from "lucide-react";
+import { Wallet, Info, Loader2, AlertTriangle, AlertCircle } from "lucide-react";
 import { useAccount, useWriteContract, useWaitForTransactionReceipt } from "wagmi";
 import { parseUnits, formatUnits } from "viem";
 import { useConnectModal } from "@rainbow-me/rainbowkit";
@@ -306,6 +306,14 @@ export default function DepositWidget() {
             Connected: {address.slice(0, 6)}...{address.slice(-4)}
           </p>
         )}
+
+        {/* Testnet Notice */}
+        <div className="mt-4 bg-yellow-500/10 border border-yellow-500/30 rounded-lg p-3 flex items-center gap-2">
+          <AlertCircle className="w-4 h-4 text-yellow-400 flex-shrink-0" />
+          <p className="text-xs text-yellow-200">
+            <span className="font-semibold">This is a testnet environment on Ethereum Sepolia.</span>
+          </p>
+        </div>
       </motion.div>
     </div>
   );
