@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
 import Link from "next/link";
 import { Shield, Receipt, PieChart, ExternalLink, DollarSign, BarChart3, AlertCircle } from "lucide-react";
 
@@ -19,9 +20,10 @@ export default function TransparencyPage() {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-black via-purple-950/20 to-black">
+    <div className="min-h-screen bg-gradient-to-br from-black via-purple-950/20 to-black flex flex-col">
       <Navbar />
 
+      <main className="flex-1">
       <section className="pt-24 pb-16 px-4">
         <div className="max-w-7xl mx-auto">
           <motion.div
@@ -195,6 +197,9 @@ export default function TransparencyPage() {
           </motion.div>
         </div>
       </section>
+      </main>
+
+      <Footer />
     </div>
   );
 }

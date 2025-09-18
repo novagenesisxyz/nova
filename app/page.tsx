@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import Link from "next/link";
 import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
 import {
   ArrowRight,
   Shield,
@@ -17,16 +18,20 @@ import {
   Wallet,
   AlertCircle,
   Clock,
+  MessageCircle,
+  Twitter,
 } from "lucide-react";
 import faqs from "@/lib/faqs";
 import DepositWidget from "@/components/DepositWidget";
 import GenesisProgress from "@/components/GenesisProgress";
+import { SOCIAL_LINKS } from "@/lib/constants";
 
 export default function Home() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-black via-purple-950/20 to-black">
+    <div className="min-h-screen bg-gradient-to-br from-black via-purple-950/20 to-black flex flex-col">
       <Navbar />
 
+      <main className="flex-1">
       {/* Hero Section */}
       <section className="pt-36 pb-24 px-4 relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-r from-purple-600/10 via-transparent to-blue-600/10" />
@@ -56,7 +61,7 @@ export default function Home() {
               Deposit USDC, receive NOGE receipts, and help bootstrap Nova’s stablecoin launch. Withdraw anytime while interest funds audits, legal, and public-good infrastructure.
             </p>
 
-            <div className="flex gap-4 justify-center mb-12">
+            <div className="flex flex-wrap gap-4 justify-center mb-6">
               <motion.button
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
@@ -76,6 +81,35 @@ export default function Home() {
                 How Nova Works
               </motion.button>
             </div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.2, duration: 0.6 }}
+              className="flex flex-wrap items-center justify-center gap-3 text-sm text-gray-400"
+            >
+              <span>Looking to connect?</span>
+              <div className="flex items-center gap-3">
+                <a
+                  href={SOCIAL_LINKS.towns}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1.5 rounded-full border border-purple-500/40 px-4 py-1.5 text-white hover:bg-purple-500/10 transition-colors"
+                >
+                  <MessageCircle className="w-4 h-4" />
+                  Join NOVA Towns
+                </a>
+                <a
+                  href={SOCIAL_LINKS.twitter}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1.5 rounded-full border border-white/10 px-4 py-1.5 text-white hover:bg-white/10 transition-colors"
+                >
+                  <Twitter className="w-4 h-4" />
+                  Follow on X
+                </a>
+              </div>
+            </motion.div>
 
           </motion.div>
         </div>
@@ -413,6 +447,9 @@ export default function Home() {
           </div>
         </div>
       </section>
+      </main>
+
+      <Footer />
     </div>
   );
 }

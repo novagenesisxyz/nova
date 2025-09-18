@@ -6,8 +6,9 @@ import { motion } from "framer-motion";
 import Navbar from "@/components/Navbar";
 import StakingModal from "@/components/StakingModal";
 import FundingChart from "@/components/FundingChart";
+import Footer from "@/components/Footer";
 import { mockProjects } from "@/lib/mockData";
-import { SUPPORTED_TOKENS } from "@/lib/constants";
+import { SUPPORTED_TOKENS, SOCIAL_LINKS } from "@/lib/constants";
 import {
   Users,
   Clock,
@@ -19,6 +20,8 @@ import {
   ArrowUp,
   Coins,
   AlertCircle,
+  MessageCircle,
+  Twitter,
 } from "lucide-react";
 
 export default function ProjectDetailPage() {
@@ -40,8 +43,12 @@ export default function ProjectDetailPage() {
 
   if (!project) {
     return (
-      <div className="min-h-screen bg-black text-white flex items-center justify-center">
-        Project not found
+      <div className="min-h-screen bg-black text-white flex flex-col">
+        <Navbar />
+        <main className="flex-1 flex items-center justify-center">
+          Project not found
+        </main>
+        <Footer />
       </div>
     );
   }
@@ -49,9 +56,10 @@ export default function ProjectDetailPage() {
   const fundingPercentage = (realTimeFunding / project.fundingGoal) * 100;
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-black via-purple-950/20 to-black">
+    <div className="min-h-screen bg-gradient-to-br from-black via-purple-950/20 to-black flex flex-col">
       <Navbar />
 
+      <main className="flex-1">
       <div className="pt-24 pb-20">
         {/* Hero Section */}
         <div className="relative h-96 overflow-hidden">
@@ -342,6 +350,41 @@ export default function ProjectDetailPage() {
                 </div>
               </motion.div>
 
+              {/* Community Links */}
+              <motion.div
+                initial={{ opacity: 0, x: 20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: 0.05 }}
+                className="bg-white/5 backdrop-blur-lg rounded-xl p-6 border border-white/10"
+              >
+                <h3 className="text-lg font-semibold text-white mb-2">
+                  Discuss This Project
+                </h3>
+                <p className="text-sm text-gray-400">
+                  Swap insights on {project.title}, coordinate field updates, and surface questions for the NOVA team alongside other backers.
+                </p>
+                <div className="mt-4 space-y-3">
+                  <a
+                    href={SOCIAL_LINKS.towns}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center justify-center gap-2 rounded-lg border border-purple-500/30 bg-purple-500/10 px-4 py-3 text-sm font-medium text-white hover:bg-purple-500/20 transition-colors"
+                  >
+                    <MessageCircle className="w-4 h-4" />
+                    Join NOVA Towns
+                  </a>
+                  <a
+                    href={SOCIAL_LINKS.twitter}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center justify-center gap-2 rounded-lg border border-white/10 bg-white/5 px-4 py-3 text-sm font-medium text-white hover:bg-white/15 transition-colors"
+                  >
+                    <Twitter className="w-4 h-4" />
+                    Follow NOVA on X
+                  </a>
+                </div>
+              </motion.div>
+
               {/* Creator Info */}
               <motion.div
                 initial={{ opacity: 0, x: 20 }}
@@ -367,6 +410,7 @@ export default function ProjectDetailPage() {
           </div>
         </div>
       </div>
+      </main>
 
       {showStakingModal && (
         <StakingModal
@@ -374,6 +418,8 @@ export default function ProjectDetailPage() {
           onClose={() => setShowStakingModal(false)}
         />
       )}
+
+      <Footer />
     </div>
   );
 }

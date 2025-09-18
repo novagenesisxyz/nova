@@ -4,6 +4,7 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import Navbar from "@/components/Navbar";
 import ProjectCard from "@/components/ProjectCard";
+import Footer from "@/components/Footer";
 import { mockProjects } from "@/lib/mockData";
 import { INITIATIVE_CATEGORIES } from "@/lib/constants";
 import { Search, Filter, TrendingUp, Clock, Users, AlertCircle } from "lucide-react";
@@ -38,9 +39,10 @@ export default function ProjectsPage() {
   });
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-black via-purple-950/20 to-black">
+    <div className="min-h-screen bg-gradient-to-br from-black via-purple-950/20 to-black flex flex-col">
       <Navbar />
 
+      <main className="flex-1">
       <div className="pt-24 pb-20 px-4">
         <div className="max-w-7xl mx-auto">
           <motion.div
@@ -185,6 +187,9 @@ export default function ProjectsPage() {
           </motion.div>
         </div>
       </div>
+      </main>
+
+      <Footer />
     </div>
   );
 }

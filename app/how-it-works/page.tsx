@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 import Navbar from "@/components/Navbar";
 import GenesisProgress from "@/components/GenesisProgress";
+import Footer from "@/components/Footer";
 import {
   Wallet,
   ArrowRight,
@@ -73,10 +74,11 @@ export default function HowItWorksPage() {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-black via-purple-950/20 to-black">
+    <div className="min-h-screen bg-gradient-to-br from-black via-purple-950/20 to-black flex flex-col">
       <Navbar />
 
-      <div className="pt-24 pb-20 px-4">
+      <main className="flex-1">
+        <div className="pt-24 pb-20 px-4">
         <div className="max-w-7xl mx-auto">
           {/* Hero Section */}
           <motion.div
@@ -343,6 +345,9 @@ export default function HowItWorksPage() {
           </motion.div>
         </div>
       </div>
+      </main>
+
+      <Footer />
     </div>
   );
 }

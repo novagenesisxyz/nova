@@ -3,11 +3,12 @@
 import Link from "next/link";
 import { useState, useEffect, useMemo } from "react";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
-import { TrendingUp, Coins, Menu, X } from "lucide-react";
+import { TrendingUp, Coins, Menu, X, MessageCircle, Twitter } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { NovaLogo } from "./NovaLogo";
 import { useFundingPool } from "@/hooks/useFundingPool";
 import { formatUnits } from "viem";
+import { SOCIAL_LINKS } from "@/lib/constants";
 
 const TOKEN_DECIMALS = 6;
 const currency = new Intl.NumberFormat("en-US", {
@@ -99,11 +100,33 @@ export default function Navbar() {
             </div>
 
             {/* Right side - Stats and Wallet */}
-            <div className="flex items-center space-x-4">
+            <div className="flex items-center gap-4">
               {/* TVL Display */}
               <div className="hidden sm:flex items-center gap-2 text-sm text-gray-400">
                 <TrendingUp className="w-4 h-4 text-green-400" />
                 <span>TVL: {tvlDisplay}</span>
+              </div>
+
+              {/* Desktop Social Links */}
+              <div className="hidden md:flex items-center gap-2">
+                <a
+                  href={SOCIAL_LINKS.towns}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="p-2 rounded-lg border border-white/10 text-gray-400 hover:border-purple-400 hover:text-white transition-colors"
+                >
+                  <MessageCircle className="w-4 h-4" />
+                  <span className="sr-only">Join NOVA Towns</span>
+                </a>
+                <a
+                  href={SOCIAL_LINKS.twitter}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="p-2 rounded-lg border border-white/10 text-gray-400 hover:border-purple-400 hover:text-white transition-colors"
+                >
+                  <Twitter className="w-4 h-4" />
+                  <span className="sr-only">Follow NOVA on X</span>
+                </a>
               </div>
 
               {/* Desktop Connect Wallet Button */}
@@ -189,6 +212,31 @@ export default function Navbar() {
                     <TrendingUp className="w-4 h-4 text-green-400" />
                     <span>Total Value Locked: {tvlDisplay}</span>
                   </div>
+                </div>
+
+                {/* Mobile Social Links */}
+                <div className="mb-8 space-y-3">
+                  <p className="text-xs font-semibold uppercase tracking-wide text-gray-500">
+                    Community Channels
+                  </p>
+                  <a
+                    href={SOCIAL_LINKS.towns}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center justify-center gap-2 rounded-lg border border-purple-500/30 bg-purple-500/10 px-4 py-3 text-white text-sm font-medium hover:bg-purple-500/20 transition-colors"
+                  >
+                    <MessageCircle className="w-4 h-4" />
+                    Join NOVA Towns
+                  </a>
+                  <a
+                    href={SOCIAL_LINKS.twitter}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center justify-center gap-2 rounded-lg border border-white/10 bg-white/5 px-4 py-3 text-white text-sm font-medium hover:bg-white/15 transition-colors"
+                  >
+                    <Twitter className="w-4 h-4" />
+                    Follow NOVA on X
+                  </a>
                 </div>
 
                 {/* Mobile Wallet Connect */}
