@@ -107,6 +107,17 @@ export default function Navbar() {
                 <span>TVL: {tvlDisplay}</span>
               </div>
 
+              {/* Towns CTA */}
+              <a
+                href={SOCIAL_LINKS.towns}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hidden md:inline-flex items-center gap-2 rounded-lg border border-purple-500/40 bg-purple-500/10 px-4 py-2 text-sm font-semibold text-white hover:bg-purple-500/20 transition-colors"
+              >
+                <MessageCircle className="w-4 h-4" />
+                Join Towns
+              </a>
+
               {/* Desktop Social Links */}
               <div className="hidden md:flex items-center gap-2">
                 <a

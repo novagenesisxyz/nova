@@ -80,6 +80,17 @@ export default function Home() {
               >
                 How Nova Works
               </motion.button>
+              <motion.a
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                href={SOCIAL_LINKS.towns}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="px-8 py-4 bg-purple-500/10 backdrop-blur-lg text-white rounded-lg font-semibold border border-purple-500/40 hover:bg-purple-500/20 transition-all inline-flex items-center gap-2"
+              >
+                <MessageCircle className="w-5 h-5" />
+                Join Towns
+              </motion.a>
             </div>
 
             <motion.div
@@ -255,7 +266,17 @@ export default function Home() {
               >
                 <div className="text-3xl font-bold text-green-400 mb-4">3</div>
                 <h3 className="text-lg font-semibold text-white mb-2">NOVA Genesis</h3>
-                <p className="text-gray-400 text-sm">Aave V3 interest funds development</p>
+                <p className="text-gray-400 text-sm">
+                  <a
+                    href="https://defillama.com/protocol/aave-v3"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-purple-300 hover:text-purple-200 transition-colors"
+                  >
+                    Aave V3
+                  </a>{" "}
+                  interest funds development
+                </p>
               </motion.div>
 
               <motion.div
@@ -324,7 +345,17 @@ export default function Home() {
                 <ul className="space-y-3 text-gray-300">
                   <li className="flex items-start gap-2">
                     <CheckCircle className="w-5 h-5 text-green-400 mt-0.5" />
-                    <span>Deposits are supplied via battle-tested Aave V3</span>
+                    <span>
+                      Deposits are supplied via battle-tested{' '}
+                      <a
+                        href="https://defillama.com/protocol/aave-v3"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-purple-300 hover:text-purple-200 transition-colors"
+                      >
+                        Aave V3
+                      </a>
+                    </span>
                   </li>
                   <li className="flex items-start gap-2">
                     <CheckCircle className="w-5 h-5 text-green-400 mt-0.5" />
