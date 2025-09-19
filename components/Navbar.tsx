@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useState, useEffect, useMemo } from "react";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
 import { TrendingUp, Coins, Menu, X, MessageCircle, Twitter } from "lucide-react";
+import { TownsIcon } from "./TownsIcon";
 import { motion, AnimatePresence } from "framer-motion";
 import { NovaLogo } from "./NovaLogo";
 import { useFundingPool } from "@/hooks/useFundingPool";
@@ -107,17 +108,6 @@ export default function Navbar() {
                 <span>TVL: {tvlDisplay}</span>
               </div>
 
-              {/* Towns CTA */}
-              <a
-                href={SOCIAL_LINKS.towns}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="hidden md:inline-flex items-center gap-2 rounded-lg border border-purple-500/40 bg-purple-500/10 px-4 py-2 text-sm font-semibold text-white hover:bg-purple-500/20 transition-colors"
-              >
-                <MessageCircle className="w-4 h-4" />
-                Join Towns
-              </a>
-
               {/* Desktop Social Links */}
               <div className="hidden md:flex items-center gap-2">
                 <a
@@ -126,7 +116,7 @@ export default function Navbar() {
                   rel="noopener noreferrer"
                   className="p-2 rounded-lg border border-white/10 text-gray-400 hover:border-purple-400 hover:text-white transition-colors"
                 >
-                  <MessageCircle className="w-4 h-4" />
+                  <TownsIcon className="w-4 h-4" />
                   <span className="sr-only">Join NOVA Towns</span>
                 </a>
                 <a

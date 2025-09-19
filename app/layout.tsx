@@ -4,7 +4,6 @@ import "./globals.css";
 import { Providers } from "./providers";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
-import ComplianceNotice from "@/components/ComplianceNotice";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -28,7 +27,6 @@ export default function RootLayout({
             <div className="flex-1 flex flex-col">
               {children}
             </div>
-            <ComplianceNotice />
           </div>
         </Providers>
         <Analytics />

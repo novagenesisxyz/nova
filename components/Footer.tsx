@@ -1,8 +1,9 @@
 "use client";
 
 import Link from "next/link";
-import { MessageCircle, Twitter } from "lucide-react";
+import { Twitter } from "lucide-react";
 import { SOCIAL_LINKS } from "@/lib/constants";
+import { TownsIcon } from "./TownsIcon";
 
 export default function Footer() {
   return (
@@ -28,8 +29,8 @@ export default function Footer() {
               rel="noopener noreferrer"
               className="inline-flex items-center justify-center gap-2 rounded-lg border border-purple-500/30 bg-purple-500/10 px-6 py-3 text-sm font-semibold text-white hover:bg-purple-500/20 transition-colors"
             >
-              <MessageCircle className="w-4 h-4" />
-              Join NOVA Towns
+              <TownsIcon className="w-4 h-4" />
+              Join NOVA Town
             </a>
             <a
               href={SOCIAL_LINKS.twitter}
@@ -48,6 +49,8 @@ export default function Footer() {
             © {new Date().getFullYear()} Nova Labs Cooperative. Designed for transparent public-good funding.
             <br className="hidden sm:block" />
             <span>Nova Genesis is in preview; numbers shown today are demo figures while launch prep continues.</span>
+            <br className="hidden sm:block" />
+            <span>NOVA funds public goods from reserve yield. Holders do not receive interest.</span>
           </p>
           <div className="flex items-center gap-4">
             <Link href="/how-it-works" className="hover:text-purple-300 transition-colors">
