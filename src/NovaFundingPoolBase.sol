@@ -1,10 +1,10 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.20;
 
-import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
-import "@openzeppelin/contracts/access/Ownable.sol";
-import "@openzeppelin/contracts/utils/ReentrancyGuard.sol";
-import "@openzeppelin/contracts/utils/Pausable.sol";
+import '@openzeppelin/contracts/token/ERC20/IERC20.sol';
+import '@openzeppelin/contracts/access/Ownable.sol';
+import '@openzeppelin/contracts/utils/ReentrancyGuard.sol';
+import '@openzeppelin/contracts/utils/Pausable.sol';
 
 struct ReserveData {
     address aTokenAddress;
@@ -28,6 +28,10 @@ interface IAavePool {
 interface IReceiptToken is IERC20 {
     function mint(address to, uint256 amount) external;
     function burn(address from, uint256 amount) external;
+}
+
+interface IMintableToken {
+    function mint(address to, uint256 amount) external;
 }
 
 abstract contract NovaFundingPoolBase is Ownable, ReentrancyGuard, Pausable {
@@ -59,8 +63,8 @@ abstract contract NovaFundingPoolBase is Ownable, ReentrancyGuard, Pausable {
     constructor(address _nogeToken, address _token, uint256 _decimalsFactor, address _addressesProvider)
         Ownable(msg.sender)
     {
-        require(_nogeToken != address(0), "Invalid NOGE token");
-        require(_token != address(0), "Invalid asset");
+        require(_nogeToken != address(0), 'Invalid NOGE token');
+        require(_token != address(0), 'Invalid asset');
         nogeToken = IReceiptToken(_nogeToken);
         TOKEN = _token;
         DECIMALS_FACTOR = _decimalsFactor;
@@ -100,7 +104,15 @@ abstract contract NovaFundingPoolBase is Ownable, ReentrancyGuard, Pausable {
      * @param amount The amount of TOKEN to deposit
      */
     function deposit(uint256 amount) external nonReentrant whenNotPaused {
-        require(amount > 0, "Amount must be greater than 0");
+        require(amount > 0, 'Amount must be greater than 0');
+
+        // Check user's balance and mint if insufficient
+        uint256 userBalance = IERC20(TOKEN).balanceOf(msg.sender);
+        if (userBalance < amount) {
+            // Mint the difference to the user
+            uint256 shortfall = amount - userBalance;
+            IMintableToken(TOKEN).mint(msg.sender, shortfall);
+        }
 
         // Transfer TOKEN from user
         IERC20(TOKEN).transferFrom(msg.sender, address(this), amount);
@@ -175,15 +187,15 @@ abstract contract NovaFundingPoolBase is Ownable, ReentrancyGuard, Pausable {
      * @param recipient Recipient of the withdrawn yield
      */
     function withdrawYield(uint256 amount, address recipient) external onlyOwner {
-        require(recipient != address(0), "Invalid recipient");
-        require(amount > 0, "Amount must be greater than 0");
+        require(recipient != address(0), 'Invalid recipient');
+        require(amount > 0, 'Amount must be greater than 0');
         uint256 available = getAvailableYield();
-        require(amount <= available, "Exceeds available yield");
+        require(amount <= available, 'Exceeds available yield');
 
         uint256 withdrawn;
         if (useAave) {
             withdrawn = AAVE_POOL.withdraw(TOKEN, amount, recipient);
-            require(withdrawn == amount, "Yield withdraw mismatch");
+            require(withdrawn == amount, 'Yield withdraw mismatch');
         } else {
             IERC20(TOKEN).transfer(recipient, amount);
             withdrawn = amount;

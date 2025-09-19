@@ -24,13 +24,14 @@ contract DeployScript is Script {
         console.log("NOGE Token deployed at:", address(noge));
 
         address usdcAddress;
+        MockUSDC mockUsdc;
 
         // Optional: use existing USDC if provided, otherwise deploy a mock token for testing
         if (vm.envOr("USDC_ADDRESS", address(0)) != address(0)) {
             usdcAddress = vm.envAddress("USDC_ADDRESS");
             console.log("Using existing USDC at:", usdcAddress);
         } else {
-            MockUSDC mockUsdc = new MockUSDC(deployer, 1_000_000 * 1e6);
+            mockUsdc = new MockUSDC(deployer, 1_000_000 * 1e6);
             usdcAddress = address(mockUsdc);
             console.log("Mock USDC deployed at:", usdcAddress);
             console.log("Minted 1,000,000 mUSDC to deployer for testing");
@@ -43,10 +44,10 @@ contract DeployScript is Script {
         USDCFundingPool usdcPool = new USDCFundingPool(address(noge), usdcAddress, providerOverride);
         console.log("USDC Funding Pool deployed at:", address(usdcPool));
 
-        // Authorize pool to mint/burn NOGE
+        // Authorize pool to mint/burn NOGE and mint mock USDC if configured
         bytes32 poolRole = noge.POOL_ROLE();
         noge.grantRole(poolRole, address(usdcPool));
-        console.log("Granted POOL_ROLE to USDC pool");
+        console.log("Authorized USDC pool for NOGE minting/burning");
 
         vm.stopBroadcast();
 

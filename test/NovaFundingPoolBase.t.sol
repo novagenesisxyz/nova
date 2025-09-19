@@ -42,7 +42,7 @@ contract NovaFundingPoolBaseTest is Test {
         // Deploy provider and map it to the on-chain provider address used by the base contract
         provider = new MockAddressesProvider(address(pool));
 
-        // Deploy NOGE and grant pool role to funding pool after deploy
+        // Deploy NOGE and authorize pool later
         noge = new NogeToken(admin);
 
         // Deploy funding pool targeting our mock addresses provider/pool setup:
@@ -50,7 +50,7 @@ contract NovaFundingPoolBaseTest is Test {
         // Our MockPool returns its own provider and aToken, so this works for tests.
         fundingPool = new TestFundingPool(address(noge), address(usdc), DECIMALS_FACTOR, address(provider));
 
-        // Grant POOL_ROLE to funding pool so it can mint/burn NOGE
+        // Authorize funding pool so it can mint/burn NOGE
         noge.grantRole(noge.POOL_ROLE(), address(fundingPool));
 
         // Seed users with USDC

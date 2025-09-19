@@ -1,8 +1,8 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.20;
 
-import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
-import "@openzeppelin/contracts/access/AccessControl.sol";
+import '@openzeppelin/contracts/token/ERC20/ERC20.sol';
+import '@openzeppelin/contracts/access/AccessControl.sol';
 
 /**
  * @title NOVAGenesis Token
@@ -10,9 +10,9 @@ import "@openzeppelin/contracts/access/AccessControl.sol";
  * @dev NOGE is the deposit receipt
  */
 contract NogeToken is ERC20, AccessControl {
-    bytes32 public constant POOL_ROLE = keccak256("POOL_ROLE");
+    bytes32 public constant POOL_ROLE = keccak256('POOL_ROLE');
 
-    constructor(address admin) ERC20("NOVA Genesis", "NOGE") {
+    constructor(address admin) ERC20('NOVA Genesis', 'NOGE') {
         _grantRole(DEFAULT_ADMIN_ROLE, admin);
     }
 

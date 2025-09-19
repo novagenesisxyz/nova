@@ -30,7 +30,7 @@ export default function Footer() {
               className="inline-flex items-center justify-center gap-2 rounded-lg border border-purple-500/30 bg-purple-500/10 px-6 py-3 text-sm font-semibold text-white hover:bg-purple-500/20 transition-colors"
             >
               <TownsIcon className="w-4 h-4" />
-              Join NOVA Town
+              Join NOVA Towns
             </a>
             <a
               href={SOCIAL_LINKS.twitter}

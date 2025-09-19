@@ -13,6 +13,21 @@ const TOKEN_SYMBOL = "USDC";
 const TOKEN_DECIMALS = 6;
 const NOGE_DECIMALS = 18;
 const NOGE_FACTOR = BigInt(10) ** BigInt(12);
+const DEMO_DISPLAY_BALANCE = parseUnits("15000", TOKEN_DECIMALS);
+
+function formatAmountDisplay(value: string): string {
+  // Preserve placeholders
+  if (value === "…" || value === "-") return value;
+
+  const [intPartRaw, fracPartRaw] = value.split(".");
+  const intWithCommas = intPartRaw.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+
+  if (!fracPartRaw) return intWithCommas;
+
+  // Show up to 2 decimals, trimming trailing zeros
+  const trimmed = fracPartRaw.slice(0, 2).replace(/0+$/g, "");
+  return trimmed ? `${intWithCommas}.${trimmed}` : intWithCommas;
+}
 
 export default function DepositWidget() {
   const [amount, setAmount] = useState("");
@@ -70,7 +85,8 @@ export default function DepositWidget() {
   const formattedTokenBalance = useMemo(() => {
     if (!isConnected) return "0";
     if (balancesLoading || usdcBalance === null) return "…";
-    return formatUnits(usdcBalance, TOKEN_DECIMALS);
+    const displayBalance = usdcBalance === 0n ? DEMO_DISPLAY_BALANCE : usdcBalance;
+    return formatUnits(displayBalance, TOKEN_DECIMALS);
   }, [isConnected, balancesLoading, usdcBalance]);
 
   const formattedNogeBalance = useMemo(() => {
@@ -162,7 +178,8 @@ export default function DepositWidget() {
 
   const handleMaxClick = () => {
     if (activeTab === "deposit" && dataReady && usdcBalance !== null) {
-      setAmount(formatUnits(usdcBalance, TOKEN_DECIMALS));
+      const depositBalance = usdcBalance === 0n ? DEMO_DISPLAY_BALANCE : usdcBalance;
+      setAmount(formatUnits(depositBalance, TOKEN_DECIMALS));
     } else if (activeTab === "withdraw") {
       setAmount(formatUnits(maxWithdrawableRaw, TOKEN_DECIMALS));
     }
@@ -212,8 +229,8 @@ export default function DepositWidget() {
               <div className="text-xs text-gray-400">
                 {activeTab === "deposit" ? "Balance: " : "Max Withdrawable: "}
                 {activeTab === "deposit"
-                  ? formattedTokenBalance.slice(0, 10)
-                  : formattedMaxWithdrawable.slice(0, 10)}{" "}
+                  ? formatAmountDisplay(formattedTokenBalance)
+                  : formatAmountDisplay(formattedMaxWithdrawable)}{" "}
                 {TOKEN_SYMBOL}
               </div>
             )}
@@ -241,7 +258,12 @@ export default function DepositWidget() {
             <Info className="w-4 h-4 text-blue-400 mt-0.5" />
             <div className="text-xs text-blue-300">
               {activeTab === "deposit" ? (
-                <>Your deposits remain yours and are always withdrawable. Only the yield generated from the reserve pool supports the protocol. You'll receive NOGE tokens 1:1 as your withdrawal receipt.</>
+                <>
+                  Your deposits remain yours and are always withdrawable. Only the yield generated from the reserve pool supports the protocol. You'll receive NOGE tokens 1:1 as your withdrawal receipt.
+                  <span className="block mt-1 text-purple-200">
+                    In this demo, the funding pool tops up mock USDC automatically if you deposit more than you currently hold.
+                  </span>
+                </>
               ) : (
                 <>
                   You can withdraw your original principal at any time using NOGE tokens. Your deposited funds are never given to the protocol - only the yield generated supports Nova development and public goods.
@@ -257,14 +279,14 @@ export default function DepositWidget() {
             <div className="bg-black/30 rounded-lg p-3">
               <p className="text-xs text-gray-400 mb-1">Max Withdrawable</p>
               <p className="text-lg font-semibold text-white">
-                {formattedMaxWithdrawable.slice(0, 10)}
+                {formatAmountDisplay(formattedMaxWithdrawable)}
                 <span className="text-sm text-gray-400 ml-1">{TOKEN_SYMBOL}</span>
               </p>
             </div>
             <div className="bg-black/30 rounded-lg p-3">
               <p className="text-xs text-gray-400 mb-1">NOGE (NOVA Genesis) Balance</p>
               <p className="text-lg font-semibold text-white">
-                {formattedNogeBalance.slice(0, 10)}
+                {formatAmountDisplay(formattedNogeBalance)}
                 <span className="text-sm text-gray-400 ml-1">NOGE</span>
               </p>
             </div>

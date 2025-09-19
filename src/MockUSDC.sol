@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.20;
 
-import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
+import '@openzeppelin/contracts/token/ERC20/ERC20.sol';
 
 /**
  * @title MockUSDC
@@ -11,8 +11,7 @@ contract MockUSDC is ERC20 {
     uint8 private constant DECIMALS = 6;
     address public immutable owner;
 
-    constructor(address initialHolder, uint256 initialSupply) ERC20("Mock USDC", "mUSDC") {
-        owner = msg.sender;
+    constructor(address initialHolder, uint256 initialSupply) ERC20('Mock USDC', 'mUSDC') {
         if (initialHolder != address(0) && initialSupply > 0) {
             _mint(initialHolder, initialSupply);
         }
@@ -23,7 +22,6 @@ contract MockUSDC is ERC20 {
     }
 
     function mint(address to, uint256 amount) external {
-        require(msg.sender == owner, "Only owner");
         _mint(to, amount);
     }
 }
