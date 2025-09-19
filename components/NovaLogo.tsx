@@ -3,7 +3,7 @@ export function NovaLogo({ className = "w-8 h-8" }: { className?: string }) {
     <svg
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 32 32"
-      className={className}
+      className={`${className} inline-block align-middle`}
     >
       <defs>
         <radialGradient id="novaGrad" cx="50%" cy="50%">
