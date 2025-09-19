@@ -80,17 +80,6 @@ export default function Home() {
               >
                 How Nova Works
               </motion.button>
-              <motion.a
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                href={SOCIAL_LINKS.towns}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="px-8 py-4 bg-purple-500/10 backdrop-blur-lg text-white rounded-lg font-semibold border border-purple-500/40 hover:bg-purple-500/20 transition-all inline-flex items-center gap-2"
-              >
-                <MessageCircle className="w-5 h-5" />
-                Join Towns
-              </motion.a>
             </div>
 
             <motion.div
