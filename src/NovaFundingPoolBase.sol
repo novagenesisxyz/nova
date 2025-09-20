@@ -6,6 +6,9 @@ import '@openzeppelin/contracts/access/Ownable.sol';
 import '@openzeppelin/contracts/utils/ReentrancyGuard.sol';
 import '@openzeppelin/contracts/utils/Pausable.sol';
 
+import {AaveV3Ethereum} from 'aave-address-book/AaveV3Ethereum.sol';
+import {AaveV3Sepolia} from 'aave-address-book/AaveV3Sepolia.sol';
+
 struct ReserveData {
     address aTokenAddress;
 }
@@ -34,6 +37,7 @@ error InvalidRecipient();
 error ExceedsAvailableYield(uint256 requested, uint256 available);
 error TransferFailed(address token, address from, address to, uint256 amount);
 error WithdrawMismatch(address token, uint256 requested, uint256 withdrawn);
+error InvalidProvider();
 
 /**
  * @title NovaFundingPoolBase
@@ -64,7 +68,7 @@ abstract contract NovaFundingPoolBase is Ownable, ReentrancyGuard, Pausable {
     event Withdrawn(address indexed user, uint256 amount);
     event YieldWithdrawn(address indexed recipient, uint256 amount);
 
-    constructor(address _noge, address _token, uint256 _decimalsFactor, address _addressesProvider)
+    constructor(address _noge, address _token, uint256 _decimalsFactor)
         Ownable(msg.sender)
     {
         if (_noge == address(0)) revert InvalidNogeToken();
@@ -74,7 +78,7 @@ abstract contract NovaFundingPoolBase is Ownable, ReentrancyGuard, Pausable {
         TOKEN = _token;
         DECIMALS_FACTOR = _decimalsFactor;
 
-        IAaveAddressesProvider providerCandidate = IAaveAddressesProvider(_addressesProvider);
+        IAaveAddressesProvider providerCandidate = IAaveAddressesProvider(_resolveProvider(address(0)));
         IAavePool poolCandidate = IAavePool(providerCandidate.getPool());
 
         ReserveData memory data = poolCandidate.getReserveData(_token);
@@ -87,6 +91,23 @@ abstract contract NovaFundingPoolBase is Ownable, ReentrancyGuard, Pausable {
         // Set a one-time max allowance to the Aave pool
         IERC20(_token).approve(address(poolCandidate), 0);
         IERC20(_token).approve(address(poolCandidate), type(uint256).max);
+    }
+
+    function _resolveProvider(address overrideProvider) internal view returns (address) {
+        if (overrideProvider != address(0)) {
+            return overrideProvider;
+        }
+
+        if (block.chainid == 1) {
+            return address(AaveV3Ethereum.POOL_ADDRESSES_PROVIDER);
+        }
+
+        if (block.chainid == 11155111) {
+            return address(AaveV3Sepolia.POOL_ADDRESSES_PROVIDER);
+        }
+
+        // Unknown chain: revert
+        revert InvalidProvider();
     }
 
     /**
