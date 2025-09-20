@@ -7,9 +7,11 @@ import '@openzeppelin/contracts/access/AccessControl.sol';
 /**
  * @title NOVAGenesis Token
  * @notice Memecoin token for Nova funding participants
- * @dev NOGE is the deposit receipt
  */
 contract NogeToken is ERC20, AccessControl {
+    // TODO: Consider not having a pool role and only having the admin role
+    //       owned by the Pool contract. Limits potential abuse of the pool role.
+
     bytes32 public constant POOL_ROLE = keccak256('POOL_ROLE');
 
     constructor(address admin) ERC20('NOVA Genesis', 'NOGE') {
