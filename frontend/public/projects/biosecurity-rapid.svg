@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 480">
+  <defs>
+    <linearGradient id="bio-bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#022c22" />
+      <stop offset="50%" stop-color="#047857" />
+      <stop offset="100%" stop-color="#a3e635" />
+    </linearGradient>
+    <radialGradient id="bio-glow" cx="45%" cy="45%" r="65%">
+      <stop offset="0%" stop-color="#ecfccb" stop-opacity="0.4" />
+      <stop offset="70%" stop-color="#064e3b" stop-opacity="0" />
+    </radialGradient>
+    <linearGradient id="strand" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#facc15" />
+      <stop offset="100%" stop-color="#4ade80" />
+    </linearGradient>
+    <linearGradient id="signal" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#22d3ee" stop-opacity="0.2" />
+      <stop offset="100%" stop-color="#fef08a" stop-opacity="0.45" />
+    </linearGradient>
+    <pattern id="grid" x="0" y="0" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M0 20h40" stroke="#bbf7d0" stroke-opacity="0.16" stroke-width="1" />
+      <path d="M20 0v40" stroke="#bbf7d0" stroke-opacity="0.16" stroke-width="1" />
+    </pattern>
+  </defs>
+  <rect width="800" height="480" rx="32" fill="url(#bio-bg)" />
+  <rect width="800" height="480" rx="32" fill="url(#bio-glow)" />
+  <rect x="60" y="60" width="680" height="360" rx="28" fill="url(#grid)" />
+  <g transform="translate(140 140)" stroke="#bbf7d0" stroke-opacity="0.4" stroke-width="1.6" fill="none">
+    <path d="M0 40c140-80 280 80 420 0s280 80 420 0" />
+    <path d="M0 120c140-80 280 80 420 0s280 80 420 0" stroke-opacity="0.24" />
+  </g>
+  <g transform="translate(400 240)">
+    <path d="M-160 -90c60-60 260-60 320 0c60 60 60 140 0 200c-60 60-260 60-320 0c-60-60-60-140 0-200z" fill="#022c22" fill-opacity="0.6" stroke="#4ade80" stroke-opacity="0.45" stroke-width="3" />
+    <g fill="none" stroke="url(#strand)" stroke-width="10" stroke-linecap="round">
+      <path d="M-120 -60C-60 -120 60 -120 120 -60" />
+      <path d="M-120 60C-60 120 60 120 120 60" />
+      <path d="M-110 -20C-40 -80 40 -80 110 -20" stroke-width="6" />
+      <path d="M-110 20C-40 80 40 80 110 20" stroke-width="6" />
+    </g>
+    <g fill="#022c22" stroke="#bef264" stroke-width="3" transform="rotate(28)">
+      <rect x="-22" y="-70" width="44" height="140" rx="20" />
+      <circle cx="0" cy="-70" r="18" fill="#bbf7d0" />
+      <circle cx="0" cy="70" r="18" fill="#bef264" />
+    </g>
+  </g>
+  <g transform="translate(624 128)" fill="#22d3ee" fill-opacity="0.4">
+    <rect x="-24" y="0" width="48" height="48" rx="12" />
+    <rect x="-16" y="68" width="32" height="32" rx="10" />
+    <rect x="-8" y="120" width="16" height="16" rx="6" />
+  </g>
+  <g transform="translate(180 320)" fill="url(#signal)">
+    <rect x="0" y="0" width="80" height="16" rx="8" />
+    <rect x="100" y="0" width="80" height="16" rx="8" />
+    <rect x="200" y="0" width="80" height="16" rx="8" />
+  </g>
+  <text x="400" y="402" text-anchor="middle" fill="#ecfccb" font-family="'Inter', sans-serif" font-size="30" font-weight="600" letter-spacing="4">
+    PROGRAMMABLE BIOSURVEILLANCE
+  </text>
+  <text x="400" y="440" text-anchor="middle" fill="#d9f99d" font-family="'Inter', sans-serif" font-size="16" letter-spacing="6">
+    BROAD INSTITUTE × USC ISI
+  </text>
+</svg>

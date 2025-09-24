@@ -1,0 +1,72 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 480">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#3b1d7a" />
+      <stop offset="50%" stop-color="#6b21a8" />
+      <stop offset="100%" stop-color="#f43f5e" />
+    </linearGradient>
+    <radialGradient id="glow" cx="50%" cy="40%" r="55%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.35" />
+      <stop offset="60%" stop-color="#f9a8d4" stop-opacity="0.12" />
+      <stop offset="100%" stop-color="#0f172a" stop-opacity="0" />
+    </radialGradient>
+    <linearGradient id="chip" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#14b8a6" />
+      <stop offset="100%" stop-color="#ecfeff" />
+    </linearGradient>
+    <linearGradient id="agent" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.9" />
+      <stop offset="100%" stop-color="#c7d2fe" stop-opacity="0.8" />
+    </linearGradient>
+  </defs>
+  <rect width="800" height="480" rx="32" fill="url(#bg)" />
+  <rect width="800" height="480" rx="32" fill="url(#glow)" />
+  <g stroke="#a855f7" stroke-opacity="0.3" stroke-width="1.5">
+    <path d="M120 120h120v120H120z" fill="none" />
+    <path d="M560 80h120v120H560z" fill="none" />
+    <path d="M640 280h80v80h-80z" fill="none" />
+    <path d="M200 300h160v100H200z" fill="none" />
+  </g>
+  <g fill="none" stroke="#fef3c7" stroke-opacity="0.28" stroke-width="1">
+    <path d="M180 140L320 240" />
+    <path d="M640 120L360 240" />
+    <path d="M240 320L420 240" />
+    <path d="M680 320L460 260" />
+    <path d="M160 360L320 180" />
+    <path d="M600 340L360 180" />
+  </g>
+  <g fill="#fef3c7" fill-opacity="0.18">
+    <circle cx="200" cy="120" r="36" />
+    <circle cx="610" cy="90" r="28" />
+    <circle cx="656" cy="332" r="34" />
+    <circle cx="280" cy="360" r="30" />
+  </g>
+  <g transform="translate(360 150)">
+    <rect x="-110" y="-70" width="220" height="220" rx="32" fill="#1f2937" fill-opacity="0.65" stroke="#94a3b8" stroke-opacity="0.5" />
+    <g transform="translate(0 20)" fill="none" stroke="url(#chip)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+      <rect x="-56" y="-46" width="112" height="112" rx="18" />
+      <path d="M-56 -10H-90" />
+      <path d="M56 -10H90" />
+      <path d="M0 -46V-90" />
+      <path d="M0 66V110" />
+      <circle cx="0" cy="10" r="26" />
+      <path d="M0 -16L-20 10L0 36L20 10Z" />
+    </g>
+    <g transform="translate(0 110)" fill="url(#agent)" stroke="#1e1b4b" stroke-opacity="0.25" stroke-width="1.5">
+      <rect x="-60" y="-24" width="120" height="46" rx="10" />
+      <rect x="-48" y="-58" width="96" height="24" rx="8" />
+      <circle cx="-20" cy="-12" r="6" fill="#38bdf8" />
+      <circle cx="0" cy="-12" r="6" fill="#22d3ee" />
+      <circle cx="20" cy="-12" r="6" fill="#38bdf8" />
+    </g>
+    <g transform="translate(0 148)" fill="none" stroke="#a855f7" stroke-opacity="0.6" stroke-width="2" stroke-dasharray="6 8">
+      <path d="M-70 0h140" />
+    </g>
+  </g>
+  <text x="400" y="410" text-anchor="middle" fill="#f8fafc" font-family="'Inter', sans-serif" font-size="32" font-weight="600" letter-spacing="4">
+    AUTONOMOUS SCIENCE AGENTS
+  </text>
+  <text x="400" y="442" text-anchor="middle" fill="#e0e7ff" font-family="'Inter', sans-serif" font-size="16" letter-spacing="6">
+    USC INFORMATION SCIENCES INSTITUTE
+  </text>
+</svg>

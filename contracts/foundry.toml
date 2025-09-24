@@ -1,0 +1,28 @@
+[profile.default]
+src = "src"
+out = "out"
+libs = ["lib"]
+solc = "0.8.26"
+optimizer = true
+optimizer_runs = 200
+remappings = [
+    "@openzeppelin/=lib/openzeppelin-contracts/",
+    "@aave/=lib/aave-v3-core/",
+    "forge-std/=lib/forge-std/src/",
+    "aave-address-book/=lib/aave-address-book/src/",
+    "aave-v3-origin/=lib/aave-address-book/lib/aave-v3-origin/src/"
+]
+
+[etherscan]
+mainnet = { key = "${ETHERSCAN_API_KEY}" }
+
+[rpc_endpoints]
+mainnet = "${ETH_RPC_URL}"
+sepolia = "${SEPOLIA_RPC_URL}"
+localhost = "http://localhost:8545"
+
+[profile.lite]
+optimizer = false
+via_ir = false
+
+# See more config options https://github.com/foundry-rs/foundry/blob/master/crates/config/README.md#all-options

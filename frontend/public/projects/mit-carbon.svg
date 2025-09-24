@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 480">
+  <defs>
+    <linearGradient id="carbon-bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#082f49" />
+      <stop offset="60%" stop-color="#0ea5e9" />
+      <stop offset="100%" stop-color="#f59e0b" />
+    </linearGradient>
+    <linearGradient id="carbon-flow" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#38bdf8" stop-opacity="0.15" />
+      <stop offset="100%" stop-color="#fef08a" stop-opacity="0.4" />
+    </linearGradient>
+    <linearGradient id="mof-node" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#f97316" />
+      <stop offset="100%" stop-color="#facc15" />
+    </linearGradient>
+    <pattern id="mof-grid" x="0" y="0" width="48" height="48" patternUnits="userSpaceOnUse">
+      <path d="M0 24L12 6h24l12 18-12 18H12z" fill="none" stroke="#fef3c7" stroke-opacity="0.16" stroke-width="2" />
+    </pattern>
+  </defs>
+  <rect width="800" height="480" rx="32" fill="url(#carbon-bg)" />
+  <rect width="800" height="480" rx="32" fill="url(#carbon-flow)" />
+  <rect x="40" y="40" width="720" height="400" rx="28" fill="url(#mof-grid)" fill-opacity="0.45" />
+  <g transform="translate(120 120)" fill="none" stroke="#bae6fd" stroke-opacity="0.5" stroke-width="1.6">
+    <path d="M0 80c70-90 210-90 280 0s210 90 280 0" />
+    <path d="M0 140c70-90 210-90 280 0s210 90 280 0" stroke-opacity="0.35" />
+    <path d="M0 200c70-90 210-90 280 0s210 90 280 0" stroke-opacity="0.2" />
+  </g>
+  <g transform="translate(400 240)">
+    <circle r="110" fill="#0f172a" fill-opacity="0.5" stroke="#38bdf8" stroke-opacity="0.35" stroke-width="3" />
+    <g fill="url(#mof-node)">
+      <circle cx="0" cy="-70" r="16" />
+      <circle cx="60" cy="-20" r="16" />
+      <circle cx="40" cy="58" r="16" />
+      <circle cx="-40" cy="58" r="16" />
+      <circle cx="-60" cy="-20" r="16" />
+      <circle cx="0" cy="0" r="20" />
+    </g>
+    <g stroke="#fef3c7" stroke-opacity="0.6" stroke-width="2.4">
+      <path d="M0 -70L60 -20L40 58L-40 58L-60 -20Z" fill="none" />
+      <path d="M0 -70L40 58" />
+      <path d="M0 -70L-40 58" />
+      <path d="M-60 -20L60 -20" />
+    </g>
+  </g>
+  <g transform="translate(640 140)" fill="#86efac" fill-opacity="0.85">
+    <rect x="-18" y="-18" width="36" height="36" rx="8" />
+    <rect x="-18" y="42" width="36" height="36" rx="8" fill-opacity="0.45" />
+    <rect x="-18" y="102" width="36" height="36" rx="8" fill-opacity="0.25" />
+  </g>
+  <text x="400" y="402" text-anchor="middle" fill="#f8fafc" font-family="'Inter', sans-serif" font-size="30" font-weight="600" letter-spacing="4">
+    METAL-ORGANIC FRAMEWORK CAPTURE
+  </text>
+  <text x="400" y="438" text-anchor="middle" fill="#e0f2fe" font-family="'Inter', sans-serif" font-size="16" letter-spacing="6">
+    MIT CLIMATE LAB
+  </text>
+</svg>

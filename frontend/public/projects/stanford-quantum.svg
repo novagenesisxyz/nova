@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 480">
+  <defs>
+    <linearGradient id="quantum-bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0b1220" />
+      <stop offset="55%" stop-color="#1d4ed8" />
+      <stop offset="100%" stop-color="#7c3aed" />
+    </linearGradient>
+    <radialGradient id="quantum-core" cx="50%" cy="50%" r="60%">
+      <stop offset="0%" stop-color="#f5f3ff" stop-opacity="0.55" />
+      <stop offset="60%" stop-color="#a855f7" stop-opacity="0.18" />
+      <stop offset="100%" stop-color="#0b1220" stop-opacity="0" />
+    </radialGradient>
+    <linearGradient id="loop" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#22d3ee" />
+      <stop offset="100%" stop-color="#a855f7" />
+    </linearGradient>
+  </defs>
+  <rect width="800" height="480" rx="32" fill="url(#quantum-bg)" />
+  <rect width="800" height="480" rx="32" fill="url(#quantum-core)" />
+  <g stroke="#c4b5fd" stroke-opacity="0.22" stroke-width="1.4" fill="none">
+    <path d="M80 160c120-120 280-60 360 40s200 120 280 0" />
+    <path d="M80 240c120-120 280-60 360 40s200 120 280 0" stroke-opacity="0.18" />
+    <path d="M80 320c120-120 280-60 360 40s200 120 280 0" stroke-opacity="0.12" />
+  </g>
+  <g transform="translate(400 240)" fill="none" stroke="url(#loop)" stroke-width="10" stroke-linecap="round">
+    <path d="M0 -120C-110 -120 -110 120 0 120C110 120 110 -120 0 -120Z" stroke-opacity="0.28" />
+    <path d="M-120 0C-120 -110 120 -110 120 0C120 110 -120 110 -120 0Z" stroke-opacity="0.28" />
+    <path d="M-100 -40C-40 -140 140 -40 80 60C20 160 -160 40 -100 -40Z" stroke-opacity="0.55" />
+  </g>
+  <g transform="translate(400 240)">
+    <circle cx="0" cy="0" r="58" fill="#0b1220" fill-opacity="0.65" stroke="#60a5fa" stroke-width="3" stroke-opacity="0.6" />
+    <path d="M-36 0a36 28 0 1 0 72 0a36 28 0 1 0 -72 0" fill="none" stroke="#38bdf8" stroke-width="3" stroke-opacity="0.6" />
+    <circle cx="0" cy="0" r="14" fill="#f5f3ff" stroke="#a21caf" stroke-width="2" stroke-opacity="0.7" />
+  </g>
+  <g transform="translate(120 110)" fill="#38bdf8" fill-opacity="0.4">
+    <rect x="0" y="0" width="64" height="64" rx="12" />
+    <rect x="40" y="80" width="48" height="48" rx="10" />
+    <rect x="-20" y="160" width="60" height="60" rx="12" />
+  </g>
+  <text x="400" y="404" text-anchor="middle" fill="#f8fafc" font-family="'Inter', sans-serif" font-size="30" font-weight="600" letter-spacing="4">
+    TOPOLOGICAL QUANTUM CONTROL
+  </text>
+  <text x="400" y="440" text-anchor="middle" fill="#e0e7ff" font-family="'Inter', sans-serif" font-size="16" letter-spacing="6">
+    STANFORD QUANTUM LAB
+  </text>
+</svg>

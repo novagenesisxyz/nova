@@ -1,105 +1,180 @@
-## Foundry
+# Nova Funding Platform
 
-**Foundry is a blazing fast, portable and modular toolkit for Ethereum application development written in Rust.**
+A decentralized funding platform built with Foundry smart contracts and Next.js frontend, featuring NOGE memecoin as the deposit receipt token.
 
-Foundry consists of:
+## Project Structure
 
-- **Forge**: Ethereum testing framework (like Truffle, Hardhat and DappTools).
-- **Cast**: Swiss army knife for interacting with EVM smart contracts, sending transactions and getting chain data.
-- **Anvil**: Local Ethereum node, akin to Ganache, Hardhat Network.
-- **Chisel**: Fast, utilitarian, and verbose solidity REPL.
-
-## Documentation
-
-https://book.getfoundry.sh/
-
-## Usage
-
-### Build
-
-```shell
-$ forge build
+```
+nova/
+├── contracts/                 # Smart contracts (Foundry)
+│   ├── src/                  # Contract source files
+│   ├── test/                 # Contract tests
+│   ├── script/               # Deployment scripts
+│   ├── lib/                  # Dependencies (git submodules)
+│   └── README.md             # Contract-specific documentation
+│
+├── frontend/                  # Next.js application
+│   ├── app/                  # App router pages
+│   ├── components/           # React components
+│   ├── hooks/                # Custom React hooks
+│   ├── providers/            # Context providers
+│   ├── lib/                  # Utilities & constants
+│   ├── public/               # Static assets
+│   └── abi/                  # Generated contract ABIs
+│
+├── docs/                      # Documentation
+│   └── DEPLOYMENT.md         # Deployment guide
+│
+└── scripts/                   # Automation scripts
+    ├── deploy.sh             # Unified deployment
+    └── generate-abi.sh       # ABI generation
 ```
 
-### Test
+## Quick Start
 
-```shell
-$ forge test
+### Prerequisites
+
+- Node.js 18+ and npm
+- [Foundry](https://book.getfoundry.sh/getting-started/installation)
+- Git
+
+### Setup
+
+1. **Clone and install dependencies:**
+```bash
+git clone <repo-url>
+cd nova
+npm install
 ```
 
-### Format
-
-```shell
-$ forge fmt
+2. **Set up environment variables:**
+```bash
+cp .env.example .env.local
+cp .env.foundry.example .env.foundry
 ```
 
-### Gas Snapshots
-
-```shell
-$ forge snapshot
+3. **Configure .env.foundry:**
+```env
+SEPOLIA_RPC_URL=https://sepolia.infura.io/v3/YOUR_KEY
+PRIVATE_KEY=your_private_key
+# Optional: Set USDC_ADDRESS or a MockUSDC will be deployed
 ```
 
-### Anvil
-
-```shell
-$ anvil
+4. **Configure frontend/.env.local:**
+```env
+NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID=your_project_id
+NEXT_PUBLIC_SEPOLIA_RPC_URL=https://sepolia.infura.io/v3/YOUR_KEY
+NEXT_PUBLIC_GENESIS_GOAL_USDC=5000000
+# Contract addresses will be added after deployment
 ```
 
-### Deploy
+## Development
 
-```shell
-$ forge script script/Counter.s.sol:CounterScript --rpc-url <your_rpc_url> --private-key <your_private_key>
+### Smart Contracts
+
+```bash
+# Build contracts
+npm run build:contracts
+
+# Run tests
+npm run test:contracts
+
+# Start local node
+npm run anvil
+
+# Deploy to local
+npm run deploy:local
 ```
 
-### Cast
+### Frontend
 
-```shell
-$ cast <subcommand>
+```bash
+# Start development server
+npm run dev
+
+# Build for production
+npm run build
+
+# Run production server
+npm run start
 ```
 
-### Help
+## Deployment
 
-```shell
-$ forge --help
-$ anvil --help
-$ cast --help
+### Deploy to Sepolia
+
+```bash
+# Deploy contracts and generate ABIs
+npm run deploy:sepolia
+
+# Or use the script directly
+./scripts/deploy.sh sepolia
 ```
 
-## Frontend TODO
+After deployment:
+1. Copy the deployed addresses from the output
+2. Add them to `frontend/.env.local`:
+   - `NEXT_PUBLIC_NOGE_TOKEN_ADDRESS`
+   - `NEXT_PUBLIC_FUNDING_POOL_USDC_ADDRESS`
+   - `NEXT_PUBLIC_USDC_ADDRESS`
 
-- Replace mock initiative and transparency data with live sources once NOVA treasury addresses are public.
-- Wire the Projects view to the backend API and hide preview data when production records exist.
-- Automate transparency ledger exports (CSV + on-chain links) from the reporting pipeline.
+### Deploy Frontend to Vercel
 
-## Sepolia Quickstart
+See [docs/DEPLOYMENT.md](docs/DEPLOYMENT.md) for detailed instructions.
 
-1. **Set up environment files**
-   ```bash
-   cp .env.example .env.local
-   cp .env.foundry.example .env.foundry
-   ```
-   - Fill `.env.foundry` with `SEPOLIA_RPC_URL`, `PRIVATE_KEY`, and optionally `USDC_ADDRESS`.
-   - The deploy script auto-selects the official Aave v3 Pool Addresses Provider using the [Aave address book](https://github.com/bgd-labs/aave-address-book) dependency (0xA97684e... for mainnet, 0x012bAC... for Sepolia). Override by setting `AAVE_ADDRESSES_PROVIDER` in `.env.foundry` if you are targeting a different network or test harness.
-   - In `.env.local`, set `NEXT_PUBLIC_GENESIS_GOAL_USDC` to the target amount of USDC you plan to raise during Genesis.
+## Key Features
 
-2. **Deploy contracts to Sepolia**
-   ```bash
-   make deploy-sepolia
-   ```
-   - The script prints `NEXT_PUBLIC_*` addresses; copy them into `.env.local`.
-   - If no USDC address is supplied, a `MockUSDC` token is deployed and pre-minted to the deployer wallet for testing.
+- ✅ Accept USDC/DAI/USDT deposits
+- ✅ Issue NOGE memecoins 1:1 with USD value
+- ✅ Automatic yield generation through Aave V3
+- ✅ Instant withdrawals using NOGE tokens
+- ✅ Community governance voting system
+- ✅ 51% quorum for fund allocation proposals
+- ✅ Non-custodial design
 
-3. **Run contract tests**
-   ```bash
-   npm run contracts:test
-   ```
+## Contract Architecture
 
-4. **Start the frontend**
-   ```bash
-   npm install
-   npm run dev
-   ```
-   - Connect a wallet configured for Sepolia and use the deposit widget to send mock USDC into the Genesis pool.
+The platform consists of:
+- **NogeToken.sol**: ERC20 memecoin serving as deposit receipts
+- **NovaFundingPoolBase.sol**: Base contract for single-asset pools
+- **USDCFundingPool.sol**: USDC-specific pool implementation
+- **NovaToken.sol**: Governance token for the platform
 
-5. **(Optional) Redeploy**
-   - Use `npm run contracts:deploy:sepolia` for scripted redeploys once environment variables are set.
+## Frontend Architecture
+
+Built with:
+- Next.js 15 with App Router
+- RainbowKit for wallet connections
+- Wagmi for blockchain interactions
+- TailwindCSS for styling
+- Recharts for data visualization
+
+## Testing
+
+```bash
+# Run all contract tests
+cd contracts && forge test
+
+# Run with gas reporting
+cd contracts && forge test --gas-report
+
+# Run with coverage
+cd contracts && forge coverage
+```
+
+## Scripts
+
+- `generate-abi.sh`: Extracts contract ABIs for frontend use
+- `deploy.sh`: Unified deployment script with network selection
+
+## Contributing
+
+1. Fork the repository
+2. Create your feature branch
+3. Commit your changes
+4. Push to the branch
+5. Open a Pull Request
+
+## License
+
+ISC

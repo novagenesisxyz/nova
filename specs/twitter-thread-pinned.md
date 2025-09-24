@@ -7,154 +7,111 @@ This is the comprehensive Twitter thread designed to be pinned to the top of the
 
 🧵1/
 
-Meet NOVA: The stablecoin that funds public goods instead of keeping all the yield 🌟
+Meet NOVA: the stablecoin that sends reserve yield to frontier science labs instead of corporate treasuries. 🌌
 
-While we love USDC & USDT, they generate billions in interest from YOUR deposits and keep it all. NOVA directs that yield to the community and public good
+Genesis launches with USC Information Sciences Institute (ISI) so autonomous science agents, biosurveillance, and quantum tooling get stable funding from day one.
 
-This is finance that gives back
+2/
 
-2/ The problem is simple but massive:
+Stablecoins quietly earn ~5% on $150B+ sitting in T-bills. That’s $7.5B a year going to issuers.
 
-Your dollars in stablecoins earn ~5% annually in T-bills and repos. On $150B+ in circulation, that's $7.5B per year.
+NOVA keeps your dollars withdrawable and routes the yield into vetted science programs that publish milestones, data, and safety reviews.
 
-Where does it go? To Tether & Circle's bottom line.
+3/
 
-NOVA flips this model. Holding and using NOVA → Public goods.
-Nova Stablecoin
-@NovaGenesisxyz
+Why USC ISI? They run multi-decade national lab collaborations and know how to deploy autonomy safely. Nova’s first advisory council is anchored there, with partners at Stanford Quantum Lab, Broad Institute, and Caltech Space Systems.
 
-3/ How does NOVA stay compliant?
+4/
 
-The GENIUS Act explicitly forbids paying interest to stablecoin holders. NOVA doesn't pay you interest - it directs yield to fund public goods instead.
+We’re in the Genesis phase 🚀
 
-Fully transparent. Fully compliant. Fully community-driven.
-Nova Stablecoin
-@NovaGenesisxyz
+No VCs. No private allocations. Just researchers and supporters who want stable science funding. Genesis builds the reserves needed to launch a fully-backed USD stablecoin.
 
-4/ Right now: We're in the Genesis phase 🚀
+5/
 
-This is NOVA's community bootstrap. No VCs. No private investors. Just people who believe stablecoins should benefit everyone.
+How Genesis works:
+1️⃣ Connect wallet & deposit USDC
+2️⃣ Receive NOGE (NOVA Genesis) receipts 1:1
+3️⃣ Your USDC earns yield in Aave v3
+4️⃣ Withdraw principal anytime using NOGE
 
-Your Genesis deposits build the reserves needed to launch NOVA as a fully-backed stablecoin.
-Nova Stablecoin
-@NovaGenesisxyz
+The yield pays for compliance, audits, and science diligence.
 
-5/ How Genesis works:
+6/
 
-1/ Connect wallet & deposit USDC
-2/ Receive NOGE (NOVA Genesis) receipts 1:1
-3/ Your USDC earns yield in Aave V3
-4/ Withdraw your principal anytime using NOGE
+What’s in the pipeline (demo data today, live funding post-launch):
+• USC ISI autonomous science agents for national labs
+• Biosurveillance platform with Broad Institute
+• Topological quantum error correction with Stanford
+• Fusion diagnostics with LLNL
 
-The yield? Funds audits, legal framework, and protocol development.
-Nova Stablecoin
-@NovaGenesisxyz
+7/
 
-6/ Why participate in Genesis?
+Phases:
+Phase 1 — Genesis: Pool USDC, fund engineering + diligence (now)
+Phase 2 — Treasury migration: Move reserves to diversified custodians, open mint/redeem
+Phase 3 — Science allocations: Yield flows continuously to milestone-verified research
 
-✅ Withdraw anytime - no lockups
-✅ Non-custodial smart contracts
-✅ Battle-tested Aave integration ($10B+ TVL)
-✅ Early access to NOVA when it launches
-✅ Shape how billions in yield gets allocated
-Nova Stablecoin
-@NovaGenesisxyz
+8/
 
-7/ The master plan has 3 phases:
+Why it’s different:
+• Democratic allocation: Holders and stakers advise research budgets
+• Radical transparency: On-chain receipts + open milestone reporting
+• Lab-ready oversight: USC ISI-led safety reviews before any disbursement
 
-Phase 1: Bootstrap with USDC (happening now)
-Phase 2: NOVA independence - migrate to USD reserves
-Phase 3: Fund public goods at scale
+9/
 
-Each phase builds on community ownership. No outside investors pulling strings.
-Nova Stablecoin
-@NovaGenesisxyz
+This isn’t charity. It’s financial infrastructure for frontier science. Every NOVA in circulation continuously funds experiments in AI safety, biosecurity, energy, and space systems.
 
-8/ What makes NOVA different:
+10/
 
-Democratic allocation: Holders & stakers advise where yield goes
-Full transparency: On-chain receipts, public cost reporting
-Impact tracking: See exactly what your participation funds
-Principal safety: Only yields fund projects, never your deposits
-Nova Stablecoin
-@NovaGenesisxyz
+Governance 101:
+• Genesis supporters establish policy baselines
+• Advisory council proposes discipline weights
+• Community ratifies quarterly allocation updates
 
-9/ This isn't charity. It's a redesign of financial infrastructure.
+11/
 
-Every NOVA in circulation automatically generates funding for public goods. Scale this to billions, and we're talking about sustainable funding for humanity's biggest challenges.
-Nova Stablecoin
-@NovaGenesisxyz
+Security & trust:
+• Audited, non-custodial smart contracts
+• Battle-tested Aave liquidity
+• Withdrawable principal 24/7
+• Transparent reporting from the first dollar deployed
 
-10/ Who decides what gets funded?
+12/
 
-YOU do. NOVA holders and stakers will vote on allocation categories to advise the fund.
+Transparency stack:
+• Monthly reserve attestations
+• Milestone dashboards for every funded lab
+• Public CSV + API for researchers & journalists
+• Open-source diligence rubric (USC ISI maintained)
 
-Basic research might be first. Then education, climate, healthcare, open source.
+13/
 
-The community advises what the best public use is of the funds.
-Nova Stablecoin
-@NovaGenesisxyz
+Genesis supporters are early co-builders. Your NOGE receipt is proof you helped launch the first stablecoin whose default beneficiary is frontier science.
 
-11/ Security & trust:
+14/
 
-Smart contracts get are audited & open source
-Deposits via Aave V3's proven infrastructure• Non-custodial - you control your funds
-Transparent reporting from day one
-Withdraw anytime during Genesis
-Nova Stablecoin
-@NovaGenesisxyz
+Vision:
+Everyday transactions quietly fund breakthroughs—safer AI agents, pathogen detection kits, fusion diagnostics, new materials. Finance that compounds scientific capacity.
 
-12/ We need community-funded infrastructure because:
+15/
 
-1/ It aligns incentives correctly through Public Benefit Corp
-2/ No VCs means no exit pressure
-3/ Decisions benefit users, not shareholders
-4/ Transparency becomes non-negotiable
-5/ Public goods get sustainable funding
-Nova Stablecoin
-@NovaGenesisxyz
-13/ Genesis supporters are special.
+Ready to help wire the future of research?
+🌐 novagenesis.xyz
+💬 Join the lab chats: https://app.towns.com/t/0x786ba3cace901605cb3a10dcbaf74e329a63cdaa/
+🐦 Follow updates: @NovaGenesisxyz
 
-You're not just early. You're founding members of a movement to redirect billions from corporate
-treasuries to public benefit.
+Deposit into Genesis. Get NOGE. Bootstrap science funding.
 
-Your NOGE tokens = proof you helped bootstrap something bigger than profits.
-6:51 PM · Sep 17, 2025
-View post engagements
+16/
 
-Nova Stablecoin
-@NovaGenesisxyz
+Remember:
+• Deposits stay withdrawable anytime
+• Demo runs on Sepolia; mainnet launch post-audits
+• Yield funds compliance + science, not investors
+• NOGE unlocks first access to NOVA
 
-14/ The vision is simple:
-
-A world where your everyday transactions automatically fund advances in basic research, support education, build the commons, and create public infra.
-
-Finance as a force for good. At protocol level.
-Nova Stablecoin
-@NovaGenesisxyz
-
-15/ Ready to join?
-
-🌐 Visit: [http://novagenesis.xyz]
-💬 Join the discussion: https://app.towns.com/t/0x786ba3cace901605cb3a10dcbaf74e329a63cdaa/
-🐦 Follow updates:
-@NovaGenesisxyz
-
-
-Deposit into Genesis. Get NOGE. Help build the stablecoin that gives back.
-
-Be part of the solution. 🚀
-From app.towns.com
-Nova Stablecoin
-@NovaGenesisxyz
-
-16/ Remember:
-
-Deposits are withdrawable anytime
-This is Ethereum mainnet (demo on Sepolia)
-Interest funds development, not investors
-NOGE holders get first access to NOVA
-
-The future of money should benefit everyone. Let's build it together.
+The future of money should accelerate discovery. Let’s build it together.
 
 /🧵

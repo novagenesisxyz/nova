@@ -1,0 +1,51 @@
+{
+  "dependencies": {
+    "@rainbow-me/rainbowkit": "^2.2.8",
+    "@react-native-async-storage/async-storage": "^2.2.0",
+    "@tanstack/react-query": "^5.85.9",
+    "@types/node": "^24.3.0",
+    "@types/react": "^19.1.12",
+    "@types/react-dom": "^19.1.9",
+    "@vercel/analytics": "^1.5.0",
+    "@vercel/speed-insights": "^1.2.0",
+    "autoprefixer": "^10.4.21",
+    "eslint": "^9.34.0",
+    "eslint-config-next": "^15.5.2",
+    "ethers": "^6.15.0",
+    "framer-motion": "^12.23.12",
+    "lucide-react": "^0.542.0",
+    "next": "^15.5.2",
+    "pino-pretty": "^13.1.1",
+    "postcss": "^8.5.6",
+    "react": "^19.1.1",
+    "react-dom": "^19.1.1",
+    "recharts": "^3.1.2",
+    "tailwindcss": "^3.4.17",
+    "typescript": "^5.9.2",
+    "viem": "^2.37.2",
+    "wagmi": "^2.16.9"
+  },
+  "name": "nova",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "contracts:test": "forge test",
+    "contracts:deploy:sepolia": "forge script script/Deploy.s.sol:DeployScript --rpc-url sepolia --broadcast"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "devDependencies": {
+    "@next/swc-darwin-arm64": "^15.5.4",
+    "vercel": "^47.0.4"
+  }
+}
