@@ -1,10 +1,8 @@
 {
   "framework": "nextjs",
-  "rootDirectory": "frontend",
-  "buildCommand": "cd .. && pnpm --filter nova build",
-  "devCommand": "cd .. && pnpm dev",
-  "installCommand": "cd .. && pnpm install",
-  "outputDirectory": "frontend/.next",
+  "buildCommand": "pnpm --filter frontend build",
+  "devCommand": "pnpm dev",
+  "installCommand": "pnpm install",
   "env": {
     "NEXT_TELEMETRY_DISABLED": "1"
   }
