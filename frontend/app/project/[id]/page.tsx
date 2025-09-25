@@ -3,12 +3,13 @@
 import { useState, useEffect } from "react";
 import { useParams } from "next/navigation";
 import { motion } from "framer-motion";
+import Image from "next/image";
 import Navbar from "@/components/Navbar";
 import StakingModal from "@/components/StakingModal";
 import FundingChart from "@/components/FundingChart";
 import Footer from "@/components/Footer";
 import { mockProjects } from "@/lib/mockData";
-import { SUPPORTED_TOKENS, SOCIAL_LINKS } from "@/lib/constants";
+import { SOCIAL_LINKS } from "@/lib/constants";
 import {
   Users,
   Clock,
@@ -28,12 +29,14 @@ export default function ProjectDetailPage() {
   const params = useParams();
   const [showStakingModal, setShowStakingModal] = useState(false);
   const [realTimeFunding, setRealTimeFunding] = useState(0);
+  const [heroImageSrc, setHeroImageSrc] = useState<string | null>(null);
 
   const project = mockProjects.find((p) => p.id === params.id);
 
   useEffect(() => {
     if (project) {
       setRealTimeFunding(project.currentFunding);
+      setHeroImageSrc(project.imageUrl);
       const interval = setInterval(() => {
         setRealTimeFunding((prev) => prev + Math.random() * 100);
       }, 5000);
@@ -63,10 +66,14 @@ export default function ProjectDetailPage() {
       <div className="pt-24 pb-20">
         {/* Hero Section */}
         <div className="relative h-96 overflow-hidden">
-          <img
-            src={project.imageUrl}
+          <Image
+            src={heroImageSrc || project.imageUrl || "/nova-logo.png"}
             alt={project.title}
-            className="w-full h-full object-cover"
+            fill
+            className="object-cover"
+            priority
+            sizes="100vw"
+            onError={() => setHeroImageSrc("/nova-logo.png")}
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent" />
           <div className="absolute bottom-0 left-0 right-0 p-8">

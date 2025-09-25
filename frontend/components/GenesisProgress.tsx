@@ -5,7 +5,7 @@ import { useMemo } from "react";
 import { formatUnits, parseUnits } from "viem";
 import { CONTRACTS } from "@/lib/contracts";
 import { useFundingPool } from "@/hooks/useFundingPool";
-import { Target, ArrowUpRight } from "lucide-react";
+import { Target } from "lucide-react";
 
 const TOKEN_DECIMALS = 6;
 

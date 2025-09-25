@@ -14,7 +14,6 @@ import {
   Heart,
   Users,
   Shield,
-  Zap,
   Coins,
   Target,
   Gift,

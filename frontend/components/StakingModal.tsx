@@ -13,7 +13,7 @@ interface StakingModalProps {
 }
 
 export default function StakingModal({ project, onClose }: StakingModalProps) {
-  const { address, isConnected } = useAccount();
+  const { isConnected } = useAccount();
   const [selectedToken, setSelectedToken] = useState("USDC");
   const [amount, setAmount] = useState("");
   const [isStaking, setIsStaking] = useState(false);

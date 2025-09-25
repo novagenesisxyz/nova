@@ -9,7 +9,6 @@ import {
   Shield,
   TrendingUp,
   Users,
-  Sparkles,
   CheckCircle,
   Heart,
   Globe,
@@ -50,7 +49,7 @@ export default function Home() {
             </h1>
 
             <p className="text-xl text-gray-300 mb-8 max-w-3xl mx-auto">
-            Instead of going to corporate profits, yield from Nova's reserves helps the world by funding frontier breakthroughs with top scientists and labs.
+            Instead of going to corporate profits, yield from Nova&apos;s reserves helps the world by funding frontier breakthroughs with top scientists and labs.
             </p>
 
             <div className="flex flex-wrap gap-4 justify-center mb-6">
@@ -123,7 +122,7 @@ export default function Home() {
             </h2>
             <p className="text-lg text-gray-300 mb-8">
               Nova directs reserve interest into milestone-based frontier science programs.
-              By participating in Nova's launch, you are helping engineers, physicists,
+              By participating in Nova&apos;s launch, you are helping engineers, physicists,
               and science teams secure predictable funding for breakthrough research.
             </p>
 
@@ -259,7 +258,7 @@ export default function Home() {
                   href="/how-it-works"
                   className="inline-flex items-center gap-2 px-5 py-3 bg-white/10 hover:bg-white/20 text-white rounded-lg font-medium border border-white/20 transition-colors"
                 >
-                  Learn more about Nova's Launch
+                  Learn more about Nova&apos;s Launch
                   <ArrowRight className="w-4 h-4" />
                 </Link>
               </div>
@@ -359,7 +358,7 @@ export default function Home() {
           </h2>
 
           <div className="space-y-6">
-            {faqs.map((faq, index) => (
+            {faqs.map((faq) => (
               <motion.div
                 key={faq.question}
                 whileHover={{ scale: 1.02 }}

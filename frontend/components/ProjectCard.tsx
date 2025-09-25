@@ -1,10 +1,11 @@
 'use client';
 
+import { useState } from 'react';
+import Image from 'next/image';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { Project } from '@/lib/types';
 import { Users, Clock, TrendingUp, Zap } from 'lucide-react';
-import Image from 'next/image';
 
 interface ProjectCardProps {
   project: Project;
@@ -12,6 +13,7 @@ interface ProjectCardProps {
 
 export default function ProjectCard({ project }: ProjectCardProps) {
   const fundingPercentage = (project.currentFunding / project.fundingGoal) * 100;
+  const [imageSrc, setImageSrc] = useState(project.imageUrl);
 
   return (
     <Link href={`/project/${project.id}`}>
@@ -20,16 +22,18 @@ export default function ProjectCard({ project }: ProjectCardProps) {
         className="bg-white/5 backdrop-blur-lg rounded-xl overflow-hidden border border-white/10 hover:border-purple-500/50 transition-all group cursor-pointer"
       >
         <div className="relative h-48 overflow-hidden">
-          <img
-            src={project.imageUrl}
+          <Image
+            fill
+            src={imageSrc || '/nova-logo.png'}
             alt={project.title}
-            onError={(e) => {
-              const target = e.currentTarget as HTMLImageElement;
-              if (target.dataset.fallbackApplied) return;
-              target.dataset.fallbackApplied = 'true';
-              target.src = '/favicon.svg';
+            className="object-cover group-hover:scale-110 transition-transform duration-500"
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            onError={() => {
+              if (imageSrc !== '/nova-logo.png') {
+                setImageSrc('/nova-logo.png');
+              }
             }}
-            className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+            priority={false}
           />
           <div className="absolute top-2 right-2">
             <span className="px-3 py-1 bg-black/60 backdrop-blur-lg rounded-full text-xs text-white">

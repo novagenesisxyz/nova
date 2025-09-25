@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import Link from "next/link";
-import { Shield, Receipt, PieChart, ExternalLink, DollarSign, BarChart3, AlertCircle } from "lucide-react";
+import { Shield, Receipt, PieChart, ExternalLink, BarChart3, AlertCircle } from "lucide-react";
 
 export default function TransparencyPage() {
   const rows = [
