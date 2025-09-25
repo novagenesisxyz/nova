@@ -45,7 +45,7 @@
   "license": "ISC",
   "type": "commonjs",
   "devDependencies": {
-    "@next/swc-darwin-arm64": "^15.5.4",
     "vercel": "^47.0.4"
-  }
+  },
+  "packageManager": "pnpm@9.12.0"
 }

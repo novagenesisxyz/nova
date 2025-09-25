@@ -1,9 +1,0 @@
-{
-  "framework": "nextjs",
-  "buildCommand": "pnpm --filter frontend build",
-  "devCommand": "pnpm dev",
-  "installCommand": "pnpm install",
-  "env": {
-    "NEXT_TELEMETRY_DISABLED": "1"
-  }
-}
