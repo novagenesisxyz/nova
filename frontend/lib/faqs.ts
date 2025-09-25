@@ -7,7 +7,7 @@ const faqs = [
   {
     question: "What happens to the interest earned during the Genesis phase?",
     answer:
-      "During the Genesis phase, Aave interest is retained by the pool to support Nova's development and operations. Your principal remains withdrawable at any time.",
+      "During the Genesis phase, Aave interest stays with the pool to power Nova's launch readiness and science milestones. Your staked principal is always withdrawable.",
   },
   {
     question: "Is this audited and secure?",
@@ -17,7 +17,7 @@ const faqs = [
   {
     question: "How do NOGE receipts work?",
     answer:
-      "NOGE is minted 1:1 with your USDC deposit and burned on withdrawal. Keep NOGE safe; it is required to redeem your principal and will unlock early access to NOVA once launched.",
+      "NOGE mints 1:1 with your staked USDC and burns on withdrawal. Keep NOGE safe; it is required to redeem your principal and will unlock early access to NOVA once launched.",
   },
   {
     question: "What is the USDC Genesis goal?",

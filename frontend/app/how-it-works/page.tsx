@@ -9,7 +9,6 @@ import {
   Wallet,
   ArrowRight,
   Vote,
-  DollarSign,
   TrendingUp,
   Heart,
   Users,
@@ -23,30 +22,30 @@ export default function HowItWorksPage() {
   const steps = [
     {
       icon: Wallet,
-      title: "Connect your wallet",
+      title: "Stake USDC",
       description:
-        "Use a self-custody wallet such as MetaMask or Rainbow so deposits remain non-custodial.",
+        "Connect a self-custody wallet and stake USDC into the Nova Genesis reserve on Sepolia (mainnet post-launch).",
       color: "purple",
     },
     {
-      icon: DollarSign,
-      title: "Deposit USDC",
+      icon: Coins,
+      title: "Mint NOGE (your claim)",
       description:
-        "Choose how much USDC to contribute to the NOVA Genesis pool. The demo uses a Sepolia fork, but production will be Ethereum mainnet.",
+        "Every USDC staked mints NOGE 1:1. Hold NOGE as your withdrawal ticket throughout Genesis.",
       color: "blue",
     },
     {
       icon: TrendingUp,
-      title: "Receive NOGE receipts",
+      title: "Yield → funded milestones",
       description:
-        "Deposits mint NOVA Genesis (NOGE) tokens 1:1 with your principal. NOGE is required to withdraw at any time during Genesis.",
+        "Reserve yield backs engineering, compliance, and milestone payouts for frontier science teams in the cohort.",
       color: "green",
     },
     {
       icon: Heart,
-      title: "Bootstrap Nova",
+      title: "Withdraw anytime",
       description:
-        "While funds sit in Aave, interest backs engineering, compliance, and lab diligence so NOVA can launch with frontier-science-ready reserves.",
+        "Burn NOGE to reclaim your principal whenever you need. Only earned yield stays with Nova to fund research.",
       color: "yellow",
     },
   ];
@@ -87,19 +86,17 @@ export default function HowItWorksPage() {
             className="text-center mb-16"
           >
             <h1 className="text-5xl md:text-6xl font-bold text-white mb-6">
-              Join the NOVA Genesis Campaign
+              Stake USDC → Mint NOGE → fund frontier science
             </h1>
             <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-              You are early. This phase builds reserves so Nova can launch a
-              fully-backed stablecoin whose yield supports frontier science. Your deposits remain withdrawable.
-              Follow these steps to understand exactly what happens when you deposit.
+              Genesis staking creates the reserve that lets Nova aim stablecoin yield at milestone-driven research. Your principal stays yours—only the yield powers labs. Follow the flow to see what happens when you stake.
             </p>
             <div className="mt-8 flex justify-center">
               <Link
                 href="/#deposit-section"
                 className="px-8 py-4 bg-gradient-to-r from-purple-600 to-blue-600 text-white rounded-lg font-semibold hover:shadow-xl hover:shadow-purple-500/20 transition-all"
               >
-                Deposit USDC for NOGE
+                Stake USDC & mint NOGE
               </Link>
             </div>
           </motion.div>
@@ -115,7 +112,7 @@ export default function HowItWorksPage() {
               <GenesisProgress compact />
             </div>
             <h2 className="text-3xl font-bold text-white text-center mb-12">
-              What Happens to Your Deposit Today
+              What happens when you stake today
             </h2>
 
             <div className="relative">
@@ -224,7 +221,7 @@ export default function HowItWorksPage() {
                 <div className="mt-6 p-4 bg-blue-500/10 rounded-lg">
                   <p className="text-blue-300 text-sm">
                     <Vote className="w-4 h-4 inline mr-1" />
-                    <span className="font-semibold">Early input:</span> Genesis depositors can join design reviews that finalize these mechanics.
+                    <span className="font-semibold">Early input:</span> Genesis stakers join design reviews that finalize these mechanics.
                   </p>
                 </div>
               </div>
@@ -233,16 +230,16 @@ export default function HowItWorksPage() {
             <div className="bg-gradient-to-r from-purple-600/10 via-blue-600/10 to-green-600/10 backdrop-blur-lg rounded-2xl p-6 border border-white/10">
               <div className="text-center">
                 <h3 className="text-xl font-bold text-white mb-3">
-                  Your deposit keeps the roadmap moving
+                  Your stake keeps the roadmap moving
                 </h3>
                 <p className="text-gray-300 mb-6">
-                  Until those features ship, the one action that matters is depositing USDC for NOGE receipts.
+                  Until those features ship, the one action that matters is staking USDC for NOGE receipts.
                 </p>
                 <button
                   className="px-8 py-3 bg-gradient-to-r from-purple-600 to-blue-600 text-white rounded-lg font-semibold hover:shadow-xl hover:shadow-purple-500/20 transition-all"
                   onClick={() => window.open("/#deposit-section", "_self")}
                 >
-                  Go to Deposit Widget
+                  Open Staking Widget
                 </button>
               </div>
             </div>
@@ -365,13 +362,13 @@ export default function HowItWorksPage() {
               <h2 className="text-3xl font-bold text-white mb-4">
                 Ready to Support the Future?
               </h2>
-            <p className="text-xl text-gray-300 mb-8 max-w-2xl mx-auto">Join thousands of people advancing frontier science. Your deposits remain withdrawable—only yield supports research. Start with as little as $10.</p>
+            <p className="text-xl text-gray-300 mb-8 max-w-2xl mx-auto">Join thousands advancing frontier science. Your stake stays withdrawable—only yield supports research. Start with as little as $10.</p>
               <div className="flex gap-4 justify-center">
                 <button
                   className="px-8 py-4 bg-gradient-to-r from-purple-600 to-blue-600 text-white rounded-lg font-semibold hover:shadow-xl hover:shadow-purple-500/20 transition-all"
                   onClick={() => window.open("/#deposit-section", "_self")}
                 >
-                  Open Deposit Widget
+                  Open Staking Widget
                 </button>
                 <button
                   className="px-8 py-4 bg-white/10 backdrop-blur-lg text-white rounded-lg font-semibold border border-white/20 hover:bg-white/20 transition-all"

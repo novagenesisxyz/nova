@@ -71,7 +71,7 @@ export default function ProjectsPage() {
                 className="mt-2 sm:mt-0 px-4 py-2 bg-white/10 hover:bg-white/20 text-white text-sm font-medium rounded-lg transition-colors"
                 onClick={() => window.open("/#deposit-section", "_self")}
               >
-                Go to Deposit Widget
+                Open Staking Widget
               </button>
             </div>
 

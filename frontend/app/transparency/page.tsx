@@ -46,14 +46,14 @@ export default function TransparencyPage() {
             <div className="flex items-start gap-3">
               <AlertCircle className="w-5 h-5 mt-0.5" />
               <p className="text-sm leading-relaxed">
-                Live wallet addresses, attestations, and CSV downloads will go online with the NOVA launch. Until then, follow the NOVA Genesis plan and deposit USDC to mint NOGE receipts.
+                Live wallet addresses, attestations, and CSV downloads will go online with the NOVA launch. Until then, follow the NOVA Genesis plan and stake USDC to mint NOGE receipts.
               </p>
             </div>
             <button
               className="px-4 py-2 bg-white/10 hover:bg-white/20 text-white text-sm font-medium rounded-lg transition-colors"
               onClick={() => window.open("/#deposit-section", "_self")}
             >
-              Go to Deposit Widget
+              Open Staking Widget
             </button>
           </div>
 

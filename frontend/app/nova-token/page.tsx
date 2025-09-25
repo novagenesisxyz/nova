@@ -47,7 +47,7 @@ const supporterBenefits = [
   {
     title: "Redeemable NOVA access",
     description:
-      "Genesis depositors become the first cohort who can redeem NOVA at par when the stablecoin launches.",
+      "Genesis stakers become the first cohort who can redeem NOVA at par when the stablecoin launches.",
   },
   {
     title: "Governance voice",
@@ -150,7 +150,7 @@ export default function NovaTokenPage() {
             <div className="inline-flex items-center gap-2 px-4 py-2 bg-purple-500/10 border border-purple-500/30 rounded-full mb-6">
               <AlertTriangle className="w-4 h-4 text-yellow-300" />
               <span className="text-sm text-purple-300">
-                Nova stablecoin is in development — Genesis deposits fund the launch
+                Nova stablecoin is in development — Genesis staking funds the launch
               </span>
             </div>
 

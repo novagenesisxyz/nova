@@ -108,7 +108,7 @@ export default function ProjectDetailPage() {
               className="px-4 py-2 bg-white/10 hover:bg-white/20 text-white text-sm font-medium rounded-lg transition-colors"
               onClick={() => window.open("/#deposit-section", "_self")}
             >
-              Visit Deposit Widget
+              Open Staking Widget
             </button>
           </div>
           <div className="grid lg:grid-cols-3 gap-8">

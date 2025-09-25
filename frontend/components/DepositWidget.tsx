@@ -216,7 +216,7 @@ export default function DepositWidget() {
               activeTab === "deposit" ? "bg-purple-600 text-white" : "text-gray-400 hover:text-white"
             }`}
           >
-            Deposit
+            Stake
           </button>
           <button
             onClick={() => setActiveTab("withdraw")}
@@ -231,10 +231,10 @@ export default function DepositWidget() {
         {/* Amount Input */}
         <div className="mb-4">
           <div className="flex justify-between items-center mb-2">
-            <label className="text-sm text-gray-400">Amount</label>
+            <label className="text-sm text-gray-400">Amount to stake</label>
             {isConnected && (
               <div className="text-xs text-gray-400">
-                {activeTab === "deposit" ? "Balance: " : "Max Withdrawable: "}
+              {activeTab === "deposit" ? "Stakeable balance: " : "Max withdrawable: "}
                 {activeTab === "deposit"
                   ? formatAmountDisplay(formattedTokenBalance)
                   : formatAmountDisplay(formattedMaxWithdrawable)}{" "}
@@ -244,12 +244,9 @@ export default function DepositWidget() {
           </div>
           <div className="relative">
             <input
-              type="text"
-              value={amount ? parseFloat(amount).toLocaleString() : ''}
-              onChange={(e) => {
-                const value = e.target.value.replace(/[^0-9.]/g, '');
-                setAmount(value);
-              }}
+              type="number"
+              value={amount}
+              onChange={(e) => setAmount(e.target.value)}
               placeholder="0.00"
               className="w-full bg-black/30 border border-white/10 rounded-lg px-4 py-3 pr-16 text-white placeholder-gray-500 focus:border-purple-500/50 focus:outline-none"
             />
@@ -269,14 +266,14 @@ export default function DepositWidget() {
             <div className="text-xs text-blue-300">
               {activeTab === "deposit" ? (
                 <>
-                  Back Nova’s launch by adding USDC now. Withdraw anytime—only yield powers audits and frontier science prep. You&apos;ll receive NOGE tokens 1:1 as your receipt.
+                  Stake USDC, mint matching NOGE, and push Nova’s reserve toward funding active lab milestones.
                   <span className="block mt-1 text-purple-200">
-                    Demo mode tops up mock USDC automatically if you go above your balance.
+                    Demo mode tops up mock USDC automatically if you stake more than your displayed balance.
                   </span>
                 </>
               ) : (
                 <>
-                  Burn NOGE to pull your USDC whenever you want. Principal returns to you; yield alone funds protocol safety and science programs.
+                  Burn NOGE to pull your USDC whenever you want. Principal returns to you; yield alone fuels protocol safety and science programs.
                 </>
               )}
             </div>
@@ -322,7 +319,7 @@ export default function DepositWidget() {
             {(isPending || isApproving || isDepositing || isWithdrawing) && (
               <Loader2 className="w-4 h-4 animate-spin" />
             )}
-            {activeTab === "deposit" ? `Deposit ${formatAmountDisplay(amount) || ""} ${TOKEN_SYMBOL}` : `Withdraw ${formatAmountDisplay(amount) || ""} ${TOKEN_SYMBOL}`}
+            {activeTab === "deposit" ? `Stake ${formatAmountDisplay(amount) || ""} ${TOKEN_SYMBOL}` : `Withdraw ${formatAmountDisplay(amount) || ""} ${TOKEN_SYMBOL}`}
           </motion.button>
         )}
 
