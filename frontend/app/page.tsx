@@ -42,14 +42,14 @@ export default function Home() {
             className="text-center"
           >
             <h1 className="text-6xl md:text-7xl font-bold text-white leading-tight md:leading-[1.15] mb-6">
-              Aim stablecoin yield at frontier science
+              Other Stablecoins keep your yield
               <span className="block text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-blue-400">
-                Stake USDC → Mint NOGE → fund breakthroughs
+                Nova funds frontier science
               </span>
             </h1>
 
             <p className="text-xl text-gray-300 mb-8 max-w-3xl mx-auto">
-              Stake USDC to mint NOGE, join Nova’s launch cohort, and direct reserve yield into milestone-based research. Withdraw principal anytime—only generated yield fuels lab milestones.
+            Instead of going to corporate profits, yield from Nova&apos;s reserves helps the world by funding frontier breakthroughs with top scientists and labs.
             </p>
 
             <div className="flex flex-wrap gap-4 justify-center mb-6">
