@@ -1,180 +1,94 @@
 # Nova Funding Platform
 
-A decentralized funding platform built with Foundry smart contracts and Next.js frontend, featuring NOGE memecoin as the deposit receipt token.
+Nova channels stablecoin yield into frontier science grants. Depositors supply USDC, receive NOGE receipt tokens, and allow the protocol to route earned interest into milestone-based research while keeping principal withdrawable on demand.
 
-## Project Structure
+## Start Here
 
+**What you can do right now**
+- Deposit Sepolia USDC through the web app and immediately receive NOGE tokens 1:1.
+- Track the Genesis campaign progress and upcoming research initiatives from the landing page.
+- Withdraw whenever you like; only accrued yield can be redirected to research wallets.
+
+### Quick Demo (local frontend + Sepolia contracts)
+1. Install [pnpm](https://pnpm.io/installation) and Node.js 18+. Install a wallet such as MetaMask funded with Sepolia ETH and test USDC.
+2. Clone the repo and start the frontend:
+   ```bash
+   git clone <repo-url>
+   cd nova/frontend
+   pnpm install
+   cp .env.example .env.local
+   pnpm dev
+   ```
+3. Fill in `.env.local` with Sepolia RPC + contract addresses. If you have not deployed yet, use the Sepolia deployment flow below to obtain addresses, then refresh the app.
+4. Visit `http://localhost:3000`, connect your Sepolia wallet, and try a small deposit to mint NOGE.
+
+### Want to simulate everything locally?
+- Run `anvil` with a mainnet fork and deploy the contracts (see **For Developers** below). Update your `.env.local` with the printed addresses.
+- Use the Deposit widget with the automatically minted mock USDC from the deploy script.
+
+## How It Works
+- **Smart contracts:** A single USDC vault (`USDCFundingPool`) supplies deposits to Aave V3 and mints NOGE receipt tokens. Yield can be skimmed by the owner for off-chain research grants via `withdrawYield`.
+- **Receipt token:** `NogeToken` (ERC20 + AccessControl) lets authorized pools mint/burn receipts.
+- **Compliance token:** `NovaToken` is an optional regulated stablecoin with pause, blacklist, KYC, and law-enforcement hooks.
+- **Frontend:** Next.js 15 app that surfaces campaign content, deposit/withdraw flows, and real-time progress bars.
+
+## For Developers
+
+### Repository Layout
 ```
 nova/
-├── contracts/                 # Smart contracts (Foundry)
-│   ├── src/                  # Contract source files
-│   ├── test/                 # Contract tests
-│   ├── script/               # Deployment scripts
-│   ├── lib/                  # Dependencies (git submodules)
-│   └── README.md             # Contract-specific documentation
-│
-├── frontend/                  # Next.js application
-│   ├── app/                  # App router pages
-│   ├── components/           # React components
-│   ├── hooks/                # Custom React hooks
-│   ├── providers/            # Context providers
-│   ├── lib/                  # Utilities & constants
-│   ├── public/               # Static assets
-│   └── abi/                  # Generated contract ABIs
-│
-├── docs/                      # Documentation
-│   └── DEPLOYMENT.md         # Deployment guide
-│
-└── scripts/                   # Automation scripts
-    ├── deploy.sh             # Unified deployment
-    └── generate-abi.sh       # ABI generation
+├── contracts/          # Foundry smart contracts, scripts, tests
+│   ├── src/            # Solidity sources (NogeToken, USDCFundingPool, NovaToken, MockUSDC...)
+│   ├── script/         # forge script Deploy.s.sol
+│   ├── test/           # Foundry test suite
+│   ├── Makefile        # Convenience targets (build, test, deploy)
+│   └── foundry.toml    # Foundry configuration
+├── frontend/           # Next.js 15 application (App Router)
+│   ├── app/, components/, hooks/, providers/
+│   ├── lib/            # Contract config, wagmi client, constants
+│   ├── abi/            # Generated ABIs (created by scripts/generate-abi.sh)
+│   └── package.json    # pnpm workspace for the web app
+├── docs/DEPLOYMENT.md  # Vercel deployment guide
+├── scripts/            # Shell helpers (deploy.sh, generate-abi.sh)
+└── LICENSE             # MIT license
 ```
 
-## Quick Start
+### Environment configuration
+- `contracts/.env.foundry.example` provides placeholders for `SEPOLIA_RPC_URL`, `PRIVATE_KEY`, optional `USDC_ADDRESS`, and `AAVE_ADDRESSES_PROVIDER` overrides. Copy to `.env.foundry` and fill before running Foundry commands.
+- `frontend/.env.example` lists all public environment variables expected by the web app: WalletConnect project ID, Sepolia RPC URL, contract addresses, and optional analytics IDs.
 
-### Prerequisites
-
-- Node.js 18+ and npm
-- [Foundry](https://book.getfoundry.sh/getting-started/installation)
-- Git
-
-### Setup
-
-1. **Clone and install dependencies:**
+### Frontend commands (run inside `frontend/`)
 ```bash
-git clone <repo-url>
-cd nova
-npm install
+pnpm dev       # start Next.js locally
+pnpm build     # production build
+pnpm start     # run build output
+pnpm lint      # ESLint & TypeScript checks
 ```
 
-2. **Set up environment variables:**
+### Smart contract workflow (run inside `contracts/`)
 ```bash
-cp .env.example .env.local
-cp .env.foundry.example .env.foundry
+forge install                  # fetch dependencies defined in foundry.toml
+forge build                    # compile contracts with solc 0.8.26
+forge test                     # execute unit tests (see contracts/test/*.t.sol)
+make anvil                     # start a forked local chain using ETH_RPC_URL
+make deploy-local              # broadcast Deploy.s.sol to the local node
+make deploy-sepolia            # deploy to Sepolia using .env.foundry credentials
+make abi                       # regenerate ABIs (also run by scripts/generate-abi.sh)
 ```
 
-3. **Configure .env.foundry:**
-```env
-SEPOLIA_RPC_URL=https://sepolia.infura.io/v3/YOUR_KEY
-PRIVATE_KEY=your_private_key
-# Optional: Set USDC_ADDRESS or a MockUSDC will be deployed
-```
+The unified shell script `./scripts/deploy.sh <network>` wraps the deploy + ABI generation flow. Supported values today are `local`, `sepolia`, and `mainnet` (prompts before broadcasting to mainnet).
 
-4. **Configure frontend/.env.local:**
-```env
-NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID=your_project_id
-NEXT_PUBLIC_SEPOLIA_RPC_URL=https://sepolia.infura.io/v3/YOUR_KEY
-NEXT_PUBLIC_GENESIS_GOAL_USDC=5000000
-# Contract addresses will be added after deployment
-```
+### Testing
+- Foundry tests cover the USDC pool invariants, receipt token permissions, and address-book integration. Run them via `forge test` or `make test`.
+- Add additional coverage with `forge test --gas-report` or `forge coverage` if you are optimizing gas or auditing changes.
+- The frontend currently relies on component-level hooks; add Jest/Playwright tests before shipping major UI changes (not yet included).
 
-## Development
-
-### Smart Contracts
-
-```bash
-# Build contracts
-npm run build:contracts
-
-# Run tests
-npm run test:contracts
-
-# Start local node
-npm run anvil
-
-# Deploy to local
-npm run deploy:local
-```
-
-### Frontend
-
-```bash
-# Start development server
-npm run dev
-
-# Build for production
-npm run build
-
-# Run production server
-npm run start
-```
-
-## Deployment
-
-### Deploy to Sepolia
-
-```bash
-# Deploy contracts and generate ABIs
-npm run deploy:sepolia
-
-# Or use the script directly
-./scripts/deploy.sh sepolia
-```
-
-After deployment:
-1. Copy the deployed addresses from the output
-2. Add them to `frontend/.env.local`:
-   - `NEXT_PUBLIC_NOGE_TOKEN_ADDRESS`
-   - `NEXT_PUBLIC_FUNDING_POOL_USDC_ADDRESS`
-   - `NEXT_PUBLIC_USDC_ADDRESS`
-
-### Deploy Frontend to Vercel
-
-See [docs/DEPLOYMENT.md](docs/DEPLOYMENT.md) for detailed instructions.
-
-## Key Features
-
-- ✅ Accept USDC/DAI/USDT deposits
-- ✅ Issue NOGE memecoins 1:1 with USD value
-- ✅ Automatic yield generation through Aave V3
-- ✅ Instant withdrawals using NOGE tokens
-- ✅ Community governance voting system
-- ✅ 51% quorum for fund allocation proposals
-- ✅ Non-custodial design
-
-## Contract Architecture
-
-The platform consists of:
-- **NogeToken.sol**: ERC20 memecoin serving as deposit receipts
-- **NovaFundingPoolBase.sol**: Base contract for single-asset pools
-- **USDCFundingPool.sol**: USDC-specific pool implementation
-- **NovaToken.sol**: Governance token for the platform
-
-## Frontend Architecture
-
-Built with:
-- Next.js 15 with App Router
-- RainbowKit for wallet connections
-- Wagmi for blockchain interactions
-- TailwindCSS for styling
-- Recharts for data visualization
-
-## Testing
-
-```bash
-# Run all contract tests
-cd contracts && forge test
-
-# Run with gas reporting
-cd contracts && forge test --gas-report
-
-# Run with coverage
-cd contracts && forge coverage
-```
-
-## Scripts
-
-- `generate-abi.sh`: Extracts contract ABIs for frontend use
-- `deploy.sh`: Unified deployment script with network selection
-
-## Contributing
-
-1. Fork the repository
-2. Create your feature branch
-3. Commit your changes
-4. Push to the branch
-5. Open a Pull Request
+### Deployment checklist
+1. Populate `.env.foundry` with RPC URLs, `PRIVATE_KEY`, and optional overrides.
+2. `make deploy-sepolia` (or `./scripts/deploy.sh sepolia`) to broadcast contracts. On success the script prints addresses for NOGE, NOVA, USDC pool, and the underlying USDC token (mock if none supplied).
+3. Paste those addresses into `frontend/.env.local`, along with your WalletConnect project ID and RPC URL.
+4. `pnpm build` in `frontend/` and deploy via Vercel or follow the detailed steps in `docs/DEPLOYMENT.md`.
 
 ## License
 
-ISC
+Nova Funding Platform is released under the [MIT License](LICENSE).
