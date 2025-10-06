@@ -8,7 +8,7 @@
 
 ### Step 1: Install Vercel CLI
 ```bash
-npm install -g vercel
+pnpm add -g vercel
 ```
 
 ### Step 2: Login to Vercel
@@ -17,7 +17,7 @@ vercel login
 ```
 
 ### Step 3: Deploy
-From the project directory (/Users/allan/src/nova), run:
+From the project directory (`/Users/allan/src/nova`), run:
 ```bash
 vercel
 ```
@@ -53,20 +53,24 @@ git push -u origin main
 3. Configure project:
    - Framework Preset: Next.js (auto-detected)
    - Root Directory: ./
-   - Build Command: `npm run build` (default)
+   - Build Command: `pnpm build`
    - Output Directory: `.next` (default)
-   - Install Command: `npm install` (default)
+   - Install Command: `pnpm install`
 
 ### Step 3: Environment Variables
 Add these in Vercel Dashboard > Settings > Environment Variables:
 ```
 NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID=your_actual_project_id
 NEXT_PUBLIC_SEPOLIA_RPC_URL=https://sepolia.infura.io/v3/your_key
-NEXT_PUBLIC_FUNDING_POOL_USDC_ADDRESS=0x...
+NEXT_PUBLIC_GENESIS_POOL_ADDRESS=0x...
 NEXT_PUBLIC_NOGE_TOKEN_ADDRESS=0x...
-NEXT_PUBLIC_USDC_ADDRESS=0x...
+NEXT_PUBLIC_ASSET_ADDRESS=0x...
+NEXT_PUBLIC_TREASURY_ADDRESS=0x...
+NEXT_PUBLIC_CHAIN_ID=11155111
 NEXT_PUBLIC_GENESIS_GOAL_USDC=5000000
 NEXT_TELEMETRY_DISABLED=1
+# Optional, published once NOVA is live
+NEXT_PUBLIC_NOVA_TOKEN_ADDRESS=0x...
 ```
 
 To get a WalletConnect Project ID:
@@ -90,17 +94,19 @@ Click "Deploy" and wait for the build to complete.
 Make sure to update these in Vercel Dashboard:
 - `NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID` - Get from WalletConnect Cloud
 - `NEXT_PUBLIC_SEPOLIA_RPC_URL` - RPC endpoint for Sepolia (Infura, Alchemy, etc.)
-- `NEXT_PUBLIC_FUNDING_POOL_USDC_ADDRESS` - Funding pool deployed address
+- `NEXT_PUBLIC_GENESIS_POOL_ADDRESS` - Genesis pool address
 - `NEXT_PUBLIC_NOGE_TOKEN_ADDRESS` - NOGE token deployed address
-- `NEXT_PUBLIC_USDC_ADDRESS` - Stablecoin used for Genesis deposits (MockUSDC on testnets)
+- `NEXT_PUBLIC_ASSET_ADDRESS` - Stablecoin used for Genesis deposits (mock or real)
+- `NEXT_PUBLIC_TREASURY_ADDRESS` - Research treasury multisig receiving sweepable yield
+- `NEXT_PUBLIC_CHAIN_ID` - Chain ID the frontend should target (e.g., 11155111 for Sepolia)
 - `NEXT_PUBLIC_GENESIS_GOAL_USDC` - USDC amount you’re targeting for the Genesis raise
+- `NEXT_PUBLIC_NOVA_TOKEN_ADDRESS` - Leave unset until the NOVA token contract is deployed and verified
 - Any other API keys or secrets you add later
 
-> The Foundry deploy script automatically selects Aave’s official Pool Addresses Provider
-> via the [Aave address book](https://github.com/bgd-labs/aave-address-book)
-> dependency (0xA97684ead0E402dC232d5A977953DF7ECBaB3CDb for Ethereum mainnet and
-> 0x012bAC54348C0E635dCAc9D5FB99f06F24136C9A for Sepolia). Set `AAVE_ADDRESSES_PROVIDER`
-> in `.env.foundry` only if you need to override this behavior.
+Remember: Genesis reservations are non-refundable. Make sure your landing copy and legal disclaimers in the frontend match the current lockup terms before promoting a production deployment.
+
+> The Foundry deploy script (`DeployGenesis.s.sol`) can either use real asset/aToken/Aave addresses
+> supplied via environment variables or deploy local mocks when values are omitted.
 
 ## Monitoring
 
@@ -118,7 +124,7 @@ Enable Web Analytics in Vercel Dashboard > Analytics
 ### Build Failures
 1. Check build logs for specific errors
 2. Ensure all dependencies are in package.json
-3. Test local build: `npm run build`
+3. Test local build: `pnpm build`
 
 ### Runtime Errors
 1. Check Function logs
@@ -135,8 +141,8 @@ Enable Web Analytics in Vercel Dashboard > Analytics
 ### Local Testing
 ```bash
 # Test production build locally
-npm run build
-npm run start
+pnpm build
+pnpm start
 ```
 
 ### Vercel CLI Commands

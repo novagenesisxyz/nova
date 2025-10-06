@@ -1,93 +1,104 @@
 # Nova Funding Platform
 
-Nova channels stablecoin yield into frontier science grants. Depositors supply USDC, receive NOGE receipt tokens, and allow the protocol to route earned interest into milestone-based research while keeping principal withdrawable on demand.
+Nova channels stablecoin yield into frontier science grants. During Genesis, contributors deposit stablecoins, receive NOGE advisory tokens, and help build the reserve that will back NOVA at launch. Principal stays locked until the handoff completes and NOVA claims open.
 
 ## Start Here
 
 **What you can do right now**
-- Deposit Sepolia USDC through the web app and immediately receive NOGE tokens 1:1.
-- Track the Genesis campaign progress and upcoming research initiatives from the landing page.
-- Withdraw whenever you like; only accrued yield can be redirected to research wallets.
+- Deposit USDC via the Genesis web app (reservations are non-refundable until launch).
+- Receive NOGE (Nova Genesis) advisory tokens at a flat ratio, viewable directly in your wallet once transfers are enabled.
+- Track Genesis progress, treasury handoff status, and upcoming research initiatives from the landing page.
+- Review the launch flow documentation to understand how NOVA claims unlock once governance has handed off reserves.
 
-### Quick Demo (local frontend + Sepolia contracts)
-1. Install [pnpm](https://pnpm.io/installation) and Node.js 18+. Install a wallet such as MetaMask funded with Sepolia ETH and test USDC.
-2. Clone the repo and start the frontend:
+### Quick Demo (local frontend + mock contracts)
+1. Install [pnpm](https://pnpm.io/installation) and Node.js 18+. Ensure you have Foundry installed (`brew install foundry`).
+2. Clone the repo and install dependencies:
    ```bash
    git clone <repo-url>
-   cd nova/frontend
-   pnpm install
-   cp .env.example .env.local
+   cd nova
+   pnpm --filter frontend install
+   ```
+3. Populate contract env vars and deploy mocks:
+   ```bash
+   cd contracts
+   cp .env.foundry.example .env.foundry   # set PRIVATE_KEY, TREASURY_ADDRESS, RPC URL
+   make deploy-local                       # uses mock USDC + mock Aave pool
+   ```
+4. Export the printed addresses into `frontend/.env.local`:
+   ```
+   NEXT_PUBLIC_GENESIS_POOL_ADDRESS=
+   NEXT_PUBLIC_NOGE_TOKEN_ADDRESS=
+   NEXT_PUBLIC_ASSET_ADDRESS=
+   NEXT_PUBLIC_TREASURY_ADDRESS=
+   NEXT_PUBLIC_CHAIN_ID=31337
+   ```
+5. Start the frontend:
+   ```bash
+   cd ../frontend
    pnpm dev
    ```
-3. Fill in `.env.local` with Sepolia RPC + contract addresses. If you have not deployed yet, use the Sepolia deployment flow below to obtain addresses, then refresh the app.
-4. Visit `http://localhost:3000`, connect your Sepolia wallet, and try a small deposit to mint NOGE.
-
-### Want to simulate everything locally?
-- Run `anvil` with a mainnet fork and deploy the contracts (see **For Developers** below). Update your `.env.local` with the printed addresses.
-- Use the Deposit widget with the automatically minted mock USDC from the deploy script.
+6. Visit `http://localhost:3000`, connect your wallet (Anvil default key works), and test deposits/claim previews using the mock USDC supplied during deployment.
 
 ## How It Works
-- **Smart contracts:** A single USDC vault (`USDCFundingPool`) supplies deposits to Aave V3 and mints NOGE receipt tokens. Yield can be skimmed by the owner for off-chain research grants via `withdrawYield`.
-- **Receipt token:** `NogeToken` (ERC20 + AccessControl) lets authorized pools mint/burn receipts.
-- **Compliance token:** `NovaToken` is an optional regulated stablecoin with pause, blacklist, KYC, and law-enforcement hooks.
-- **Frontend:** Next.js 15 app that surfaces campaign content, deposit/withdraw flows, and real-time progress bars.
 
-## For Developers
+- **GenesisPool** locks a single stablecoin, supplies it to Aave, tracks per-user principal for NOVA claims, forwards sweepable yield to the research treasury, and lets governance hand off principal in staged chunks.
+- **NogeController** mints NOGE on deposit using a fixed ratio with an optional global supply cap and strict pool allow-listing.
+- **NogeToken** is an ERC20 advisory token with transfers disabled until governance flips a one-way switch. Only pools granted `POOL_ROLE` can mint/burn.
+- **Frontend** (Next.js 15) surfaces pool metrics, claim readiness, and context about the launch path.
 
-### Repository Layout
+## Repository Layout
 ```
 nova/
 ├── contracts/          # Foundry smart contracts, scripts, tests
-│   ├── src/            # Solidity sources (NogeToken, USDCFundingPool, NovaToken, MockUSDC...)
-│   ├── script/         # forge script Deploy.s.sol
-│   ├── test/           # Foundry test suite
-│   ├── Makefile        # Convenience targets (build, test, deploy)
-│   └── foundry.toml    # Foundry configuration
-├── frontend/           # Next.js 15 application (App Router)
+│   ├── src/genesis/    # GenesisPool, NogeController, NogeToken
+│   ├── script/         # DeployGenesis.s.sol
+│   ├── test/           # Foundry test suite + mocks
+│   └── README.md       # Contract-specific docs
+├── frontend/           # Next.js application
 │   ├── app/, components/, hooks/, providers/
-│   ├── lib/            # Contract config, wagmi client, constants
-│   ├── abi/            # Generated ABIs (created by scripts/generate-abi.sh)
-│   └── package.json    # pnpm workspace for the web app
-├── docs/DEPLOYMENT.md  # Vercel deployment guide
-├── scripts/            # Shell helpers (deploy.sh, generate-abi.sh)
-└── LICENSE             # MIT license
+│   ├── lib/            # Contract config & helpers
+│   └── abi/            # Generated ABIs (scripts/generate-abi.sh)
+├── docs/               # Additional specs, deployment notes
+├── scripts/            # Shell helpers (generate-abi.sh, etc.)
+└── specs/              # Structured product requirements
 ```
 
-### Environment configuration
-- `contracts/.env.foundry.example` provides placeholders for `SEPOLIA_RPC_URL`, `PRIVATE_KEY`, optional `USDC_ADDRESS`, and `AAVE_ADDRESSES_PROVIDER` overrides. Copy to `.env.foundry` and fill before running Foundry commands.
-- `frontend/.env.example` lists all public environment variables expected by the web app: WalletConnect project ID, Sepolia RPC URL, contract addresses, and optional analytics IDs.
+## Environment Configuration
+- `contracts/.env.foundry.example` — set `SEPOLIA_RPC_URL` (or other RPC), `PRIVATE_KEY`, `TREASURY_ADDRESS`, and optional overrides (`GOVERNANCE_ADDRESS`, `ASSET_ADDRESS`, etc.).
+- `frontend/.env.example` — copy to `.env.local` and supply WalletConnect project ID, RPC URL, and the contract addresses printed by the deploy script.
 
-### Frontend commands (run inside `frontend/`)
+## Frontend Commands (inside `frontend/`)
 ```bash
 pnpm dev       # start Next.js locally
 pnpm build     # production build
-pnpm start     # run build output
-pnpm lint      # ESLint & TypeScript checks
+pnpm start     # run the build output
+pnpm lint      # lint & type-check
+pnpm test:e2e  # Playwright end-to-end smoke tests (run `pnpm exec playwright install` once)
 ```
 
-### Smart contract workflow (run inside `contracts/`)
+## Smart Contract Workflow (inside `contracts/`)
 ```bash
-forge install                  # fetch dependencies defined in foundry.toml
-forge build                    # compile contracts with solc 0.8.26
-forge test                     # execute unit tests (see contracts/test/*.t.sol)
-make anvil                     # start a forked local chain using ETH_RPC_URL
-make deploy-local              # broadcast Deploy.s.sol to the local node
-make deploy-sepolia            # deploy to Sepolia using .env.foundry credentials
-make abi                       # regenerate ABIs (also run by scripts/generate-abi.sh)
+forge install                  # dependencies
+forge build                    # compile
+forge test                     # run unit tests
+make deploy-local              # broadcast DeployGenesis.s.sol to local node (mocks if needed)
+make deploy-sepolia            # deploy to Sepolia (requires configured RPC + key)
+make abi                       # regenerate ABIs consumed by the frontend
 ```
 
-The unified shell script `./scripts/deploy.sh <network>` wraps the deploy + ABI generation flow. Supported values today are `local`, `sepolia`, and `mainnet` (prompts before broadcasting to mainnet).
+The helper `scripts/generate-abi.sh` (run from repo root) builds contracts and exports ABIs into `frontend/abi/`.
 
-### Testing
-- Foundry tests cover the USDC pool invariants, receipt token permissions, and address-book integration. Run them via `forge test` or `make test`.
-- Add additional coverage with `forge test --gas-report` or `forge coverage` if you are optimizing gas or auditing changes.
-- The frontend currently relies on component-level hooks; add Jest/Playwright tests before shipping major UI changes (not yet included).
+## Deployment Checklist
+1. Populate `.env.foundry` with RPC URLs, `PRIVATE_KEY`, `TREASURY_ADDRESS`, and any Aave address overrides.
+2. Run `make deploy-sepolia` (or `make deploy-mainnet`) from `contracts/`. The script deploys `NogeToken`, `NogeController`, and `GenesisPool`, wiring AccessControl roles automatically.
+3. Copy the printed addresses into `frontend/.env.local` and set `NEXT_PUBLIC_CHAIN_ID` for the target network.
+4. `pnpm build` in `frontend/` and deploy via Vercel (see `docs/DEPLOYMENT.md`) or your preferred host.
+5. Announce the new Genesis pool address and verify treasury sweep/handoff permissions before accepting >1m USDC.
 
-### Deployment checklist
-1. Populate `.env.foundry` with RPC URLs, `PRIVATE_KEY`, and optional overrides.
-2. `make deploy-sepolia` (or `./scripts/deploy.sh sepolia`) to broadcast contracts. On success the script prints addresses for NOGE, NOVA, USDC pool, and the underlying USDC token (mock if none supplied).
-3. Paste those addresses into `frontend/.env.local`, along with your WalletConnect project ID and RPC URL.
-4. `pnpm build` in `frontend/` and deploy via Vercel or follow the detailed steps in `docs/DEPLOYMENT.md`.
+## Testing
+- Foundry tests cover NOGE issuance, Genesis deposit/sweep flows, staged handoff, and NOVA claim logic.
+- Property-based/invariant tests are suggested before mainnet launch (see `specs` for ideas).
+- Frontend currently relies on manual QA; add integration tests before production launch.
 
 ## License
 

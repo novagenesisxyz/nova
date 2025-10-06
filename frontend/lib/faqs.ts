@@ -1,33 +1,38 @@
 const faqs = [
   {
-    question: "When can I withdraw my funds?",
+    question: "What happens when I reserve NOVA?",
     answer:
-      "You can withdraw your principal at any time using your NOGE (NOVA Genesis) tokens. There are no lock-ups or penalties.",
+      "You deposit USDC to reserve your NOVA allocation. Your reservation is non-refundable and you can claim NOVA 1:1 when the stablecoin launches. You also receive NOGE advisory tokens based on your reservation amount.",
   },
   {
-    question: "What happens to the interest earned during the Genesis phase?",
+    question: "What are NOGE tokens?",
     answer:
-      "During the Genesis phase, Aave interest stays with the pool to power Nova's launch readiness and science milestones. Your staked principal is always withdrawable.",
+      "NOGE (NOVA Genesis) tokens are advisory tokens that grant you voting power to help decide which frontier science projects receive yield funding. NOGE is minted using a sqrt formula based on your reservation, with a cap per address to ensure fair distribution of governance power.",
+  },
+  {
+    question: "Can I withdraw my USDC reservation?",
+    answer:
+      "No. Reservations are non-refundable. Your USDC stays in the Genesis pool to bootstrap Nova's reserves. When NOVA launches, you can claim your NOVA tokens 1:1 with your total USDC reservation.",
+  },
+  {
+    question: "What happens to the yield during Genesis?",
+    answer:
+      "Yield earned on reserved USDC funds engineering, legal work, audits, and initial science initiatives. Protocol costs are kept minimal and transparent—the majority of yield goes to frontier science research.",
   },
   {
     question: "Is this audited and secure?",
     answer:
-      "Yes. Smart contracts are audited, non-custodial, and withdrawals stay accessible. We publish transparency reports covering protocol costs and allocations.",
+      "Smart contract audits are in process and expected as part of the launch. The contracts are non-custodial and open source. We publish transparency reports covering reserve balances, protocol costs, and science allocations.",
   },
   {
-    question: "How do NOGE receipts work?",
+    question: "How do I get NOVA when it launches?",
     answer:
-      "NOGE mints 1:1 with your staked USDC and burns on withdrawal. Keep NOGE safe; it is required to redeem your principal and will unlock early access to NOVA once launched.",
+      "Once NOVA launches, there will be an easy way to claim your NOVA tokens directly on this site. You'll receive NOVA 1:1 with your total USDC reservation amount.",
   },
   {
-    question: "What is the USDC Genesis goal?",
+    question: "What networks are supported?",
     answer:
-      "We display the live progress toward the Genesis goal on the homepage. Once we hit the target, we transition reserves to the NOVA treasury and begin the next phase.",
-  },
-  {
-    question: "What networks are supported today?",
-    answer:
-      "The demo deploys on Sepolia for testing. Production will launch on Ethereum mainnet and use the official Aave v3 infrastructure.",
+      "The demo currently runs on Sepolia testnet. Production will launch on Ethereum mainnet with full Aave v3 integration.",
   },
 ];
 

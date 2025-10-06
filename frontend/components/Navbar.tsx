@@ -22,7 +22,7 @@ const currency = new Intl.NumberFormat("en-US", {
 export default function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
-  const { isConfigured, status, totalDeposits } = useFundingPool();
+  const { isConfigured, status, principalBaseline } = useFundingPool();
 
   const tvlDisplay = useMemo(() => {
     if (!isConfigured) {
@@ -33,13 +33,13 @@ export default function Navbar() {
       return "…";
     }
 
-    if (status === "error" || totalDeposits === null) {
+    if (status === "error" || principalBaseline === null) {
       return "—";
     }
 
-    const value = Number(formatUnits(totalDeposits, TOKEN_DECIMALS));
+    const value = Number(formatUnits(principalBaseline, TOKEN_DECIMALS));
     return currency.format(value);
-  }, [isConfigured, status, totalDeposits]);
+  }, [isConfigured, status, principalBaseline]);
 
   useEffect(() => {
     // Prevent body scroll when mobile menu is open

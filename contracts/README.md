@@ -1,124 +1,100 @@
 # Nova Smart Contracts
 
-Smart contracts for the Nova funding platform, featuring NOGE memecoin as the deposit receipt token.
+This package contains the on-chain contracts that power the Nova Genesis funding phase. The codebase is intentionally minimal:
 
-## Overview
+- **GenesisPool.sol** — locks a single stablecoin, supplies it to Aave, tracks immutable principal for NOVA claims, and lets governance hand off principal in staged chunks.
+- **NogeController.sol** — flat-ratio NOGE issuance with optional global supply cap and pool allow-listing.
+- **NogeToken.sol** — advisory ERC20 token with a one-way transfer enable switch; minting/burning gated by the controller.
 
-The Nova platform consists of two main contracts:
-- **NogeToken.sol**: ERC20 memecoin that serves as deposit receipts and governance tokens
-- **NovaFundingPoolBase.sol**: Base for single-asset pools that earn yield through Aave
-- **USDCFundingPool.sol / DAIFundingPool.sol / USDTFundingPool.sol**: Single-asset pools
+Supporting mocks are provided for local deployments (`MockERC20`, `MockAToken`, `MockAavePool`).
 
 ## Features
 
-- ✅ Accept USDC/DAI/USDT deposits
-- ✅ Issue NOGE memecoins 1:1 with USD value
-- ✅ Automatic yield generation through Aave V3
-- ✅ Instant withdrawals using NOGE tokens
-- ✅ Community governance voting system
-- ✅ 51% quorum for fund allocation proposals
-- ✅ Non-custodial design
+- Single-asset Genesis pool per stable (no price feeds, no proxies).
+- Principal is non-refundable until launch; sweepable yield can be routed to the research treasury.
+- Governance-controlled, chunked handoff of principal with automatic pausing on first withdrawal.
+- Immutable per-wallet principal ledger to back NOVA claims.
+- Flat NOGE mint ratio with optional global cap and AccessControl roles.
 
 ## Setup
 
-### Prerequisites
-
 ```bash
-# Install Foundry via Homebrew
+# Install Foundry
 brew install foundry
 
-# Clone the repository
+# Clone and enter the repo
 git clone <repo-url>
-cd nova
+cd nova/contracts
 
 # Install dependencies
 forge install
 
-# Copy environment variables
-cp .env.foundry.example .env.foundry
-# Edit .env.foundry with your RPC URL, private key, and optional overrides.
+# Copy environment template (set RPC, PRIVATE_KEY, etc.)
+cp env.foundry.example .env.foundry
 ```
 
-### Build
+## Build & Test
 
 ```bash
-# Build contracts
-make build
-
-# Or directly with forge
-forge build
+make build   # forge build
+make test    # forge test
 ```
 
-### Test
+Additional targets:
 
-```bash
-# Run tests
-make test
-
-# Run tests with gas reporting
-make test-gas
-
-# Run tests with coverage
-make test-coverage
-```
+- `make test-gas`
+- `make test-coverage`
+- `make format` / `make format-check`
+- `make abi` — exports Genesis/NOGE ABIs to `contracts/abi/`
 
 ## Deployment
 
-### Local Development
+The deployment script lives at `script/DeployGenesis.s.sol`. It can deploy against mainnet-compatible networks or fall back to mocks when asset addresses are omitted.
+
+Required environment variables (set in `.env.foundry`):
+
+- `PRIVATE_KEY` — deployer key.
+- `TREASURY_ADDRESS` — research treasury multisig.
+
+Optional overrides:
+
+- `GOVERNANCE_ADDRESS` — defaults to deployer.
+- `ASSET_ADDRESS`, `ATOKEN_ADDRESS`, `LENDING_POOL_ADDRESS` — real stablecoin/aToken/Aave pool. If any is omitted, mocks are deployed.
+- `DEPOSIT_CAP` — per-pool cap in asset units (0 = uncapped).
+- `NOGE_RATIO` — flat mint ratio (defaults to `100e18`).
+- `NOGE_GLOBAL_CAP` — optional global NOGE max (0 = uncapped).
+
+### Commands
 
 ```bash
-# Start local Anvil node with mainnet fork
-make anvil
-
-# In another terminal, deploy to local
-make deploy-local
+make deploy-local    # uses mocks when asset addresses are unset
+make deploy-sepolia  # broadcast + verify to Sepolia
+make deploy-mainnet  # prompts before broadcasting to mainnet
 ```
 
-### Testnet (Sepolia)
-
-```bash
-# Deploy to Sepolia (uses .env.foundry)
-make deploy-sepolia
-```
-
-> 💡 If `USDC_ADDRESS` is not provided in `.env.foundry`, the deploy script will
-> automatically deploy a `MockUSDC` token (6 decimals) and mint 1,000,000 tokens
-> to the deployer wallet for testing. By default the script uses the official
-> Aave v3 Pool Addresses Provider via the
-> [Aave address book](https://github.com/bgd-labs/aave-address-book)
-> dependency (0xA97684ead0E402dC232d5A977953DF7ECBaB3CDb on mainnet,
-> 0x012bAC54348C0E635dCAc9D5FB99f06F24136C9A on Sepolia). Set
-> `AAVE_ADDRESSES_PROVIDER` in `.env.foundry` only if you need to override this
-> behavior.
-
-### Mainnet
-
-```bash
-# Deploy to mainnet (use with caution!)
-make deploy-mainnet
-```
-
-## Contract Addresses
-
-After deployment, add these addresses to your `.env.local` file for the frontend:
+After deployment, copy the logged addresses into the frontend `.env`:
 
 ```
+NEXT_PUBLIC_GENESIS_POOL_ADDRESS=0x...
 NEXT_PUBLIC_NOGE_TOKEN_ADDRESS=0x...
-NEXT_PUBLIC_FUNDING_POOL_USDC_ADDRESS=0x...
-NEXT_PUBLIC_USDC_ADDRESS=0x...
-NEXT_PUBLIC_GENESIS_GOAL_USDC=5000000
+NEXT_PUBLIC_ASSET_ADDRESS=0x...
+NEXT_PUBLIC_TREASURY_ADDRESS=0x...
+NEXT_PUBLIC_CHAIN_ID=11155111
 ```
 
-## Key Functions
+## ABIs
 
-### NovaFunding Pools (Single-Asset)
+Generate JSON ABIs for the frontend:
 
-- NOGE receipts are minted on deposit and burned on withdrawal.
-- `NogeToken` uses AccessControl; pools must be granted `POOL_ROLE` to mint/burn.
-- Pools track only aggregate principal (`totalDeposits`) to compute yield; user balances are represented by NOGE.
-- Admin can `pause`/`unpause` pools. Owner may withdraw only accrued yield via `withdrawYield`.
+```bash
+pnpm --filter ../frontend install    # ensure frontend deps (optional)
+../scripts/generate-abi.sh          # from repo root
+```
 
-- `deposit(token, amount)`: Deposit stablecoins and receive NOGE
-- `withdraw(token, amount)`: Withdraw using NOGE tokens
-- `createProposal(token, amount, recipient)`: Create funding proposal (owner only)
-- `
+This writes `GenesisPool.json`, `NogeController.json`, `NogeToken.json`, and mock ABIs to `frontend/abi/`.
+
+## Notes
+
+- `GenesisPool` pauses itself on the first `handoffPrincipal` call and completes once the remaining balance is fully withdrawn (respecting the built-in dust buffer).
+- Yield sweeps are gated to governance and only possible before the handoff completes.
+- NOVA claim flow requires governance to set `novaToken` once the off-chain launch is finalized.

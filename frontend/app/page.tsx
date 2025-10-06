@@ -60,7 +60,7 @@ export default function Home() {
                 onClick={() => document.getElementById('deposit-section')?.scrollIntoView({ behavior: 'smooth' })}
               >
                 <Wallet className="w-5 h-5" />
-                Stake to fund science
+                Reserve NOVA
                 <ArrowRight className="w-5 h-5" />
               </motion.button>
               <motion.button
@@ -122,7 +122,7 @@ export default function Home() {
             </h2>
             <p className="text-lg text-gray-300 mb-8">
               Nova directs reserve interest into milestone-based frontier science programs.
-              By participating in Nova&apos;s launch, you are helping engineers, physicists,
+              By reserving NOVA during Genesis, you help engineers, physicists,
               and science teams secure predictable funding for breakthrough research.
             </p>
 
@@ -158,7 +158,7 @@ export default function Home() {
       </section>
 
       {/* Partner Spotlight */}
-      <section className="px-4 pb-12">
+      <section className="py-20 px-4">
         <div className="max-w-6xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -175,7 +175,7 @@ export default function Home() {
                   USC Information Sciences Institute
                 </h2>
                 <p className="text-gray-300 max-w-2xl">
-                  Pilot collaboration: Nova’s genesis cohort launches alongside teams at USC ISI, where autonomous science agents and biosurveillance platforms are co-developed with national labs. Genesis stakers underwrite diligence, infrastructure, and researcher time so these programs reach deployment-ready milestones.
+                  Pilot collaboration: Nova&apos;s genesis cohort launches alongside teams at USC ISI, where autonomous science agents and biosurveillance platforms are co-developed with national labs. Genesis reservations underwrite diligence, infrastructure, and researcher time so these programs reach deployment-ready milestones.
                 </p>
               </div>
               <div className="grid sm:grid-cols-3 gap-4 w-full md:w-auto">
@@ -224,24 +224,24 @@ export default function Home() {
               <div>
                 <h2 className="text-3xl font-bold text-white mb-4">How Nova Works</h2>
                 <p className="text-gray-300 mb-6 max-w-2xl">
-                  Stake USDC to mint NOGE, anchor Nova’s reserve, and route stablecoin yield into vetted frontier science milestones alongside partners like USC ISI. Withdraw principal whenever you decide—only earned yield stays with Nova.
+                  Reserve NOVA by depositing USDC and mint NOGE—an advisory token that lets you vote on which science projects receive yield funding.
                 </p>
 
                 <div className="grid sm:grid-cols-3 gap-4 mb-6">
                   <div className="bg-black/30 border border-white/10 rounded-xl p-4">
                     <div className="text-xs text-purple-200 uppercase tracking-wide mb-2">Step 1</div>
-                    <h3 className="text-lg font-semibold text-white mb-1">Stake USDC</h3>
-                    <p className="text-sm text-gray-400">Stake into the Genesis reserve while keeping your principal withdrawable.</p>
+                    <h3 className="text-lg font-semibold text-white mb-1">Reserve NOVA</h3>
+                    <p className="text-sm text-gray-400">Reserve USDC to secure your NOVA allocation. Reservations are non-refundable.</p>
                   </div>
                   <div className="bg-black/30 border border-white/10 rounded-xl p-4">
                     <div className="text-xs text-blue-200 uppercase tracking-wide mb-2">Step 2</div>
-                    <h3 className="text-lg font-semibold text-white mb-1">Yield → funded milestones</h3>
-                    <p className="text-sm text-gray-400">Aave v3 yield covers audits, safety, and milestone payouts for the frontier science cohort.</p>
+                    <h3 className="text-lg font-semibold text-white mb-1">Receive NOGE advisory tokens</h3>
+                    <p className="text-sm text-gray-400">Mint NOGE based on your reservation. Use NOGE to vote on which science projects receive yield.</p>
                   </div>
                   <div className="bg-black/30 border border-white/10 rounded-xl p-4">
                     <div className="text-xs text-green-200 uppercase tracking-wide mb-2">Step 3</div>
-                    <h3 className="text-lg font-semibold text-white mb-1">Withdraw anytime</h3>
-                    <p className="text-sm text-gray-400">Burn NOGE to reclaim your USDC instantly; governance remains community-led.</p>
+                    <h3 className="text-lg font-semibold text-white mb-1">Vote on allocations</h3>
+                    <p className="text-sm text-gray-400">NOGE holders advise where yield flows—which labs and milestones get funded first.</p>
                   </div>
                 </div>
 
@@ -258,13 +258,13 @@ export default function Home() {
                   href="/how-it-works"
                   className="inline-flex items-center gap-2 px-5 py-3 bg-white/10 hover:bg-white/20 text-white rounded-lg font-medium border border-white/20 transition-colors"
                 >
-                  Explore the staking flow
+                  Explore the reservation flow
                   <ArrowRight className="w-4 h-4" />
                 </Link>
               </div>
 
               <div className="bg-black/30 border border-white/10 rounded-xl p-5">
-                <p className="text-sm text-gray-400 mb-4">Demo progress toward the staking goal</p>
+                <p className="text-sm text-gray-400 mb-4">Demo progress toward the reservation goal</p>
                 <GenesisProgress compact />
                 <p className="text-xs text-gray-500 mt-4">
                   Values shown here are demo data for preview. Live attestations publish before launch.
@@ -299,7 +299,7 @@ export default function Home() {
       </section>
 
 
-      {/* Staking Section */}
+      {/* Reservation Section */}
       <section id="deposit-section" className="py-20 px-4">
         <div className="max-w-4xl mx-auto">
           <motion.div
@@ -308,9 +308,9 @@ export default function Home() {
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
           >
-            <h2 className="text-4xl font-bold text-white text-center mb-8">Stake to fund science</h2>
+            <h2 className="text-4xl font-bold text-white text-center mb-8">Reserve NOVA to fund science</h2>
             <p className="text-xl text-gray-300 text-center mb-4">
-              Stake USDC, mint NOGE, and help Nova seed a reserve that backs frontier research milestones.
+              Reserve NOVA with USDC, mint NOGE advisory tokens, and help Nova seed a reserve that backs frontier research milestones.
             </p>
 
             <DepositWidget />
@@ -320,19 +320,19 @@ export default function Home() {
                 <div className="bg-white/5 backdrop-blur-lg rounded-xl p-5 border border-white/10">
                   <div className="flex items-center gap-2 mb-3">
                     <CheckCircle className="w-5 h-5 text-green-400" />
-                    <span className="text-sm text-gray-300 font-semibold">Withdraw anytime</span>
+                    <span className="text-sm text-gray-300 font-semibold">Advisory voting power</span>
                   </div>
                   <p className="text-sm text-gray-400 leading-relaxed">
-                    NOGE receipts redeem 1:1 for your USDC during Genesis. Keep them safe—burning NOGE is how withdrawals happen.
+                    NOGE tokens grant voting power to advise which frontier science projects receive yield funding.
                   </p>
                 </div>
                 <div className="bg-white/5 backdrop-blur-lg rounded-xl p-5 border border-white/10">
                   <div className="flex items-center gap-2 mb-3">
                     <Shield className="w-5 h-5 text-blue-400" />
-                    <span className="text-sm text-gray-300 font-semibold">Audited + transparent</span>
+                    <span className="text-sm text-gray-300 font-semibold">Secure + transparent</span>
                   </div>
                   <p className="text-sm text-gray-400 leading-relaxed">
-                    Smart contracts are audited and open source. Transparency reporting starts with the Genesis pool and expands for NOVA launch.
+                    Smart contract audits are in process and expected as part of the launch. Contracts are open source. Transparency reporting starts with the Genesis pool and expands for NOVA launch.
                   </p>
                 </div>
                 <div className="bg-white/5 backdrop-blur-lg rounded-xl p-5 border border-white/10">
@@ -341,7 +341,7 @@ export default function Home() {
                     <span className="text-sm text-gray-300 font-semibold">Launch timeline</span>
                   </div>
                   <p className="text-sm text-gray-400 leading-relaxed">
-                    Funds remain in Aave until audits and compliance finish. Genesis supporters will be first to redeem NOVA once the new treasury goes live.
+                    Reserves earn yield until audits and compliance finish. Genesis reservations will convert to NOVA once the treasury goes live.
                   </p>
                 </div>
               </div>

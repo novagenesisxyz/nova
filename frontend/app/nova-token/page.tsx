@@ -20,7 +20,7 @@ const roadmap = [
   {
     title: "Phase 1 — Genesis (live)",
     description:
-      "Pool USDC in Aave, accrue interest to fund engineering, legal, and audit work. Depositors hold NOGE receipts and can exit anytime.",
+      "Reserve NOVA with USDC, accrue yield to fund engineering, legal, and audit work. Reservations mint NOGE advisory tokens for project voting.",
     icon: Coins,
     iconBg: "bg-purple-500/20",
     iconColor: "text-purple-400",
@@ -28,7 +28,7 @@ const roadmap = [
   {
     title: "Phase 2 — Treasury migration",
     description:
-      "Move reserves from Aave to a diversified USD backing structure, publish attestations, and open the NOVA mint/redeem portal to NOGE holders first.",
+      "Move reserves to a diversified USD backing structure, publish attestations, and open the NOVA mint/redeem portal to NOGE holders first.",
     icon: Building,
     iconBg: "bg-blue-500/20",
     iconColor: "text-blue-400",
@@ -45,9 +45,9 @@ const roadmap = [
 
 const supporterBenefits = [
   {
-    title: "Redeemable NOVA access",
+    title: "NOVA conversion at par",
     description:
-      "Genesis stakers become the first cohort who can redeem NOVA at par when the stablecoin launches.",
+      "Genesis reservations convert to NOVA at par when the stablecoin launches. NOGE holders get first access.",
   },
   {
     title: "Governance voice",
@@ -150,7 +150,7 @@ export default function NovaTokenPage() {
             <div className="inline-flex items-center gap-2 px-4 py-2 bg-purple-500/10 border border-purple-500/30 rounded-full mb-6">
               <AlertTriangle className="w-4 h-4 text-yellow-300" />
               <span className="text-sm text-purple-300">
-                Nova stablecoin is in development — Genesis staking funds the launch
+                Nova stablecoin is in development — Genesis reservations fund the launch
               </span>
             </div>
 
@@ -168,7 +168,7 @@ export default function NovaTokenPage() {
                 href="/#deposit-section"
                 className="px-8 py-4 bg-gradient-to-r from-purple-600 to-blue-600 text-white rounded-lg font-semibold hover:shadow-xl hover:shadow-purple-500/20 transition-all"
               >
-                Deposit USDC for NOGE
+                Reserve NOVA with USDC
               </Link>
               <Link
                 href="/how-it-works"
@@ -233,8 +233,8 @@ export default function NovaTokenPage() {
                 What Genesis Supporters Receive
               </h2>
             <p className="text-gray-300 mb-6 max-w-3xl">
-                Participating in Genesis is not a speculative yield play—it is how we
-                bootstrap a stablecoin that permanently funds frontier science. Here is what you
+                Participating in Genesis is not a speculative yield play—it&apos;s how we
+                bootstrap a stablecoin that permanently funds frontier science. Here&apos;s what you
                 get for backing the launch today.
               </p>
 
@@ -267,7 +267,7 @@ export default function NovaTokenPage() {
                 <h2 className="text-2xl font-bold text-white">Science Advisory Council (demo roster)</h2>
               </div>
               <p className="text-gray-300 mb-6 max-w-3xl">
-                We are formalizing an advisory structure anchored by USC ISI to evaluate proposal quality, lab readiness, and milestone design. The demo roster below shows the caliber of leaders guiding frontier science allocations once genesis capital is deployed.
+                We are formalizing an advisory structure anchored by USC ISI to evaluate proposal quality, lab readiness, and milestone design. The demo roster below shows the caliber of leaders guiding frontier science allocations once Genesis reservations are deployed.
               </p>
 
               <div className="grid md:grid-cols-3 gap-6">

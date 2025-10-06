@@ -1,87 +1,81 @@
-export const FUNDING_POOL_ABI = [
+export const GENESIS_POOL_ABI = [
   {
-    "anonymous": false,
-    "inputs": [
-      { "indexed": true, "internalType": "address", "name": "user", "type": "address" },
-      { "indexed": false, "internalType": "uint256", "name": "amount", "type": "uint256" },
-      { "indexed": false, "internalType": "uint256", "name": "nogeReceived", "type": "uint256" }
-    ],
-    "name": "Deposited",
-    "type": "event"
-  },
-  {
-    "anonymous": false,
-    "inputs": [
-      { "indexed": true, "internalType": "address", "name": "user", "type": "address" },
-      { "indexed": false, "internalType": "uint256", "name": "amount", "type": "uint256" }
-    ],
-    "name": "Withdrawn",
-    "type": "event"
-  },
-  {
-    "inputs": [
-      { "internalType": "uint256", "name": "amount", "type": "uint256" }
-    ],
+    "inputs": [{ "internalType": "uint256", "name": "amount", "type": "uint256" }],
     "name": "deposit",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
   },
   {
-    "inputs": [
-      { "internalType": "uint256", "name": "amount", "type": "uint256" }
-    ],
-    "name": "withdraw",
-    "outputs": [],
-    "stateMutability": "nonpayable",
+    "inputs": [],
+    "name": "principalBaseline",
+    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+    "stateMutability": "view",
     "type": "function"
   },
   {
-    "inputs": [],
-    "name": "totalDeposits",
+    "inputs": [{ "internalType": "address", "name": "user", "type": "address" }],
+    "name": "getUserPrincipal",
     "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
     "stateMutability": "view",
     "type": "function"
   },
   {
     "inputs": [],
-    "name": "getAvailableYield",
+    "name": "getSweepableYield",
     "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
     "stateMutability": "view",
     "type": "function"
   },
   {
-    "inputs": [
-      { "internalType": "uint256", "name": "amount", "type": "uint256" },
-      { "internalType": "address", "name": "recipient", "type": "address" }
-    ],
-    "name": "withdrawYield",
-    "outputs": [],
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
     "inputs": [],
-    "name": "nogeToken",
-    "outputs": [{ "internalType": "contract IERC20", "name": "", "type": "address" }],
+    "name": "handoffRemaining",
+    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
     "stateMutability": "view",
     "type": "function"
   },
   {
     "inputs": [],
-    "name": "pause",
-    "outputs": [],
-    "stateMutability": "nonpayable",
+    "name": "handoffStarted",
+    "outputs": [{ "internalType": "bool", "name": "", "type": "bool" }],
+    "stateMutability": "view",
     "type": "function"
   },
   {
     "inputs": [],
-    "name": "unpause",
-    "outputs": [],
-    "stateMutability": "nonpayable",
+    "name": "principalHandedOff",
+    "outputs": [{ "internalType": "bool", "name": "", "type": "bool" }],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "DUST_BUFFER",
+    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "paused",
+    "outputs": [{ "internalType": "bool", "name": "", "type": "bool" }],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "treasury",
+    "outputs": [{ "internalType": "address", "name": "", "type": "address" }],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "novaToken",
+    "outputs": [{ "internalType": "address", "name": "", "type": "address" }],
+    "stateMutability": "view",
     "type": "function"
   }
-
 ] as const;
 
 export const ERC20_ABI = [
@@ -155,9 +149,10 @@ const parseChainId = () => {
 
 // Contract addresses - provided via environment after deployment
 export const CONTRACTS = {
-  FUNDING_POOL: toAddress(process.env.NEXT_PUBLIC_FUNDING_POOL_USDC_ADDRESS),
+  GENESIS_POOL: toAddress(process.env.NEXT_PUBLIC_GENESIS_POOL_ADDRESS),
   NOGE_TOKEN: toAddress(process.env.NEXT_PUBLIC_NOGE_TOKEN_ADDRESS),
-  USDC: toAddress(process.env.NEXT_PUBLIC_USDC_ADDRESS),
+  ASSET: toAddress(process.env.NEXT_PUBLIC_ASSET_ADDRESS),
+  TREASURY: toAddress(process.env.NEXT_PUBLIC_TREASURY_ADDRESS),
 } as const;
 console.log(CONTRACTS);
 

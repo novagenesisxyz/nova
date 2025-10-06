@@ -65,21 +65,21 @@ function buildMilestones(goalValue: number) {
 }
 
 export default function GenesisProgress({ compact = false }: { compact?: boolean }) {
-  const poolAddress = CONTRACTS.FUNDING_POOL;
+  const poolAddress = CONTRACTS.GENESIS_POOL;
   const isConfigured = Boolean(poolAddress);
-  const { status: poolStatus, totalDeposits } = useFundingPool();
+  const { status: poolStatus, principalBaseline } = useFundingPool();
 
   const { raised, milestones } = useMemo(() => {
     const goalValueNum = goalUnits ? Number(formatUnits(goalUnits, TOKEN_DECIMALS)) : 0;
-    const hasLiveData = poolStatus === "ready" && totalDeposits !== null;
-    const raisedValue = hasLiveData ? Number(formatUnits(totalDeposits, TOKEN_DECIMALS)) : 0;
+    const hasLiveData = poolStatus === "ready" && principalBaseline !== null;
+    const raisedValue = hasLiveData ? Number(formatUnits(principalBaseline, TOKEN_DECIMALS)) : 0;
     const milestoneValues = goalValueNum > 0 ? buildMilestones(goalValueNum) : [];
 
     return {
       raised: raisedValue,
       milestones: milestoneValues,
     };
-  }, [poolStatus, totalDeposits]);
+  }, [poolStatus, principalBaseline]);
 
   if (!isConfigured) {
     return (
@@ -89,7 +89,7 @@ export default function GenesisProgress({ compact = false }: { compact?: boolean
           <div>
             <h3 className="text-lg font-semibold mb-2">Genesis goal unavailable</h3>
             <p className="text-sm leading-relaxed">
-              Add the deployed reserves pool address to the frontend configuration to see live progress after running the deployment script.
+              Add the deployed Genesis pool address to the frontend configuration to see live progress after running the deployment script.
             </p>
           </div>
         </div>
@@ -165,10 +165,10 @@ export default function GenesisProgress({ compact = false }: { compact?: boolean
 
       {nextMilestone ? (
         <p className="mt-3 text-xs text-gray-500">
-          Raised {formatUsd(raised)} · {formatUsd(remainingToNext)} remaining to unlock this target.
+          Locked {formatUsd(raised)} · {formatUsd(remainingToNext)} remaining to unlock this target.
         </p>
       ) : (
-        <p className="mt-3 text-xs text-gray-500">Raised {formatUsd(raised)}. All milestone targets reached.</p>
+        <p className="mt-3 text-xs text-gray-500">Locked {formatUsd(raised)}. All milestone targets reached.</p>
       )}
     </motion.div>
   );

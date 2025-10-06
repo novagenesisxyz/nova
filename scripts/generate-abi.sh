@@ -15,10 +15,9 @@ mkdir -p ../frontend/abi
 
 # Generate ABIs for main contracts
 echo "📄 Extracting ABIs..."
-forge inspect NogeToken abi > ../frontend/abi/NogeToken.json
-forge inspect USDCFundingPool abi > ../frontend/abi/USDCFundingPool.json
-forge inspect NovaFundingPoolBase abi > ../frontend/abi/NovaFundingPoolBase.json
-forge inspect NovaToken abi > ../frontend/abi/NovaToken.json
-forge inspect MockUSDC abi > ../frontend/abi/MockUSDC.json
+forge inspect src/genesis/token/NogeToken.sol:NogeToken abi > ../frontend/abi/NogeToken.json
+forge inspect src/genesis/NogeController.sol:NogeController abi > ../frontend/abi/NogeController.json
+forge inspect src/genesis/GenesisPool.sol:GenesisPool abi > ../frontend/abi/GenesisPool.json
 
+# Done
 echo "✅ ABIs generated successfully in frontend/abi/"

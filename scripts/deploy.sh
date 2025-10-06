@@ -18,13 +18,13 @@ cd contracts
 # Run deployment
 echo "📜 Running deployment script..."
 if [ "$NETWORK" = "local" ]; then
-    forge script script/Deploy.s.sol:DeployScript --rpc-url localhost --broadcast
+    forge script script/DeployGenesis.s.sol:DeployGenesisScript --rpc-url localhost --broadcast
 elif [ "$NETWORK" = "sepolia" ]; then
-    forge script script/Deploy.s.sol:DeployScript --rpc-url sepolia --broadcast --verify
+    forge script script/DeployGenesis.s.sol:DeployGenesisScript --rpc-url sepolia --broadcast --verify
 elif [ "$NETWORK" = "mainnet" ]; then
     echo "⚠️  WARNING: About to deploy to mainnet. Press Enter to continue or Ctrl+C to cancel."
     read confirm
-    forge script script/Deploy.s.sol:DeployScript --rpc-url mainnet --broadcast --verify
+    forge script script/DeployGenesis.s.sol:DeployGenesisScript --rpc-url mainnet --broadcast --verify
 else
     echo "❌ Unknown network: $NETWORK"
     exit 1

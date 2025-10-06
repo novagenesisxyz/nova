@@ -22,16 +22,16 @@ export default function HowItWorksPage() {
   const steps = [
     {
       icon: Wallet,
-      title: "Stake USDC",
+      title: "Reserve NOVA",
       description:
-        "Connect a self-custody wallet and stake USDC into the Nova Genesis reserve on Sepolia (mainnet post-launch).",
+        "Connect a self-custody wallet and deposit USDC into the Nova Genesis reserve on Sepolia (mainnet post-launch).",
       color: "purple",
     },
     {
       icon: Coins,
-      title: "Mint NOGE (your claim)",
+      title: "Mint NOGE advisory tokens",
       description:
-        "Every USDC staked mints NOGE 1:1. Hold NOGE as your withdrawal ticket throughout Genesis.",
+        "Every USDC reserved mints NOGE. Hold NOGE to vote on which science projects receive yield funding.",
       color: "blue",
     },
     {
@@ -42,10 +42,10 @@ export default function HowItWorksPage() {
       color: "green",
     },
     {
-      icon: Heart,
-      title: "Withdraw anytime",
+      icon: Vote,
+      title: "Vote on allocations",
       description:
-        "Burn NOGE to reclaim your principal whenever you need. Only earned yield stays with Nova to fund research.",
+        "NOGE holders advise where yield flows. Your reservation is non-refundable—NOGE holders vote on science priorities.",
       color: "yellow",
     },
   ];
@@ -61,13 +61,13 @@ export default function HowItWorksPage() {
       icon: Users,
       title: "Democratic Allocation",
       description:
-        "Holders and stakers advise where yield goes. Your principal remains withdrawable.",
+        "NOGE holders and future NOVA holders advise where yield goes. Reservations are non-refundable, but voting remains democratic.",
     },
     {
       icon: Shield,
       title: "Fully Transparent",
       description:
-        "On-chain receipts and clear reporting of protocol costs, allocations, and impact.",
+        "On-chain tracking and clear reporting of protocol costs, allocations, and impact.",
     },
   ];
 
@@ -86,17 +86,17 @@ export default function HowItWorksPage() {
             className="text-center mb-16"
           >
             <h1 className="text-5xl md:text-6xl font-bold text-white mb-6">
-              Stake USDC → Mint NOGE → fund frontier science
+              Reserve NOVA → Mint NOGE → fund frontier science
             </h1>
             <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-              Genesis staking creates the reserve that lets Nova aim stablecoin yield at milestone-driven research. Your principal stays yours—only the yield powers labs. Follow the flow to see what happens when you stake.
+              Genesis reservations create the reserve that lets Nova aim stablecoin yield at milestone-driven research. Your reservation is non-refundable—yield powers labs, NOGE grants voting power. Follow the flow to see what happens when you reserve.
             </p>
             <div className="mt-8 flex justify-center">
               <Link
                 href="/#deposit-section"
                 className="px-8 py-4 bg-gradient-to-r from-purple-600 to-blue-600 text-white rounded-lg font-semibold hover:shadow-xl hover:shadow-purple-500/20 transition-all"
               >
-                Stake USDC & mint NOGE
+                Reserve NOVA & mint NOGE
               </Link>
             </div>
           </motion.div>
@@ -112,7 +112,7 @@ export default function HowItWorksPage() {
               <GenesisProgress compact />
             </div>
             <h2 className="text-3xl font-bold text-white text-center mb-12">
-              What happens when you stake today
+              What happens when you reserve today
             </h2>
 
             <div className="relative">
@@ -186,7 +186,7 @@ export default function HowItWorksPage() {
                 </div>
 
                 <ul className="space-y-3 text-sm text-gray-300">
-                  <li>Buy NOVA 1:1 for USD once reserves migrate from Aave to treasury infrastructure.</li>
+                  <li>Buy NOVA 1:1 for USD once reserves migrate to treasury infrastructure.</li>
                   <li>Let yield flow automatically to audited frontier science allocations.</li>
                   <li>Redeem NOVA back to USD assets with transparent, on-chain accounting.</li>
                 </ul>
@@ -194,7 +194,7 @@ export default function HowItWorksPage() {
                 <div className="mt-6 p-4 bg-purple-500/10 rounded-lg">
                   <p className="text-purple-300 text-sm">
                     <Gift className="w-4 h-4 inline mr-1" />
-                    <span className="font-semibold">Powered by you:</span> Genesis supporters earn the right to redeem NOVA at par through their NOGE receipts.
+                    <span className="font-semibold">Powered by you:</span> Genesis reservations convert to NOVA at par when the treasury launches.
                   </p>
                 </div>
               </div>
@@ -213,7 +213,7 @@ export default function HowItWorksPage() {
                 </div>
 
                 <ul className="space-y-3 text-sm text-gray-300">
-                  <li>Stake NOVA or USDC to advise which initiatives receive matched yield allocation.</li>
+                  <li>Hold NOVA or NOGE to advise which initiatives receive matched yield allocation.</li>
                   <li>Vote-weighted governance shapes budget splits across scientific disciplines.</li>
                   <li>Real-time dashboards surface impact metrics for every supported project.</li>
                 </ul>
@@ -221,7 +221,7 @@ export default function HowItWorksPage() {
                 <div className="mt-6 p-4 bg-blue-500/10 rounded-lg">
                   <p className="text-blue-300 text-sm">
                     <Vote className="w-4 h-4 inline mr-1" />
-                    <span className="font-semibold">Early input:</span> Genesis stakers join design reviews that finalize these mechanics.
+                    <span className="font-semibold">Early input:</span> Genesis reservations grant NOGE holders a voice in design reviews.
                   </p>
                 </div>
               </div>
@@ -230,16 +230,16 @@ export default function HowItWorksPage() {
             <div className="bg-gradient-to-r from-purple-600/10 via-blue-600/10 to-green-600/10 backdrop-blur-lg rounded-2xl p-6 border border-white/10">
               <div className="text-center">
                 <h3 className="text-xl font-bold text-white mb-3">
-                  Your stake keeps the roadmap moving
+                  Your reservation keeps the roadmap moving
                 </h3>
                 <p className="text-gray-300 mb-6">
-                  Until those features ship, the one action that matters is staking USDC for NOGE receipts.
+                  Until those features ship, the one action that matters is reserving NOVA with USDC for NOGE advisory tokens.
                 </p>
                 <button
                   className="px-8 py-3 bg-gradient-to-r from-purple-600 to-blue-600 text-white rounded-lg font-semibold hover:shadow-xl hover:shadow-purple-500/20 transition-all"
                   onClick={() => window.open("/#deposit-section", "_self")}
                 >
-                  Open Staking Widget
+                  Open Reservation Widget
                 </button>
               </div>
             </div>
@@ -337,14 +337,14 @@ export default function HowItWorksPage() {
 
               <h3 className="text-lg font-semibold text-white mb-2">Current focus</h3>
               <ul className="list-disc list-inside text-gray-300 space-y-2 mb-6">
-                <li>Pool USDC in Aave; yield funds engineering, compliance, and frontier science diligence. No venture investors—governance goes to the community.</li>
+                <li>Pool USDC; yield funds engineering, compliance, and frontier science diligence. No venture investors—governance goes to the community via NOGE.</li>
                 <li>Audit smart contracts and legal structure; publish transparency reporting standards.</li>
-                <li>Grant NOGE holders the right to redeem early NOVA supply once reserves migrate.</li>
+                <li>Grant NOGE holders advisory voting power and the right to convert reservations to NOVA once reserves migrate.</li>
               </ul>
 
               <h3 className="text-lg font-semibold text-white mb-2">Upcoming milestones</h3>
               <ul className="list-disc list-inside text-gray-300 space-y-2">
-                <li>Transition reserves from Aave to a diversified USD treasury.</li>
+                <li>Transition to a diversified USD treasury.</li>
                 <li>Launch NOVA mint/redeem portal with real-time attestations.</li>
                 <li>Open quadratic allocation seasons for vetted frontier-science initiatives.</li>
               </ul>
@@ -362,13 +362,13 @@ export default function HowItWorksPage() {
               <h2 className="text-3xl font-bold text-white mb-4">
                 Ready to Support the Future?
               </h2>
-            <p className="text-xl text-gray-300 mb-8 max-w-2xl mx-auto">Join thousands advancing frontier science. Your stake stays withdrawable—only yield supports research. Start with as little as $10.</p>
+            <p className="text-xl text-gray-300 mb-8 max-w-2xl mx-auto">Join those advancing frontier science. Your reservation is non-refundable—yield supports research, NOGE grants voting power. Start with as little as $10.</p>
               <div className="flex gap-4 justify-center">
                 <button
                   className="px-8 py-4 bg-gradient-to-r from-purple-600 to-blue-600 text-white rounded-lg font-semibold hover:shadow-xl hover:shadow-purple-500/20 transition-all"
                   onClick={() => window.open("/#deposit-section", "_self")}
                 >
-                  Open Staking Widget
+                  Open Reservation Widget
                 </button>
                 <button
                   className="px-8 py-4 bg-white/10 backdrop-blur-lg text-white rounded-lg font-semibold border border-white/20 hover:bg-white/20 transition-all"

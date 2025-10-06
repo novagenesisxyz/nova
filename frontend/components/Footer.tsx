@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { Twitter } from "lucide-react";
+import { Twitter, Github } from "lucide-react";
 import { SOCIAL_LINKS } from "@/lib/constants";
 import { TownsIcon } from "./TownsIcon";
 
@@ -41,6 +41,15 @@ export default function Footer() {
               <Twitter className="w-4 h-4" />
               Follow on X
             </a>
+            <a
+              href={SOCIAL_LINKS.github}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center justify-center gap-2 rounded-lg border border-white/10 bg-white/5 px-6 py-3 text-sm font-semibold text-white hover:bg-white/15 transition-colors"
+            >
+              <Github className="w-4 h-4" />
+              View on GitHub
+            </a>
           </div>
         </div>
 
@@ -52,7 +61,7 @@ export default function Footer() {
             <br className="hidden sm:block" />
             <span>NOVA channels reserve yield into frontier science initiatives. Holders do not receive interest.</span>
           </p>
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-4 flex-wrap">
             <Link href="/how-it-works" className="hover:text-purple-300 transition-colors">
               How it Works
             </Link>
@@ -61,6 +70,12 @@ export default function Footer() {
             </Link>
             <Link href="/projects" className="hover:text-purple-300 transition-colors">
               Projects
+            </Link>
+            <Link href="/terms" className="hover:text-purple-300 transition-colors">
+              Terms of Service
+            </Link>
+            <Link href="/privacy" className="hover:text-purple-300 transition-colors">
+              Privacy Policy
             </Link>
           </div>
         </div>

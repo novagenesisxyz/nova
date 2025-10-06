@@ -3,7 +3,7 @@
 
 # Export all Make variables to child processes (forge, anvil, etc.)
 .EXPORT_ALL_VARIABLES:
-.PHONY: install build test deploy deploy-sepolia verify clean
+.PHONY: install build test test-noge deploy deploy-sepolia verify clean
 
 # Install dependencies
 install:
@@ -17,6 +17,10 @@ build:
 test:
 	forge test -vvv
 
+# Run only NogeToken tests
+test-noge:
+	forge test --match-path test/NogeToken.t.sol -vvv
+
 # Run tests with gas reporting
 test-gas:
 	forge test --gas-report
@@ -27,22 +31,23 @@ test-coverage:
 
 # Deploy to local network
 deploy-local:
-	forge script script/Deploy.s.sol:DeployScript --rpc-url localhost --broadcast
+	forge script script/DeployGenesis.s.sol:DeployGenesisScript --rpc-url localhost --broadcast
 
 # Deploy to Sepolia testnet
 deploy-sepolia:
-	forge script script/Deploy.s.sol:DeployScript --rpc-url sepolia --broadcast --verify
+	forge script script/DeployGenesis.s.sol:DeployGenesisScript --rpc-url sepolia --broadcast --verify
 
 # Deploy to mainnet (use with caution!)
+
 deploy-mainnet:
 	@echo "⚠️  WARNING: About to deploy to mainnet. Press Ctrl+C to cancel, or Enter to continue."
 	@read confirm
-	forge script script/Deploy.s.sol:DeployScript --rpc-url mainnet --broadcast --verify
+	forge script script/DeployGenesis.s.sol:DeployGenesisScript --rpc-url mainnet --broadcast --verify
 
 # Verify contract on Etherscan
 verify:
 	@echo "Usage: make verify CONTRACT=<address> ARGS='<constructor args>'"
-	forge verify-contract $(CONTRACT) src/NogeToken.sol:NogeToken --chain mainnet --constructor-args $(ARGS)
+	forge verify-contract $(CONTRACT) src/genesis/token/NogeToken.sol:NogeToken --chain mainnet --constructor-args $(ARGS)
 
 # Clean build artifacts
 clean:
@@ -64,8 +69,9 @@ update:
 # Generate ABI files for frontend
 abi:
 	@mkdir -p abi
-	@forge inspect NogeToken abi > abi/NogeToken.json
-	@forge inspect USDCFundingPool abi > abi/USDCFundingPool.json
+	@forge inspect src/genesis/token/NogeToken.sol:NogeToken abi > abi/NogeToken.json
+	@forge inspect src/genesis/NogeController.sol:NogeController abi > abi/NogeController.json
+	@forge inspect src/genesis/GenesisPool.sol:GenesisPool abi > abi/GenesisPool.json
 	@echo "✅ ABI files generated in abi/"
 
 # Start local Anvil node
