@@ -1,9 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { Twitter, Github } from "lucide-react";
+import { Twitter, Github, MessageSquare } from "lucide-react";
 import { SOCIAL_LINKS } from "@/lib/constants";
-import { TownsIcon } from "./TownsIcon";
 
 export default function Footer() {
   return (
@@ -24,13 +23,13 @@ export default function Footer() {
 
           <div className="flex flex-col sm:flex-row gap-4">
             <a
-              href={SOCIAL_LINKS.towns}
+              href={SOCIAL_LINKS.discord}
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center justify-center gap-2 rounded-lg border border-purple-500/30 bg-purple-500/10 px-6 py-3 text-sm font-semibold text-white hover:bg-purple-500/20 transition-colors"
             >
-              <TownsIcon className="w-4 h-4" />
-              Join NOVA Towns
+              <MessageSquare className="w-4 h-4" />
+              Join NOVA Discord
             </a>
             <a
               href={SOCIAL_LINKS.twitter}

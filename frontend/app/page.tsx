@@ -82,13 +82,13 @@ export default function Home() {
               <span>Looking to connect?</span>
               <div className="flex items-center gap-3">
                 <a
-                  href={SOCIAL_LINKS.towns}
+                  href={SOCIAL_LINKS.discord}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-1.5 rounded-full border border-purple-500/40 px-4 py-1.5 text-white hover:bg-purple-500/10 transition-colors"
                 >
                   <MessageCircle className="w-4 h-4" />
-                  Join NOVA Towns
+                  Join NOVA Discord
                 </a>
                 <a
                   href={SOCIAL_LINKS.twitter}

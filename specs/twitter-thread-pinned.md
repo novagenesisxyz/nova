@@ -99,7 +99,7 @@ Everyday transactions quietly fund breakthroughs—safer AI agents, pathogen det
 
 Ready to help wire the future of research?
 🌐 novagenesis.xyz
-💬 Join the lab chats: https://app.towns.com/t/0x786ba3cace901605cb3a10dcbaf74e329a63cdaa/
+💬 Join the lab chats: https://discord.gg/8jJwxrZQ
 🐦 Follow updates: @NovaGenesisxyz
 
 Deposit into Genesis. Get NOGE. Bootstrap science funding.

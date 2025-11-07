@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useState, useEffect, useMemo } from "react";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
 import { TrendingUp, Coins, Menu, X, MessageCircle, Twitter } from "lucide-react";
-import { TownsIcon } from "./TownsIcon";
+import { MessageSquare } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { NovaLogo } from "./NovaLogo";
 import { useFundingPool } from "@/hooks/useFundingPool";
@@ -111,13 +111,13 @@ export default function Navbar() {
               {/* Desktop Social Links */}
               <div className="hidden md:flex items-center gap-2">
                 <a
-                  href={SOCIAL_LINKS.towns}
+                  href={SOCIAL_LINKS.discord}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="p-2 rounded-lg border border-white/10 text-gray-400 hover:border-purple-400 hover:text-white transition-colors"
                 >
-                  <TownsIcon className="w-4 h-4" />
-                  <span className="sr-only">Join NOVA Towns</span>
+                  <MessageSquare className="w-4 h-4" />
+                  <span className="sr-only">Join NOVA Discord</span>
                 </a>
                 <a
                   href={SOCIAL_LINKS.twitter}
@@ -221,13 +221,13 @@ export default function Navbar() {
                     Community Channels
                   </p>
                   <a
-                    href={SOCIAL_LINKS.towns}
+                    href={SOCIAL_LINKS.discord}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="flex items-center justify-center gap-2 rounded-lg border border-purple-500/30 bg-purple-500/10 px-4 py-3 text-white text-sm font-medium hover:bg-purple-500/20 transition-colors"
                   >
                     <MessageCircle className="w-4 h-4" />
-                    Join NOVA Towns
+                    Join NOVA Discord
                   </a>
                   <a
                     href={SOCIAL_LINKS.twitter}

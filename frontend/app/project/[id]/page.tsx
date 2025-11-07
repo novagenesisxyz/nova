@@ -372,13 +372,13 @@ export default function ProjectDetailPage() {
                 </p>
                 <div className="mt-4 space-y-3">
                   <a
-                    href={SOCIAL_LINKS.towns}
+                    href={SOCIAL_LINKS.discord}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="flex items-center justify-center gap-2 rounded-lg border border-purple-500/30 bg-purple-500/10 px-4 py-3 text-sm font-medium text-white hover:bg-purple-500/20 transition-colors"
                   >
                     <MessageCircle className="w-4 h-4" />
-                    Join NOVA Towns
+                    Join NOVA Discord
                   </a>
                   <a
                     href={SOCIAL_LINKS.twitter}

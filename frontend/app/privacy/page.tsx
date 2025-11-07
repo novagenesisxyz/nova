@@ -120,7 +120,7 @@ export default function PrivacyPage() {
 
                   <h3 className="text-xl font-semibold text-white mb-3 mt-4">5.3 Communication Platforms</h3>
                   <p className="text-gray-300 mb-4">
-                    We may communicate with users through Twitter/X, Discord, Towns, and GitHub. If you interact with us on these platforms,
+                    We may communicate with users through Twitter/X, Discord, and GitHub. If you interact with us on these platforms,
                     their respective privacy policies apply to any information you share or they collect.
                   </p>
                 </section>

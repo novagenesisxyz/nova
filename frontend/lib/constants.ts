@@ -30,7 +30,7 @@ export const SUPPORTED_TOKENS: Token[] = [
 ];
 
 export const SOCIAL_LINKS = {
-  towns: "https://app.towns.com/t/0x786ba3cace901605cb3a10dcbaf74e329a63cdaa/",
+  discord: "https://discord.gg/8jJwxrZQ",
   twitter: "https://x.com/novagenesisxyz",
   github: "https://github.com/novagenesisxyz",
 };
